@@ -16,7 +16,7 @@ export default function CurvedLoop({
   marqueeText = "",
   speed = 1.5,
   className = "",
-  curveAmount = 120,
+  curveAmount = 60,
   direction = "left",
   interactive = true,
 }: CurvedLoopProps) {
@@ -31,7 +31,10 @@ export default function CurvedLoop({
   const [, setOffset] = useState(0);
   const uid = useId();
   const pathId = `curve-${uid.replace(/:/g, "")}`;
-  const pathD = `M-200,90 Q720,${90 + curveAmount} 1640,90`;
+
+  const centerY = 100;
+  const amp = curveAmount;
+  const pathD = `M -300,${centerY} C 50,${centerY + amp} 250,${centerY - amp} 550,${centerY} C 850,${centerY + amp} 1050,${centerY - amp} 1350,${centerY} C 1650,${centerY + amp} 1850,${centerY - amp} 2150,${centerY}`;
 
   const dragRef = useRef(false);
   const lastXRef = useRef(0);
@@ -173,7 +176,7 @@ export default function CurvedLoop({
       onPointerUp={endDrag}
       onPointerLeave={endDrag}
     >
-      <svg className="curved-loop-svg" viewBox="0 0 1440 180">
+      <svg className="curved-loop-svg" viewBox="0 0 1440 200">
         <text
           ref={measureRef}
           xmlSpace="preserve"

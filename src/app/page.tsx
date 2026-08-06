@@ -253,7 +253,7 @@ export default function Home() {
         <CurvedLoop
           marqueeText="Building Apps ✦ Designing Products ✦ Crafting Packaging ✦ Product Design ✦ Artificial Intelligence ✦ Mobile Applications ✦ Full-Stack Development ✦ Cloud Technologies ✦ System Architecture ✦"
           speed={1.8}
-          curveAmount={90}
+          curveAmount={60}
           interactive={true}
           className="font-notch fill-[#5C5C5C]"
         />

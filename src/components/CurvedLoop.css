@@ -7,7 +7,7 @@
   position: relative;
   user-select: none;
   touch-action: pan-y;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
 }
 
 .curved-loop-svg {
@@ -17,17 +17,17 @@
   min-height: 100px;
   overflow: visible;
   display: block;
-  font-size: 2.2rem;
-  fill: #171717;
+  font-size: 1.9rem;
+  fill: #5C5C5C;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   -webkit-user-select: none;
   -moz-user-select: none;
 }
 
 @media (min-width: 768px) {
   .curved-loop-svg {
-    font-size: 2.8rem;
-    min-height: 140px;
+    font-size: 2.1rem;
+    min-height: 120px;
   }
 }
