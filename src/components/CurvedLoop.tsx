@@ -32,7 +32,7 @@ export default function CurvedLoop({
   const uid = useId();
   const pathId = `curve-${uid.replace(/:/g, "")}`;
 
-  const centerY = 100;
+  const centerY = 65;
   const amp = curveAmount;
   const pathD = `M -300,${centerY} C 50,${centerY + amp} 250,${centerY - amp} 550,${centerY} C 850,${centerY + amp} 1050,${centerY - amp} 1350,${centerY} C 1650,${centerY + amp} 1850,${centerY - amp} 2150,${centerY}`;
 
@@ -189,7 +189,7 @@ export default function CurvedLoop({
       onPointerUp={endDrag}
       onPointerLeave={endDrag}
     >
-      <svg className="curved-loop-svg" viewBox="0 0 1440 200">
+      <svg className="curved-loop-svg" viewBox="0 0 1440 130">
         <text
           ref={measureRef}
           xmlSpace="preserve"

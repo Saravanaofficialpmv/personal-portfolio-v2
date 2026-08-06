@@ -249,12 +249,12 @@ export default function Home() {
       </section>
 
       {/* 3. Infinite Curved Interest Scroller */}
-      <div className="relative w-full py-2 border-b border-[#E0E0E0] overflow-hidden">
+      <div className="relative w-full py-0 border-b border-[#E0E0E0] overflow-hidden">
         <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-white via-white/80 to-transparent" />
         <CurvedLoop
           marqueeText="Building Apps ✦ Designing Products ✦ Crafting Packaging ✦ Product Design ✦ Artificial Intelligence ✦ Mobile Applications ✦ Full-Stack Development ✦ Cloud Technologies ✦ System Architecture ✦"
           speed={1.8}
-          curveAmount={60}
+          curveAmount={40}
           interactive={true}
           className="font-notch fill-[#5C5C5C]"
         />
