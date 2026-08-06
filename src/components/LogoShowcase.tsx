@@ -44,7 +44,7 @@ export default function LogoShowcase() {
       </div>
 
       {/* Logo Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 gap-3 sm:gap-6">
         {logoItems.map((logo, idx) => (
           <motion.div
             key={logo.id}
@@ -53,7 +53,7 @@ export default function LogoShowcase() {
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: idx * 0.05 }}
             onClick={() => setSelectedLogo(logo)}
-            className={`group relative flex items-center justify-center p-8 rounded-2xl md:rounded-3xl border transition-all duration-300 cursor-pointer aspect-[1.2/1] overflow-hidden ${
+            className={`group relative flex items-center justify-center p-4 sm:p-8 rounded-2xl md:rounded-3xl border transition-all duration-300 cursor-pointer aspect-[1.2/1] overflow-hidden ${
               logo.isDark
                 ? "bg-[#121212] border-[#2A2A2A] hover:border-[#E8342A] hover:shadow-xl"
                 : "bg-white border-[#E0E0E0] hover:border-[#E8342A] hover:shadow-xl shadow-xs"
