@@ -44,7 +44,7 @@ export default function LogoShowcase() {
       </div>
 
       {/* Logo Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {logoItems.map((logo, idx) => (
           <motion.div
             key={logo.id}
