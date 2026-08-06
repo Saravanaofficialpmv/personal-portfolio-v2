@@ -252,7 +252,7 @@ export default function Home() {
 
           <div className="flex flex-col items-center text-center">
             <span className="font-notch font-normal text-4xl md:text-5xl text-[#E8342A]">
-              40
+              15+
             </span>
             <span className="text-xs uppercase tracking-wider text-[#A3A3A3] pt-1 max-w-[100px] text-center">
               PROJECTS DELIVERED
