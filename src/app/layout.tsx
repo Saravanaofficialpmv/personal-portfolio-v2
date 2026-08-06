@@ -41,9 +41,13 @@ export const metadata: Metadata = {
   description:
     "Portfolio of Saravana S — product designer & developer with award-winning branding expertise, building at the intersection of culture, craft, and technology.",
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
 };
 
