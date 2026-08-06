@@ -15,13 +15,14 @@ interface ClientLogoItem {
   name: string;
   logoUrl: string;
   className?: string;
+  invert?: boolean;
 }
 
 const clientLogos: ClientLogoItem[] = [
   { name: "Coupledoor", logoUrl: "/scrolling-logo/Coupledoor-logo.png" },
   { name: "Interwove", logoUrl: "/scrolling-logo/interwove.png" },
   { name: "Zar", logoUrl: "/scrolling-logo/zar.png" },
-  { name: "Brand Mark 01", logoUrl: "/scrolling-logo/Asset_26_2x_ae4711e0-52ce-4cde-b5f7-f9bb6a66f576.webp" },
+  { name: "Brand Mark 01", logoUrl: "/scrolling-logo/Asset_26_2x_ae4711e0-52ce-4cde-b5f7-f9bb6a66f576.webp", invert: true },
   { name: "Dino", logoUrl: "/scrolling-logo/1.svg", className: "scale-[0.70]" },
   { name: "Brand Mark 03", logoUrl: "/scrolling-logo/2.svg" },
   { name: "Brand Mark 04", logoUrl: "/scrolling-logo/3.svg" },
@@ -212,7 +213,9 @@ export default function Home() {
                   alt={logo.name}
                   fill
                   sizes="(max-width: 768px) 112px, 144px"
-                  className={`object-contain transition-opacity duration-300 opacity-75 group-hover:opacity-100 brightness-0 ${logo.className || ""}`}
+                  className={`object-contain transition-opacity duration-300 opacity-80 group-hover:opacity-100 ${
+                    logo.invert ? "invert" : ""
+                  } ${logo.className || ""}`}
                 />
               </div>
             ))}
