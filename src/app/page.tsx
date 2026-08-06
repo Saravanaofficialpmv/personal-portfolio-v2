@@ -196,17 +196,17 @@ export default function Home() {
             Trusted by multiple clients worldwide
           </span>
           <Marquee speed="normal">
-            {[...clientLogos, ...clientLogos].map((logo, idx) => (
+            {[...clientLogos, ...clientLogos, ...clientLogos].map((logo, idx) => (
               <div
                 key={`${logo.name}-${idx}`}
-                className="flex items-center justify-center h-10 md:h-12 px-4 group shrink-0"
+                className="relative w-28 sm:w-32 md:w-36 h-8 sm:h-9 md:h-10 flex items-center justify-center group shrink-0 mx-2"
               >
                 <Image
                   src={logo.logoUrl}
                   alt={logo.name}
-                  width={200}
-                  height={50}
-                  className="h-7 sm:h-9 md:h-10 w-auto object-contain transition-opacity duration-300 opacity-80 group-hover:opacity-100"
+                  fill
+                  sizes="(max-width: 768px) 112px, 144px"
+                  className="object-contain transition-opacity duration-300 opacity-80 group-hover:opacity-100"
                 />
               </div>
             ))}
