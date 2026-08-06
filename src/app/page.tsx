@@ -178,21 +178,20 @@ export default function Home() {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="w-full grid grid-cols-3 gap-2.5 sm:gap-4 md:gap-6"
         >
-          {[
-            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop",
-          ].map((imgUrl, idx) => (
+          {["FRAME 1", "FRAME 2", "FRAME 3"].map((frameText, idx) => (
             <div
               key={idx}
-              className="relative h-44 sm:h-72 md:h-84 rounded-xl sm:rounded-2xl overflow-hidden group shadow-sm"
+              className="relative h-44 sm:h-72 md:h-84 rounded-xl sm:rounded-2xl border border-[#E0E0E0] bg-[#F7F7F7] flex flex-col items-center justify-center p-4 group overflow-hidden transition-all duration-300 hover:border-[#E8342A]/40 hover:bg-[#F0F0F0] select-none shadow-xs"
             >
-              <Image
-                src={imgUrl}
-                alt={`Saravana portrait ${idx + 1}`}
-                fill
-                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-              />
+              <div className="flex items-center gap-2">
+                <span className="text-[#E8342A] text-xs">✦</span>
+                <span className="font-notch font-medium text-xl sm:text-2xl md:text-3xl text-[#171717] tracking-wider">
+                  {frameText}
+                </span>
+              </div>
+              <span className="text-[10px] sm:text-xs text-[#A3A3A3] font-mono tracking-widest pt-1 uppercase">
+                IMAGE PLACEHOLDER
+              </span>
             </div>
           ))}
         </motion.div>
