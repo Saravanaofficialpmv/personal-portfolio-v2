@@ -21,7 +21,12 @@ const clientLogos: ClientLogoItem[] = [
   { name: "Interwove", logoUrl: "/scrolling-logo/interwove.png" },
   { name: "Zar", logoUrl: "/scrolling-logo/zar.png" },
   { name: "Brand Mark 01", logoUrl: "/scrolling-logo/Asset_26_2x_ae4711e0-52ce-4cde-b5f7-f9bb6a66f576.webp" },
-  { name: "Brand Mark 02", logoUrl: "/scrolling-logo/4.png" },
+  { name: "Brand Mark 02", logoUrl: "/scrolling-logo/1.svg" },
+  { name: "Brand Mark 03", logoUrl: "/scrolling-logo/2.svg" },
+  { name: "Brand Mark 04", logoUrl: "/scrolling-logo/3.svg" },
+  { name: "Brand Mark 05", logoUrl: "/scrolling-logo/4.svg" },
+  { name: "Brand Mark 06", logoUrl: "/scrolling-logo/5.svg" },
+  { name: "Brand Mark 07", logoUrl: "/scrolling-logo/6.svg" },
 ];
 
 const interestItems = [
