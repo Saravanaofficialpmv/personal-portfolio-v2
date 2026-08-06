@@ -40,6 +40,11 @@ export const metadata: Metadata = {
   title: "Saravana S — Product & Experience Designer",
   description:
     "Portfolio of Saravana S — product designer & developer with award-winning branding expertise, building at the intersection of culture, craft, and technology.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
