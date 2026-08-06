@@ -10,7 +10,6 @@ import ProjectCard, { ProjectData } from "@/components/ProjectCard";
 import SSWholesaleSlideshowModal from "@/components/SSWholesaleSlideshowModal";
 import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
 import CurvedLoop from "@/components/CurvedLoop";
-import AboutBentoGrid from "@/components/AboutBentoGrid";
 
 interface ClientLogoItem {
   name: string;
@@ -261,9 +260,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* 2.5 Bento Grid: What You Get, Timezones, Uses */}
-      <AboutBentoGrid />
 
       {/* 3. Infinite Curved Interest Scroller */}
       <div className="relative w-full py-0 border-b border-[#E0E0E0] overflow-hidden">
