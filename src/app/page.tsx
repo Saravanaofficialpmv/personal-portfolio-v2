@@ -212,7 +212,7 @@ export default function Home() {
                   alt={logo.name}
                   fill
                   sizes="(max-width: 768px) 112px, 144px"
-                  className={`object-contain transition-opacity duration-300 opacity-80 group-hover:opacity-100 ${logo.className || ""}`}
+                  className={`object-contain transition-opacity duration-300 opacity-75 group-hover:opacity-100 brightness-0 ${logo.className || ""}`}
                 />
               </div>
             ))}
