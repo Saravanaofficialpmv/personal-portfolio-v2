@@ -13,31 +13,15 @@ import CurvedLoop from "@/components/CurvedLoop";
 
 interface ClientLogoItem {
   name: string;
-  logoUrl?: string;
-  isDark?: boolean;
+  logoUrl: string;
 }
 
 const clientLogos: ClientLogoItem[] = [
-  { name: "Interwove", logoUrl: "/interwove-logo.svg" },
-  { name: "Brand Mark 01", logoUrl: "/logowork/1.svg" },
-  { name: "VSB" },
-  { name: "Brand Mark 02", logoUrl: "/logowork/2.svg" },
-  { name: "HeyDigital" },
-  { name: "Brand Mark 03", logoUrl: "/logowork/3.svg", isDark: true },
-  { name: "SS Wholesale" },
-  { name: "Brand Mark 04", logoUrl: "/logowork/5.svg" },
-  { name: "AquaWind" },
-  { name: "Brand Mark 05", logoUrl: "/logowork/6.svg", isDark: true },
-  { name: "Inka Billing" },
-  { name: "Brand Mark 06", logoUrl: "/logowork/7.svg" },
-  { name: "Flutter" },
-  { name: "Brand Mark 07", logoUrl: "/logowork/8.svg" },
-  { name: "Firebase" },
-  { name: "Brand Mark 08", logoUrl: "/logowork/9.svg", isDark: true },
-  { name: "FastAPI" },
-  { name: "React" },
-  { name: "Tailwind" },
-  { name: "Python" },
+  { name: "Coupledoor", logoUrl: "/scrolling-logo/Coupledoor-logo.png" },
+  { name: "Interwove", logoUrl: "/scrolling-logo/interwove.png" },
+  { name: "Zar", logoUrl: "/scrolling-logo/zar.png" },
+  { name: "Brand Mark 01", logoUrl: "/scrolling-logo/Asset_26_2x_ae4711e0-52ce-4cde-b5f7-f9bb6a66f576.webp" },
+  { name: "Brand Mark 02", logoUrl: "/scrolling-logo/4.png" },
 ];
 
 const interestItems = [
@@ -212,27 +196,19 @@ export default function Home() {
             Trusted by multiple clients worldwide
           </span>
           <Marquee speed="normal">
-            {clientLogos.map((logo, idx) => (
-              <span
+            {[...clientLogos, ...clientLogos].map((logo, idx) => (
+              <div
                 key={`${logo.name}-${idx}`}
-                className="flex items-center justify-center font-notch font-medium text-lg md:text-xl text-[#A3A3A3] tracking-wider uppercase hover:text-[#171717] transition-colors"
+                className="flex items-center justify-center h-10 md:h-12 px-4 group shrink-0"
               >
-                {logo.logoUrl ? (
-                  <Image
-                    src={logo.logoUrl}
-                    alt={logo.name}
-                    width={160}
-                    height={40}
-                    className={`h-6 md:h-8 w-auto object-contain transition-all duration-300 ${
-                      logo.isDark
-                        ? "invert opacity-70 hover:opacity-100"
-                        : "opacity-70 hover:opacity-100 grayscale hover:grayscale-0"
-                    }`}
-                  />
-                ) : (
-                  logo.name
-                )}
-              </span>
+                <Image
+                  src={logo.logoUrl}
+                  alt={logo.name}
+                  width={200}
+                  height={50}
+                  className="h-7 sm:h-9 md:h-10 w-auto object-contain transition-opacity duration-300 opacity-80 group-hover:opacity-100"
+                />
+              </div>
             ))}
           </Marquee>
         </div>
