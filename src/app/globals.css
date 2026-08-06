@@ -1,26 +1,123 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-notch: var(--font-notch), "Stack Sans Notch", system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #171717;
+    --accent-red: #e8342a;
+    --text-muted: #5c5c5c;
+    --text-subtle: #a3a3a3;
+    --border-color: #e0e0e0;
+    --card-bg: #f7f7f7;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    overflow-x: hidden;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@font-face {
+  font-family: "TamilCustomTTF";
+  src: url("/fonts/tamil-calligraphy.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-notch {
+  font-family: var(--font-notch), "Stack Sans Notch", system-ui, sans-serif;
+}
+
+.font-tamil-custom {
+  font-family: var(--font-tamil-custom), "TamilCustomTTF", var(--font-kavivanar), "Kavivanar", sans-serif;
+}
+
+.font-kavivanar {
+  font-family: var(--font-kavivanar), "Kavivanar", "Catamaran", "Noto Sans Tamil", cursive, sans-serif;
+}
+
+.font-arima {
+  font-family: var(--font-arima), "Arima", "Catamaran", "Noto Sans Tamil", display, sans-serif;
+}
+
+.font-tamil-calligraphy {
+  font-family: var(--font-tamil-custom), "TamilCustomTTF", var(--font-kavivanar), var(--font-arima), serif, sans-serif;
+}
+
+.period-highlight {
+  color: #e8342a;
+}
+
+@keyframes marqueeLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marqueeLeft 40s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-fast {
+  display: flex;
+  width: max-content;
+  animation: marqueeLeft 25s linear infinite;
+}
+
+.animate-marquee-fast:hover {
+  animation-play-state: paused;
+}
+
+/* Glassmorphism utility */
+.glass-pill {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a3a3a3;
 }
