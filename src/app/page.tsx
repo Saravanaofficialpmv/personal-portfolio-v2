@@ -11,19 +11,24 @@ import SSWholesaleSlideshowModal from "@/components/SSWholesaleSlideshowModal";
 import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
 import CurvedLoop from "@/components/CurvedLoop";
 
-const clientLogos = [
-  "VSB",
-  "HeyDigital",
-  "Interwove",
-  "SS Wholesale",
-  "AquaWind",
-  "Inka Billing",
-  "Flutter",
-  "Firebase",
-  "FastAPI",
-  "React",
-  "Tailwind",
-  "Python",
+interface ClientLogoItem {
+  name: string;
+  logoUrl?: string;
+}
+
+const clientLogos: ClientLogoItem[] = [
+  { name: "Interwove", logoUrl: "/interwove-logo.svg" },
+  { name: "VSB" },
+  { name: "HeyDigital" },
+  { name: "SS Wholesale" },
+  { name: "AquaWind" },
+  { name: "Inka Billing" },
+  { name: "Flutter" },
+  { name: "Firebase" },
+  { name: "FastAPI" },
+  { name: "React" },
+  { name: "Tailwind" },
+  { name: "Python" },
 ];
 
 const interestItems = [
@@ -200,10 +205,20 @@ export default function Home() {
           <Marquee speed="normal">
             {clientLogos.map((logo) => (
               <span
-                key={logo}
-                className="font-notch font-medium text-lg md:text-xl text-[#A3A3A3] tracking-wider uppercase hover:text-[#171717] transition-colors"
+                key={logo.name}
+                className="flex items-center justify-center font-notch font-medium text-lg md:text-xl text-[#A3A3A3] tracking-wider uppercase hover:text-[#171717] transition-colors"
               >
-                {logo}
+                {logo.logoUrl ? (
+                  <Image
+                    src={logo.logoUrl}
+                    alt={logo.name}
+                    width={160}
+                    height={32}
+                    className="h-5 md:h-6 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity"
+                  />
+                ) : (
+                  logo.name
+                )}
               </span>
             ))}
           </Marquee>
