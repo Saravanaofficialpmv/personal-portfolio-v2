@@ -167,6 +167,19 @@ export default function CurvedLoop({
       : "grab"
     : "auto";
 
+  const renderFormattedText = (str: string) => {
+    if (!str.includes("✦")) return str;
+    const parts = str.split("✦");
+    return parts.map((part, index) => (
+      <React.Fragment key={index}>
+        {part}
+        {index < parts.length - 1 && (
+          <tspan fill="#E8342A">✦</tspan>
+        )}
+      </React.Fragment>
+    ));
+  };
+
   return (
     <div
       className="curved-loop-jacket"
@@ -182,7 +195,7 @@ export default function CurvedLoop({
           xmlSpace="preserve"
           style={{ visibility: "hidden", opacity: 0, pointerEvents: "none" }}
         >
-          {text}
+          {renderFormattedText(text)}
         </text>
         <defs>
           <path id={pathId} d={pathD} fill="none" stroke="transparent" />
@@ -195,7 +208,7 @@ export default function CurvedLoop({
               startOffset="0px"
               xmlSpace="preserve"
             >
-              {totalText}
+              {renderFormattedText(totalText)}
             </textPath>
           </text>
         )}

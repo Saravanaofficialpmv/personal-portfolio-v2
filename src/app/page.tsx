@@ -285,7 +285,7 @@ export default function Home() {
             {/* Click hint overlay */}
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-white text-xs font-semibold uppercase tracking-wider">
               <Images className="w-4 h-4 text-[#E8342A]" />
-              <span>View Slideshow ✦</span>
+              <span>View Slideshow <span className="text-[#E8342A]">✦</span></span>
             </div>
           </div>
 
