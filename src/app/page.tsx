@@ -14,17 +14,26 @@ import CurvedLoop from "@/components/CurvedLoop";
 interface ClientLogoItem {
   name: string;
   logoUrl?: string;
+  isDark?: boolean;
 }
 
 const clientLogos: ClientLogoItem[] = [
   { name: "Interwove", logoUrl: "/interwove-logo.svg" },
+  { name: "Brand Mark 01", logoUrl: "/logowork/1.svg" },
   { name: "VSB" },
+  { name: "Brand Mark 02", logoUrl: "/logowork/2.svg" },
   { name: "HeyDigital" },
+  { name: "Brand Mark 03", logoUrl: "/logowork/3.svg", isDark: true },
   { name: "SS Wholesale" },
+  { name: "Brand Mark 04", logoUrl: "/logowork/5.svg" },
   { name: "AquaWind" },
+  { name: "Brand Mark 05", logoUrl: "/logowork/6.svg", isDark: true },
   { name: "Inka Billing" },
+  { name: "Brand Mark 06", logoUrl: "/logowork/7.svg" },
   { name: "Flutter" },
+  { name: "Brand Mark 07", logoUrl: "/logowork/8.svg" },
   { name: "Firebase" },
+  { name: "Brand Mark 08", logoUrl: "/logowork/9.svg", isDark: true },
   { name: "FastAPI" },
   { name: "React" },
   { name: "Tailwind" },
@@ -203,9 +212,9 @@ export default function Home() {
             Trusted by multiple clients worldwide
           </span>
           <Marquee speed="normal">
-            {clientLogos.map((logo) => (
+            {clientLogos.map((logo, idx) => (
               <span
-                key={logo.name}
+                key={`${logo.name}-${idx}`}
                 className="flex items-center justify-center font-notch font-medium text-lg md:text-xl text-[#A3A3A3] tracking-wider uppercase hover:text-[#171717] transition-colors"
               >
                 {logo.logoUrl ? (
@@ -213,8 +222,12 @@ export default function Home() {
                     src={logo.logoUrl}
                     alt={logo.name}
                     width={160}
-                    height={32}
-                    className="h-5 md:h-6 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity"
+                    height={40}
+                    className={`h-6 md:h-8 w-auto object-contain transition-all duration-300 ${
+                      logo.isDark
+                        ? "invert opacity-70 hover:opacity-100"
+                        : "opacity-70 hover:opacity-100 grayscale hover:grayscale-0"
+                    }`}
                   />
                 ) : (
                   logo.name
