@@ -8,6 +8,8 @@
   user-select: none;
   touch-action: pan-y;
   padding: 0.5rem 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 3%, black 12%, black 88%, rgba(0, 0, 0, 0.2) 97%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 3%, black 12%, black 88%, rgba(0, 0, 0, 0.2) 97%, transparent 100%);
 }
 
 .curved-loop-svg {
