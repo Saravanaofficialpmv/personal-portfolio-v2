@@ -9,6 +9,7 @@ import Marquee from "@/components/Marquee";
 import ProjectCard, { ProjectData } from "@/components/ProjectCard";
 import SSWholesaleSlideshowModal from "@/components/SSWholesaleSlideshowModal";
 import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
+import CurvedLoop from "@/components/CurvedLoop";
 
 const clientLogos = [
   "VSB",
@@ -247,18 +248,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Infinite Interest Scroller */}
-      <div className="w-full py-4 border-b border-[#E0E0E0]">
-        <Marquee speed="fast">
-          {interestItems.map((item) => (
-            <div key={item} className="flex items-center gap-12">
-              <span className="font-notch text-xl md:text-2xl text-[#5C5C5C] whitespace-nowrap font-normal">
-                {item}
-              </span>
-              <span className="text-[#E8342A] text-sm">✦</span>
-            </div>
-          ))}
-        </Marquee>
+      {/* 3. Infinite Curved Interest Scroller */}
+      <div className="w-full py-2 border-b border-[#E0E0E0] overflow-hidden">
+        <CurvedLoop
+          marqueeText="Building Apps ✦ Designing Products ✦ Crafting Packaging ✦ Product Design ✦ Artificial Intelligence ✦ Mobile Applications ✦ Full-Stack Development ✦ Cloud Technologies ✦ System Architecture ✦"
+          speed={1.8}
+          curveAmount={90}
+          interactive={true}
+          className="font-notch fill-[#5C5C5C]"
+        />
       </div>
 
       {/* 4. Featured Product Showcase */}
