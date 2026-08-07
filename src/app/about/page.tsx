@@ -146,7 +146,7 @@ export default function AboutPage() {
           {["FRAME 1", "FRAME 2", "FRAME 3"].map((frameText, i) => (
             <div
               key={i}
-              className="relative h-44 sm:h-80 md:h-96 rounded-xl sm:rounded-2xl border border-[#E0E0E0] bg-[#F7F7F7] flex flex-col items-center justify-center p-4 group overflow-hidden transition-all duration-300 hover:border-[#E8342A]/40 hover:bg-[#F0F0F0] select-none shadow-xs"
+              className="relative h-44 sm:h-80 md:h-96 rounded-xl sm:rounded-2xl border border-[#E0E0E0] bg-[#F7F7F7] flex flex-col items-center justify-center p-4 select-none shadow-xs"
             >
               <div className="flex items-center gap-2">
                 <span className="text-[#E8342A] text-xs">✦</span>
