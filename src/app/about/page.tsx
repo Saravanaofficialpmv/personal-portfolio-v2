@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import TargetCursor from "@/components/TargetCursor";
+import AppIconsDock from "@/components/AppIconsDock";
 
 interface Experience {
   role: string;
@@ -70,20 +70,7 @@ const journeyCards = [
   },
 ];
 
-const tools = [
-  { name: "Figma", bg: "bg-[#1E1E1E]", text: "text-[#0ACF83]" },
-  { name: "Flutter", bg: "bg-[#02569B]", text: "text-[#47C5FB]" },
-  { name: "Dart", bg: "bg-[#0175C2]", text: "text-[#54C5F8]" },
-  { name: "React", bg: "bg-[#20232A]", text: "text-[#61DAFB]" },
-  { name: "Python", bg: "bg-[#3776AB]", text: "text-[#FFD43B]" },
-  { name: "FastAPI", bg: "bg-[#009688]", text: "text-[#FFFFFF]" },
-  { name: "Firebase", bg: "bg-[#FFCA28]", text: "text-[#000000]" },
-  { name: "Supabase", bg: "bg-[#3ECF8E]", text: "text-[#000000]" },
-  { name: "Tailwind CSS", bg: "bg-[#06B6D4]", text: "text-[#FFFFFF]" },
-  { name: "MySQL", bg: "bg-[#00758F]", text: "text-[#F29111]" },
-  { name: "MongoDB", bg: "bg-[#47A248]", text: "text-[#FFFFFF]" },
-  { name: "Git", bg: "bg-[#F05032]", text: "text-[#FFFFFF]" },
-];
+
 
 export default function AboutPage() {
   const [timeString, setTimeString] = useState("11:11 PM");
@@ -106,15 +93,6 @@ export default function AboutPage() {
 
   return (
     <div className="w-full flex flex-col items-center gap-20 md:gap-28 pt-28 md:pt-36 pb-16 px-4 md:px-8">
-      <TargetCursor
-        sectionSelector="#software-tools"
-        targetSelector=".cursor-target"
-        spinDuration={2}
-        hideDefaultCursor={true}
-        parallaxOn={true}
-        cursorColor="#E8342A"
-        cursorColorOnTarget="#E8342A"
-      />
       {/* 1. Header & Collage */}
       <section className="w-full max-w-[1168px] flex flex-col items-center gap-8 text-center">
         <motion.div
@@ -200,21 +178,14 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. Tech Stack / Tools Pill Row */}
-      <section id="software-tools" className="w-full max-w-[1168px] flex flex-col gap-4">
+
+
+{/* 3. Tech Stack & Tools App Icons Dock */}
+      <section id="software-tools" className="w-full max-w-[1168px] flex flex-col gap-6 items-center md:items-start">
         <span className="text-xs uppercase tracking-widest text-[#A3A3A3] font-medium text-center md:text-left">
-          SOFTWARE & TOOLS
+          SOFTWARE &amp; TOOLS
         </span>
-        <div className="flex items-center justify-center md:justify-start gap-3 flex-wrap">
-          {tools.map((tool) => (
-            <div
-              key={tool.name}
-              className={`cursor-target px-4 py-2.5 rounded-xl ${tool.bg} ${tool.text} font-notch font-bold text-sm shadow-sm transition-transform hover:-translate-y-1`}
-            >
-              {tool.name}
-            </div>
-          ))}
-        </div>
+        <AppIconsDock />
       </section>
 
       {/* 4. Career Ladder Section */}
