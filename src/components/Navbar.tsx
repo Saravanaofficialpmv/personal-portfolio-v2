@@ -115,11 +115,16 @@ export default function Navbar() {
                     : pathname.startsWith(item.path);
 
                 return (
-                  <li key={item.path} className="relative shrink-0">
+                  <li
+                    key={item.path}
+                    className={`relative shrink-0 ${
+                      item.name === "Resume" ? "hidden sm:block" : ""
+                    }`}
+                  >
                     <Link
                       href={item.path}
                       onClick={() => setIsMoreOpen(false)}
-                      className={`relative z-10 block px-2 sm:px-4 py-1.5 sm:py-2 text-[10.5px] sm:text-sm font-medium tracking-wide transition-colors duration-200 rounded-full whitespace-nowrap ${
+                      className={`relative z-10 block px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium tracking-wide transition-colors duration-200 rounded-full whitespace-nowrap ${
                         isActive
                           ? "text-white font-semibold"
                           : "text-neutral-400 hover:text-white"
@@ -147,7 +152,7 @@ export default function Navbar() {
               >
                 <button
                   onClick={() => setIsMoreOpen(!isMoreOpen)}
-                  className={`flex items-center gap-0.5 sm:gap-1 px-2 sm:px-4 py-1.5 sm:py-2 text-[10.5px] sm:text-sm font-medium tracking-wide rounded-full transition-colors cursor-pointer whitespace-nowrap ${
+                  className={`flex items-center gap-0.5 sm:gap-1 px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium tracking-wide rounded-full transition-colors cursor-pointer whitespace-nowrap ${
                     isMoreOpen
                       ? "text-white bg-white/15 border border-white/10"
                       : "text-neutral-400 hover:text-white"
@@ -166,7 +171,7 @@ export default function Navbar() {
             {/* Book a Call Action Pill Button */}
             <button
               onClick={() => setIsBookModalOpen(true)}
-              className="bg-white/10 hover:bg-white/20 border border-white/10 text-white font-medium rounded-full px-2.5 sm:px-4 py-1.5 sm:py-2 text-[10.5px] sm:text-sm transition-all shadow-xs flex items-center gap-1 cursor-pointer shrink-0 whitespace-nowrap"
+              className="bg-white/10 hover:bg-white/20 border border-white/10 text-white font-medium rounded-full px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm transition-all shadow-xs flex items-center gap-1 cursor-pointer shrink-0 whitespace-nowrap"
             >
               <span>Book a Call</span>
             </button>
