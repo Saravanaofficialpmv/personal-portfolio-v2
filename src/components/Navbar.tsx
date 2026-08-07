@@ -110,9 +110,10 @@ export default function Navbar() {
             <ul className="flex items-center gap-0.5 sm:gap-1 shrink-0">
               {mainNavItems.map((item) => {
                 const isActive =
-                  item.path === "/"
+                  !isMoreOpen &&
+                  (item.path === "/"
                     ? pathname === "/"
-                    : pathname.startsWith(item.path);
+                    : pathname.startsWith(item.path));
 
                 return (
                   <li
@@ -152,7 +153,7 @@ export default function Navbar() {
               >
                 <button
                   onClick={() => setIsMoreOpen(!isMoreOpen)}
-                  className={`flex items-center gap-0.5 sm:gap-1 px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium tracking-wide rounded-full transition-colors cursor-pointer whitespace-nowrap ${
+                  className={`relative z-10 flex items-center gap-0.5 sm:gap-1 px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium tracking-wide rounded-full transition-colors cursor-pointer whitespace-nowrap ${
                     isMoreOpen
                       ? "text-white font-semibold"
                       : "text-neutral-400 hover:text-white"
@@ -165,6 +166,14 @@ export default function Navbar() {
                     <ChevronDown className="w-3.5 h-3.5 text-neutral-400 transition-transform duration-200" />
                   )}
                 </button>
+
+                {isMoreOpen && (
+                  <motion.div
+                    layoutId="nav-pill-active"
+                    className="absolute inset-0 bg-white/15 border border-white/10 rounded-full z-0 shadow-inner"
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                  />
+                )}
               </li>
             </ul>
 
