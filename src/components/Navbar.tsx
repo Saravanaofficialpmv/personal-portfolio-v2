@@ -37,6 +37,7 @@ const searchableItems = [
   { name: "About Me", category: "Page", path: "/about" },
   { name: "Selected Works", category: "Page", path: "/works" },
   { name: "Resume & Education", category: "Page", path: "/resume" },
+  { name: "Bucket List", category: "Page", path: "/bucket-list" },
   { name: "Inka Billing App", category: "Project", path: "/works#inka" },
   { name: "SS Wholesale", category: "Project", path: "/works#ss-wholesale" },
   { name: "AquaWind IoT", category: "Project", path: "/works#aquawind" },
@@ -226,7 +227,7 @@ export default function Navbar() {
 
                   {/* Card 2: Bucket List */}
                   <Link
-                    href="/about"
+                    href="/bucket-list"
                     onClick={() => setIsMoreOpen(false)}
                     className="relative h-28 sm:h-48 rounded-xl sm:rounded-2xl overflow-hidden group border border-white/10 flex flex-col justify-end p-3 sm:p-4 transition-transform duration-300 hover:scale-[1.02]"
                   >
