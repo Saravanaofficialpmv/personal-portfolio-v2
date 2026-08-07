@@ -154,7 +154,7 @@ export default function Navbar() {
                   onClick={() => setIsMoreOpen(!isMoreOpen)}
                   className={`flex items-center gap-0.5 sm:gap-1 px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium tracking-wide rounded-full transition-colors cursor-pointer whitespace-nowrap ${
                     isMoreOpen
-                      ? "text-white bg-white/15 border border-white/10"
+                      ? "text-white font-semibold"
                       : "text-neutral-400 hover:text-white"
                   }`}
                 >
