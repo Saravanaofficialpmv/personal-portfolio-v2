@@ -187,7 +187,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96, y: -6 }}
                 transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute top-full mt-2.5 left-1/2 -translate-x-1/2 w-[calc(100vw-24px)] max-w-2xl bg-[#141416]/95 backdrop-blur-2xl border border-white/10 rounded-3xl p-3 sm:p-4 shadow-2xl z-50 text-white origin-top max-h-[75vh] overflow-y-auto scrollbar-none before:absolute before:-top-3 before:left-0 before:right-0 before:h-3"
+                className="fixed sm:absolute top-16 sm:top-full mt-1.5 sm:mt-2.5 left-1/2 -translate-x-1/2 w-[calc(100vw-24px)] max-w-2xl bg-[#141416]/95 backdrop-blur-2xl border border-white/10 rounded-3xl p-3 sm:p-4 shadow-2xl z-50 text-white origin-top max-h-[75vh] overflow-y-auto scrollbar-none before:absolute before:-top-3 before:left-0 before:right-0 before:h-3"
               >
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
                   {/* Card 1: Guestbook */}
