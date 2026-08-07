@@ -247,7 +247,7 @@ export default function Home() {
             </span>
           </div>
 
-          <div className="w-[1px] h-16 bg-[#E0E0E0]" />
+          <div className="w-[1px] self-stretch my-1 bg-[#E0E0E0]" />
 
           <div className="flex flex-col items-center text-center">
             <span className="font-notch font-normal text-4xl md:text-5xl text-[#E8342A]">

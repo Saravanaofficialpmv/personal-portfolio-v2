@@ -94,7 +94,38 @@ export default function ResumePage() {
           </div>
         </div>
 
-        {/* 1. Education */}
+        {/* 1. Work Experience */}
+        <div className="flex flex-col gap-3">
+          <h3 className="font-notch font-bold text-xs uppercase tracking-widest text-[#A3A3A3]">
+            WORK EXPERIENCE
+          </h3>
+          <div className="flex flex-col gap-4 border-b border-[#E0E0E0]/60 pb-4">
+            <div>
+              <div className="flex items-center justify-between font-notch">
+                <span className="font-bold text-xs md:text-sm text-[#171717]">
+                  FOUNDER &amp; APP DEVELOPER — heydotin
+                </span>
+                <span className="text-xs text-[#E8342A] font-semibold">2024 – Present</span>
+              </div>
+              <p className="text-xs text-[#5C5C5C] font-light pt-0.5">
+                Founder &amp; lead app developer crafting digital products, mobile apps, and scalable web solutions.
+              </p>
+            </div>
+            <div>
+              <div className="flex items-center justify-between font-notch">
+                <span className="font-bold text-xs md:text-sm text-[#171717]">
+                  FREELANCE SHOPIFY WEB DESIGNER — Self-Employed
+                </span>
+                <span className="text-xs text-[#5C5C5C]">2022 – 2024</span>
+              </div>
+              <p className="text-xs text-[#5C5C5C] font-light pt-0.5">
+                Designed and developed custom, responsive Shopify e-commerce storefronts and digital web solutions for diverse client brands.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. Education */}
         <div className="flex flex-col gap-3">
           <h3 className="font-notch font-bold text-xs uppercase tracking-widest text-[#A3A3A3]">
             EDUCATION
@@ -107,7 +138,7 @@ export default function ResumePage() {
               <span className="text-xs text-[#5C5C5C]">Graduation: 2027</span>
             </div>
             <p className="text-xs text-[#5C5C5C] font-light">
-              VSB Engineering College, Karur, Tamil Nadu
+              Karur, Tamil Nadu
             </p>
           </div>
         </div>

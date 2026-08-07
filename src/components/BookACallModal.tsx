@@ -146,10 +146,10 @@ export default function BookACallModal({
                   <div className="flex items-center gap-2.5 sm:gap-3">
                     <div className="relative w-7 h-7 sm:w-9 sm:h-9 rounded-full overflow-hidden border border-white/20 shrink-0">
                       <Image
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
+                        src="/3d-cortoon.svg"
                         alt="Saravana"
                         fill
-                        className="object-cover"
+                        className="object-cover scale-[1.35] object-center"
                       />
                     </div>
                     <div className="flex flex-col">
@@ -212,10 +212,10 @@ export default function BookACallModal({
                 <div className="flex items-center gap-1 mb-0.5">
                   <div className="relative w-7 h-7 sm:w-9 sm:h-9 rounded-full overflow-hidden border-2 border-[#1C1C1E] shadow-sm">
                     <Image
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
+                      src="/3d-cortoon.svg"
                       alt="Saravana"
                       fill
-                      className="object-cover"
+                      className="object-cover scale-[1.35] object-center"
                     />
                   </div>
                   <span className="text-neutral-400 text-[10px] sm:text-xs font-medium">+</span>

@@ -84,14 +84,15 @@ export default function Footer({ ctaVerb = "dream" }: FooterProps) {
           <div className="w-full max-w-[1168px] flex flex-col gap-12 md:gap-16">
             {/* Top CTA Heading */}
             <div className="w-full border-b border-[#E0E0E0] pb-12 md:pb-16">
-              <h2 className="font-notch font-medium text-4xl sm:text-5xl md:text-6xl text-[#171717] tracking-tight leading-tight">
+              <h2 className="font-notch font-medium text-4xl sm:text-5xl md:text-6xl text-[#171717] tracking-tight leading-[1.15]">
                 Let&apos;s{" "}
-                <span className="inline-block text-[#5C5C5C] transition-all duration-300">
+                <span className="inline-block text-[#171717] transition-all duration-300">
                   {rotatingWord}
-                </span>{" "}
-                <br className="hidden sm:block" />
-                incredible work{" "}
-                <span className="text-[#E8342A]">together.</span>
+                </span>
+                <br />
+                <span className="text-[#5C5C5C]">incredible work </span>
+                <span className="text-[#E8342A]">together</span>
+                <span className="text-[#171717]">.</span>
               </h2>
             </div>
 
