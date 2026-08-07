@@ -278,21 +278,24 @@ export default function Navbar() {
                       </div>
                     </Link>
 
-                    {/* Item 3: Attribution */}
+                    {/* Item 3: Resume & Experience */}
                     <Link
                       href="/resume"
                       onClick={() => setIsMoreOpen(false)}
-                      className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] transition-colors group overflow-hidden"
+                      className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/[0.06] border border-white/15 hover:bg-white/[0.12] transition-colors group overflow-hidden"
                     >
-                      <div className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-white/10 border border-white/10 text-neutral-300 group-hover:text-white transition-colors shrink-0">
-                        <CreditCard className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      <div className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-[#E8342A]/20 border border-[#E8342A]/30 text-[#E8342A] group-hover:text-white transition-colors shrink-0">
+                        <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </div>
                       <div className="flex flex-col overflow-hidden">
-                        <span className="font-notch text-xs font-semibold text-white truncate">
-                          Attribution
+                        <span className="font-notch text-xs font-semibold text-white truncate flex items-center gap-1.5">
+                          <span>Resume &amp; Experience</span>
+                          <span className="text-[9px] bg-[#E8342A]/20 text-[#E8342A] border border-[#E8342A]/30 px-1.5 py-0.5 rounded-md font-mono">
+                            Page
+                          </span>
                         </span>
                         <span className="text-[11px] text-neutral-400 font-light truncate block">
-                          Journey to create this site
+                          Career ladder, education &amp; skills
                         </span>
                       </div>
                     </Link>
