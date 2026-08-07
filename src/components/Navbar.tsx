@@ -278,11 +278,11 @@ export default function Navbar() {
                       </div>
                     </Link>
 
-                    {/* Item 3: Resume & Experience */}
+                    {/* Item 3: Resume & Experience (Mobile Only) */}
                     <Link
                       href="/resume"
                       onClick={() => setIsMoreOpen(false)}
-                      className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/[0.06] border border-white/15 hover:bg-white/[0.12] transition-colors group overflow-hidden"
+                      className="sm:hidden flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/[0.06] border border-white/15 hover:bg-white/[0.12] transition-colors group overflow-hidden"
                     >
                       <div className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-[#E8342A]/20 border border-[#E8342A]/30 text-[#E8342A] group-hover:text-white transition-colors shrink-0">
                         <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -296,6 +296,25 @@ export default function Navbar() {
                         </span>
                         <span className="text-[11px] text-neutral-400 font-light truncate block">
                           Career ladder, education &amp; skills
+                        </span>
+                      </div>
+                    </Link>
+
+                    {/* Item 4: Attribution (Desktop Only) */}
+                    <Link
+                      href="/resume"
+                      onClick={() => setIsMoreOpen(false)}
+                      className="hidden sm:flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] transition-colors group overflow-hidden"
+                    >
+                      <div className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-white/10 border border-white/10 text-neutral-300 group-hover:text-white transition-colors shrink-0">
+                        <CreditCard className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      </div>
+                      <div className="flex flex-col overflow-hidden">
+                        <span className="font-notch text-xs font-semibold text-white truncate">
+                          Attribution
+                        </span>
+                        <span className="text-[11px] text-neutral-400 font-light truncate block">
+                          Journey to create this site
                         </span>
                       </div>
                     </Link>
