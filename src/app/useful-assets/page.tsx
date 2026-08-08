@@ -83,6 +83,18 @@ const assetsList: Asset[] = [
     driveUrl: "https://docs.google.com/document/d/1Vv20uQXesiu0eDvoNIaPK3oEO4sfnVEw4rdc7NtCEQE/edit?tab=t.0#heading=h.my7bfj9rdde8",
     featured: true,
   },
+  {
+    id: "ui-ux-resources-master",
+    title: "UI/UX Resources Master Sheet",
+    category: "UI Kits",
+    description:
+      "Handpicked collection of top UI/UX design resources, Figma plugins, design system component kits, wireframes, and design tools.",
+    tags: ["UI/UX", "Figma", "Design Systems", "Spreadsheet"],
+    fileType: "Google Sheet",
+    format: "Drive",
+    driveUrl: "https://docs.google.com/spreadsheets/d/1U-MBGSUyrUV8OT_QYmyoFOTZtKZCNEHX9_01u2k6U9A/edit?usp=sharing",
+    featured: true,
+  },
 ];
 
 const categories = [
