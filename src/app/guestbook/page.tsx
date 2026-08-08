@@ -550,15 +550,14 @@ export default function GuestbookPage() {
                     dragElastic={0.05}
                     dragMomentum={true}
                     whileDrag={{ scale: 1.08, zIndex: 100, cursor: "grabbing" }}
-                    initial={{ opacity: 0, scale: 0.85 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, scale: 0.85, rotate: sticker.rotation || -3.5 }}
+                    animate={{ opacity: 1, scale: 1, rotate: sticker.rotation || -3.5 }}
                     exit={{ opacity: 0, scale: 0.8 }}
                     transition={{ duration: 0.3 }}
                     style={{
                       position: "absolute",
                       left: `${sticker.x ?? 15}%`,
                       top: `${sticker.y ?? 15}%`,
-                      transform: `rotate(${sticker.rotation}deg)`,
                     }}
                     className="sticky-card-item w-72 sm:w-80 cursor-grab active:cursor-grabbing hover:z-40 transition-shadow duration-300"
                   >
@@ -671,10 +670,9 @@ export default function GuestbookPage() {
                   <motion.div
                     key={sticker.id}
                     layout
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, scale: 0.9, rotate: sticker.rotation || -3 }}
+                    animate={{ opacity: 1, scale: 1, rotate: sticker.rotation || -3 }}
                     exit={{ opacity: 0, scale: 0.85 }}
-                    style={{ transform: `rotate(${sticker.rotation}deg)` }}
                     className="w-full relative hover:z-30 transition-transform duration-300 hover:rotate-0 hover:scale-[1.02]"
                   >
                     <StickerPeel
