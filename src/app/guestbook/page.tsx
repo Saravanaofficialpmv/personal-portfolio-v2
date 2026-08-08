@@ -317,7 +317,7 @@ export default function GuestbookPage() {
             className="font-notch text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-neutral-900 flex flex-wrap items-center justify-center gap-x-3 gap-y-1"
           >
             <span>Paste & Rotate Reviews</span>{" "}
-            <span className="font-serif italic font-normal bg-gradient-to-r from-[#FF3B83] via-[#FF5E62] to-[#FF9966] bg-clip-text text-transparent">
+            <span className="font-serif italic font-normal bg-gradient-to-r from-[#FF3B83] via-[#FF5E62] to-[#FF9966] bg-clip-text text-transparent inline-block pr-3 py-0.5">
               Anywhere on the Board
             </span>
           </motion.h1>
