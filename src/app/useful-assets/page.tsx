@@ -168,25 +168,6 @@ export default function UsefulAssetsPage() {
           >
             Curated Figma templates, UI kits, code starters, and graphical elements crafted to accelerate your build process. Free to browse and download directly.
           </motion.p>
-
-          {/* Direct Master Drive CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="pt-2"
-          >
-            <a
-              href={MASTER_DRIVE_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-[#171717] text-white text-sm font-medium hover:bg-[#333333] transition-all shadow-md group cursor-pointer"
-            >
-              <Folder className="w-4 h-4 text-[#E8342A]" />
-              <span>Open Master Google Drive Folder</span>
-              <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-neutral-400" />
-            </a>
-          </motion.div>
         </div>
 
         {/* Filter & Search Bar */}
