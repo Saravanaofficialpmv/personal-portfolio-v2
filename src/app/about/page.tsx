@@ -190,7 +190,7 @@ export default function AboutPage() {
 
 
 
-{/* 3. Tech Stack & Tools App Icons Dock */}
+      {/* 3. Tech Stack & Tools App Icons Dock */}
       <section id="software-tools" className="w-full max-w-[1168px] flex flex-col gap-6 items-center md:items-start">
         <span className="text-xs uppercase tracking-widest text-[#A3A3A3] font-medium text-center md:text-left">
           SOFTWARE &amp; TOOLS

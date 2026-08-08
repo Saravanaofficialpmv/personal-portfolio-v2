@@ -126,6 +126,7 @@ export default function Footer({ ctaVerb = "dream" }: FooterProps) {
                       { name: "Works", href: "/works" },
                       { name: "Resume", href: "/resume" },
                       { name: "Useful Assets", href: "/useful-assets" },
+                      { name: "Tools Which I Use", href: "/tools" },
                     ].map((item) => (
                       <li key={item.name}>
                         <Link

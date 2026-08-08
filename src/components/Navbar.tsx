@@ -40,7 +40,8 @@ const searchableItems = [
   { name: "Resume & Education", category: "Page", path: "/resume" },
   { name: "Bucket List", category: "Page", path: "/bucket-list" },
   { name: "Guestbook", category: "Page", path: "/guestbook" },
-  { name: "Useful Assets & Resources", category: "Page", path: "/useful-assets" },
+  { "name": "Useful Assets & Resources", category: "Page", path: "/useful-assets" },
+  { name: "Tools Which I Use", category: "Page", path: "/tools" },
   { name: "Inka Billing App", category: "Project", path: "/works#inka" },
   { name: "SS Wholesale", category: "Project", path: "/works#ss-wholesale" },
   { name: "AquaWind IoT", category: "Project", path: "/works#aquawind" },
@@ -275,19 +276,22 @@ export default function Navbar() {
 
                     {/* Item 2: Tools Which I Use */}
                     <Link
-                      href="/about"
+                      href="/tools"
                       onClick={() => setIsMoreOpen(false)}
-                      className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] transition-colors group overflow-hidden"
+                      className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] transition-colors group cursor-pointer text-left w-full overflow-hidden"
                     >
                       <div className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-white/10 border border-white/10 text-neutral-300 group-hover:text-white transition-colors shrink-0">
                         <Wrench className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </div>
                       <div className="flex flex-col overflow-hidden">
-                        <span className="font-notch text-xs font-semibold text-white truncate">
-                          Tools Which I Use
+                        <span className="font-notch text-xs font-semibold text-white truncate flex items-center gap-1.5">
+                          <span>Tools Which I Use</span>
+                          <span className="text-[9px] bg-white/10 text-neutral-400 border border-white/10 px-1.5 py-0.5 rounded-md font-mono">
+                            Page
+                          </span>
                         </span>
                         <span className="text-[11px] text-neutral-400 font-light truncate block">
-                          Hardware, software & workflow
+                          Hardware, software &amp; workflow
                         </span>
                       </div>
                     </Link>
