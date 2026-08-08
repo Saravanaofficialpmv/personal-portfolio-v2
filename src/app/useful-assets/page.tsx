@@ -36,14 +36,14 @@ interface Asset {
 
 const assetsList: Asset[] = [
   {
-    id: "asset-1-master-vault",
-    title: "Asset 01: Design & Dev Resource Vault",
-    category: "Design Templates",
+    id: "shopify-liquid-codes-150",
+    title: "150+ Liquid Codes for Shopify",
+    category: "Dev Starters",
     description:
-      "Curated UI kits, Figma wireframes, icon packs, component libraries, and project templates stored in Google Drive.",
-    tags: ["Asset 01", "Figma", "UI Kits", "Drive"],
-    fileType: "Google Drive Folder",
-    format: "Drive",
+      "A curated collection of 150+ custom Liquid code snippets, theme modifications, section presets, and ecommerce utilities for Shopify stores.",
+    tags: ["Shopify", "Liquid", "E-commerce", "Snippets"],
+    fileType: "Shopify Code Pack",
+    format: "Code",
     driveUrl: "https://drive.google.com/drive/folders/1AdiiflFptylyoADX1GtlFQqXyzQtNRtI",
     featured: true,
   },
