@@ -125,49 +125,47 @@ export default function GuestbookPage() {
   const [pastePos, setPastePos] = useState<{ x: number; y: number }>({ x: 20, y: 15 });
   const [viewMode, setViewMode] = useState<"canvas" | "grid">("canvas");
 
-  // Real-time Firestore sync with LocalStorage fallback
+  // Real-time Firestore sync
   useEffect(() => {
     let unsubscribe: (() => void) | undefined;
     try {
-      if (process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID) {
-        const colRef = collection(db, "guestbook_stickers");
-        unsubscribe = onSnapshot(
-          colRef,
-          (snapshot) => {
-            if (!snapshot.empty) {
-              const firebaseData: StickerEntry[] = snapshot.docs.map((docSnap) => {
-                const data = docSnap.data();
-                return {
-                  id: docSnap.id,
-                  name: data.name || "Visitor",
-                  avatar: data.avatar || "",
-                  message: data.message || "",
-                  date: data.date || "Just now",
-                  color: data.color || "yellow",
-                  rotation: data.rotation || 0,
-                  stamp: data.stamp || "STICKER NOTE ★",
-                  x: data.x ?? 20,
-                  y: data.y ?? 20,
-                  createdAt: data.createdAt?.seconds || Date.now(),
-                };
-              });
+      const colRef = collection(db, "guestbook_stickers");
+      unsubscribe = onSnapshot(
+        colRef,
+        (snapshot) => {
+          if (!snapshot.empty) {
+            const firebaseData: StickerEntry[] = snapshot.docs.map((docSnap) => {
+              const data = docSnap.data();
+              return {
+                id: docSnap.id,
+                name: data.name || "Visitor",
+                avatar: data.avatar || "",
+                message: data.message || "",
+                date: data.date || "Just now",
+                color: data.color || "yellow",
+                rotation: data.rotation || 0,
+                stamp: data.stamp || "STICKER NOTE ★",
+                x: data.x ?? 20,
+                y: data.y ?? 20,
+                createdAt: data.createdAt?.seconds || Date.now(),
+              };
+            });
 
-              // Sort newest first
-              firebaseData.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+            // Sort newest first
+            firebaseData.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
-              setStickers(firebaseData);
-              setSelectedColor(getDifferentColor(firebaseData[0]?.color));
-            } else {
-              setStickers([]);
-            }
-          },
-          (err) => {
-            console.warn("Firestore listener warning:", err);
+            setStickers(firebaseData);
+            setSelectedColor(getDifferentColor(firebaseData[0]?.color));
+          } else {
+            setStickers([]);
           }
-        );
-      }
+        },
+        (err) => {
+          console.error("Firestore listener error:", err);
+        }
+      );
     } catch (e) {
-      console.warn("Firebase error:", e);
+      console.error("Firebase initialization error:", e);
     }
 
     // Purge any legacy cached mock stickers from previous sessions
@@ -255,18 +253,21 @@ export default function GuestbookPage() {
 
     setTimeout(async () => {
       try {
-        if (process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID) {
-          await addDoc(collection(db, "guestbook_stickers"), {
-            ...newSticker,
-            createdAt: new Date(),
-          });
-        }
-      } catch (err) {
-        console.warn("Firestore addDoc warning (using localStorage):", err);
+        await addDoc(collection(db, "guestbook_stickers"), {
+          name: newSticker.name,
+          message: newSticker.message,
+          date: newSticker.date,
+          color: newSticker.color,
+          rotation: newSticker.rotation,
+          stamp: newSticker.stamp,
+          x: newSticker.x,
+          y: newSticker.y,
+          createdAt: new Date(),
+        });
+      } catch (err: unknown) {
+        console.error("Firestore addDoc error:", err);
       }
 
-      const updated = [newSticker, ...stickers];
-      saveStickers(updated);
       setMessage("");
       setSelectedColor(getDifferentColor(newSticker.color));
       setPreviewRotation(getRandomAngle());
