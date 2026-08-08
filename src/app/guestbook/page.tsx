@@ -110,14 +110,21 @@ const getDifferentColor = (lastColor?: StickerEntry["color"]): StickerEntry["col
   return filtered[Math.floor(Math.random() * filtered.length)] || "pink";
 };
 
+export const dynamic = "force-dynamic";
+
 export default function GuestbookPage() {
-  const boardRef = useRef<HTMLDivElement>(null);
-  const [stickers, setStickers] = useState<StickerEntry[]>(initialStickers);
+  const [stickers, setStickers] = useState<StickerEntry[]>([]);
+  const [dbStatus, setDbStatus] = useState<"connected" | "error" | "loading">("loading");
+  const [dbErrorMessage, setDbErrorMessage] = useState<string>("");
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
-  const [selectedColor, setSelectedColor] = useState<StickerEntry["color"]>(() =>
-    getDifferentColor(initialStickers[0]?.color)
-  );
+  const [selectedColor, setSelectedColor] = useState<StickerEntry["color"]>("mint");
+  const boardRef = useRef<HTMLDivElement>(null);
+
+  const [getRandomAngle] = useState(() => () => {
+    const angles = [-5, -4, -3, -2, 2, 3, 4, 5];
+    return angles[Math.floor(Math.random() * angles.length)];
+  });
   const [previewRotation, setPreviewRotation] = useState<number>(getRandomAngle);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -125,14 +132,29 @@ export default function GuestbookPage() {
   const [pastePos, setPastePos] = useState<{ x: number; y: number }>({ x: 20, y: 15 });
   const [viewMode, setViewMode] = useState<"canvas" | "grid">("canvas");
 
-  // Real-time Firestore sync
+  // Real-time Firestore sync with LocalStorage backup
   useEffect(() => {
     let unsubscribe: (() => void) | undefined;
+    
+    // First load from localStorage backup if available
+    try {
+      const backup = localStorage.getItem("guestbook_user_reviews");
+      if (backup) {
+        const parsed = JSON.parse(backup);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setStickers(parsed);
+        }
+      }
+    } catch (e) {
+      console.warn("LocalStorage backup read error:", e);
+    }
+
     try {
       const colRef = collection(db, "guestbook_stickers");
       unsubscribe = onSnapshot(
         colRef,
         (snapshot) => {
+          setDbStatus("connected");
           if (!snapshot.empty) {
             const firebaseData: StickerEntry[] = snapshot.docs.map((docSnap) => {
               const data = docSnap.data();
@@ -156,23 +178,29 @@ export default function GuestbookPage() {
 
             setStickers(firebaseData);
             setSelectedColor(getDifferentColor(firebaseData[0]?.color));
+            
+            // Backup to local storage
+            try {
+              localStorage.setItem("guestbook_user_reviews", JSON.stringify(firebaseData));
+            } catch (e) {
+              console.warn("LocalStorage backup save error:", e);
+            }
           } else {
             setStickers([]);
           }
         },
         (err) => {
           console.error("Firestore listener error:", err);
+          setDbStatus("error");
+          setDbErrorMessage(err.message || "Permission denied / Rules issue");
         }
       );
-    } catch (e) {
+    } catch (e: unknown) {
       console.error("Firebase initialization error:", e);
-    }
-
-    // Purge any legacy cached mock stickers from previous sessions
-    try {
-      localStorage.removeItem("guestbook_stickers");
-    } catch (e) {
-      console.error(e);
+      setDbStatus("error");
+      if (e instanceof Error) {
+        setDbErrorMessage(e.message);
+      }
     }
 
     return () => {
@@ -330,8 +358,14 @@ export default function GuestbookPage() {
           {/* Interactive Controls & View Switcher */}
           <div className="flex items-center gap-3 pt-3 flex-wrap justify-center">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 text-xs font-mono text-neutral-600">
-              <Database className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Firebase Real-time Sync • Click board to paste</span>
+              <Database className={`w-3.5 h-3.5 ${dbStatus === "connected" ? "text-emerald-600 animate-pulse" : "text-amber-500"}`} />
+              <span>
+                {dbStatus === "connected"
+                  ? "LIVE FIRESTORE DB ONLINE • Click board to paste"
+                  : dbStatus === "error"
+                  ? `OFFLINE/RULES ISSUE (${dbErrorMessage || "Publish Rules in Firebase"})`
+                  : "Connecting to Wall Database..."}
+              </span>
             </div>
 
             <div className="inline-flex items-center p-1 rounded-xl bg-neutral-200/80 border border-neutral-300 gap-1 text-xs">
