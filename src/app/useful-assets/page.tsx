@@ -36,15 +36,15 @@ interface Asset {
 
 const assetsList: Asset[] = [
   {
-    id: "master-drive-collection",
-    title: "Complete Design & Dev Asset Vault",
+    id: "asset-1-master-vault",
+    title: "Asset 01: Design & Dev Resource Vault",
     category: "Design Templates",
     description:
-      "All curated UI kits, Figma wireframes, icon packs, component libraries, and project templates stored in one organized Google Drive folder.",
-    tags: ["Figma", "Templates", "UI Kits", "Assets"],
+      "Curated UI kits, Figma wireframes, icon packs, component libraries, and project templates stored in Google Drive.",
+    tags: ["Asset 01", "Figma", "UI Kits", "Drive"],
     fileType: "Google Drive Folder",
     format: "Drive",
-    driveUrl: MASTER_DRIVE_LINK,
+    driveUrl: "https://drive.google.com/drive/folders/1AdiiflFptylyoADX1GtlFQqXyzQtNRtI",
     featured: true,
   },
   {
