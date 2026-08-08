@@ -262,14 +262,11 @@ export default function Navbar() {
                         <Package className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </div>
                       <div className="flex flex-col overflow-hidden">
-                        <span className="font-notch text-xs font-semibold text-white truncate flex items-center gap-1.5">
-                          <span>Useful Assets</span>
-                          <span className="text-[9px] bg-white/10 text-neutral-400 border border-white/10 px-1.5 py-0.5 rounded-md font-mono">
-                            Page
-                          </span>
+                        <span className="font-notch text-xs font-semibold text-white truncate">
+                          Useful Assets
                         </span>
                         <span className="text-[11px] text-neutral-400 font-light truncate block">
-                          Design resources & templates
+                          Design resources &amp; templates
                         </span>
                       </div>
                     </Link>
@@ -284,11 +281,8 @@ export default function Navbar() {
                         <Wrench className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </div>
                       <div className="flex flex-col overflow-hidden">
-                        <span className="font-notch text-xs font-semibold text-white truncate flex items-center gap-1.5">
-                          <span>Tools Which I Use</span>
-                          <span className="text-[9px] bg-white/10 text-neutral-400 border border-white/10 px-1.5 py-0.5 rounded-md font-mono">
-                            Page
-                          </span>
+                        <span className="font-notch text-xs font-semibold text-white truncate">
+                          Tools Which I Use
                         </span>
                         <span className="text-[11px] text-neutral-400 font-light truncate block">
                           Hardware, software &amp; workflow
@@ -306,11 +300,8 @@ export default function Navbar() {
                         <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </div>
                       <div className="flex flex-col overflow-hidden">
-                        <span className="font-notch text-xs font-semibold text-white truncate flex items-center gap-1.5">
-                          <span>Resume &amp; Experience</span>
-                          <span className="text-[9px] bg-white/10 text-neutral-400 border border-white/10 px-1.5 py-0.5 rounded-md font-mono">
-                            Page
-                          </span>
+                        <span className="font-notch text-xs font-semibold text-white truncate">
+                          Resume &amp; Experience
                         </span>
                         <span className="text-[11px] text-neutral-400 font-light truncate block">
                           Career ladder, education &amp; skills

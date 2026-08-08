@@ -1,8 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useTransform,
+  useSpring,
+  MotionValue,
+} from "framer-motion";
 
 export interface ToolItem {
   id: string;
@@ -197,118 +204,91 @@ const toolsData: ToolItem[] = [
   },
 ];
 
-export default function AppIconsDock() {
-  const [selectedId, setSelectedId] = useState<string>("figma");
+function DockIconItem({
+  tool,
+  mouseX,
+}: {
+  tool: ToolItem;
+  mouseX: MotionValue<number>;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const activeTool =
-    toolsData.find((t) => t.id === selectedId) || toolsData[0];
+  // Calculate distance between mouse X and center of this icon
+  const distance = useTransform(mouseX, (val) => {
+    const bounds = ref.current?.getBoundingClientRect();
+    if (!bounds) return Infinity;
+    return val - (bounds.left + bounds.width / 2);
+  });
+
+  // Authentic macOS fisheye wave curve: default 48px grow to 78px when mouse is near
+  const widthSync = useTransform(distance, [-150, 0, 150], [48, 78, 48]);
+
+  // Spring animation for smooth natural movement
+  const width = useSpring(widthSync, {
+    mass: 0.1,
+    stiffness: 190,
+    damping: 14,
+  });
 
   return (
-    <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
-      {/* Left Vertical macOS Dock Panel */}
-      <div className="md:col-span-3 lg:col-span-3 w-full flex md:flex-col items-center justify-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 bg-[#18181B] border border-white/10 rounded-2xl md:rounded-[28px] shadow-[0_12px_36px_rgba(0,0,0,0.35)] overflow-x-auto md:overflow-x-visible scrollbar-none select-none">
-        <span className="hidden md:block text-[10px] font-mono uppercase tracking-widest text-neutral-400 font-semibold px-2 py-1 text-center border-b border-white/10 w-full mb-1">
-          DOCK PANELS
-        </span>
-
-        {toolsData.map((tool) => {
-          const isSelected = selectedId === tool.id;
-
-          return (
-            <motion.button
-              key={tool.id}
-              onClick={() => setSelectedId(tool.id)}
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.94 }}
-              className={`relative shrink-0 w-11 h-11 sm:w-13 sm:h-13 rounded-[14px] sm:rounded-[16px] overflow-hidden transition-all cursor-pointer flex items-center justify-center p-0.5 ${
-                isSelected
-                  ? "ring-2 ring-[#E8342A] ring-offset-2 ring-offset-[#18181B] shadow-lg shadow-[#E8342A]/20 scale-105"
-                  : "opacity-70 hover:opacity-100 hover:bg-white/10"
-              }`}
-              title={tool.name}
-            >
-              <Image
-                src={tool.image}
-                alt={tool.name}
-                width={56}
-                height={56}
-                className="w-full h-full object-cover rounded-[12px] sm:rounded-[14px]"
-                priority
-              />
-              {isSelected && (
-                <motion.div
-                  layoutId="activeDockDot"
-                  className="absolute -right-1 md:right-auto md:left-0.5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#E8342A] shadow-[0_0_8px_#E8342A]"
-                />
-              )}
-            </motion.button>
-          );
-        })}
-      </div>
-
-      {/* Right Explanation Display Card */}
-      <div className="md:col-span-9 lg:col-span-9 w-full">
-        <AnimatePresence mode="wait">
+    <div
+      className="relative shrink-0 flex flex-col items-center justify-end"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Floating Tooltip on Hover */}
+      <AnimatePresence>
+        {isHovered && (
           <motion.div
-            key={activeTool.id}
-            initial={{ opacity: 0, x: 15 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -15 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="w-full bg-[#FAFAFA] border border-[#E0E0E0] rounded-2xl md:rounded-[28px] p-6 sm:p-8 md:p-10 flex flex-col gap-6 relative overflow-hidden shadow-xs min-h-[320px] justify-between"
+            initial={{ opacity: 0, y: 6, scale: 0.9 }}
+            animate={{ opacity: 1, y: -14, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.9 }}
+            transition={{ duration: 0.12, ease: "easeOut" }}
+            className="absolute -top-11 left-1/2 -translate-x-1/2 z-30 pointer-events-none whitespace-nowrap bg-[#171717] text-white text-[11px] font-notch font-medium px-2.5 py-1 rounded-md shadow-md border border-white/10"
           >
-            {/* Top Bar Header */}
-            <div className="flex items-center justify-between gap-4 flex-wrap pb-4 border-b border-[#E0E0E0]">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shadow-md shrink-0 border border-neutral-200 bg-white p-1">
-                  <Image
-                    src={activeTool.image}
-                    alt={activeTool.name}
-                    width={64}
-                    height={64}
-                    className="w-full h-full object-cover rounded-xl"
-                  />
-                </div>
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-[11px] font-mono uppercase tracking-widest text-[#E8342A] font-bold">
-                    {activeTool.category}
-                  </span>
-                  <h3 className="font-notch font-bold text-2xl sm:text-3xl text-[#171717]">
-                    {activeTool.name}
-                  </h3>
-                </div>
-              </div>
-
-              <span className="bg-[#171717] text-white text-xs font-mono px-3.5 py-1.5 rounded-full shadow-xs whitespace-nowrap">
-                {activeTool.role}
-              </span>
-            </div>
-
-            {/* Main Description */}
-            <p className="text-sm sm:text-base text-[#383838] font-light leading-relaxed">
-              {activeTool.description}
-            </p>
-
-            {/* Workflow Highlights */}
-            <div className="flex flex-col gap-2.5 pt-2">
-              <span className="text-xs uppercase tracking-wider text-[#A3A3A3] font-mono font-semibold">
-                KEY WORKFLOW &amp; USES
-              </span>
-              <div className="flex flex-wrap gap-2 pt-0.5">
-                {activeTool.highlights.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white border border-[#E0E0E0] text-xs font-medium text-[#171717] shadow-2xs"
-                  >
-                    <span className="text-[#E8342A]">✦</span>
-                    <span>{tag}</span>
-                  </span>
-                ))}
-              </div>
-            </div>
+            {tool.name}
+            {/* Tooltip Arrow */}
+            <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#171717]" />
           </motion.div>
-        </AnimatePresence>
-      </div>
+        )}
+      </AnimatePresence>
+
+      {/* macOS Dock Icon with Fisheye Magnification */}
+      <motion.div
+        ref={ref}
+        style={{ width, height: width }}
+        whileTap={{ scale: 0.9 }}
+        className="relative shrink-0 rounded-[13px] sm:rounded-[15px] overflow-hidden cursor-pointer flex items-center justify-center p-0.5 opacity-90 hover:opacity-100 transition-opacity"
+      >
+        <Image
+          src={tool.image}
+          alt={tool.name}
+          width={80}
+          height={80}
+          className="w-full h-full object-cover rounded-[11px] sm:rounded-[13px]"
+          priority
+        />
+      </motion.div>
+    </div>
+  );
+}
+
+export default function AppIconsDock() {
+  const mouseX = useMotionValue(Infinity);
+
+  return (
+    <div className="w-full flex justify-center py-4">
+      {/* Centered Horizontal macOS Dock Bar with authentic fisheye magnification */}
+      <motion.div
+        onMouseMove={(e) => mouseX.set(e.pageX)}
+        onMouseLeave={() => mouseX.set(Infinity)}
+        className="inline-flex items-end gap-2 sm:gap-2.5 p-2.5 sm:p-3 px-3 sm:px-4 h-[76px] sm:h-[84px] bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[28px] shadow-[0_16px_40px_rgba(0,0,0,0.45)] max-w-full overflow-x-auto scrollbar-none select-none pb-2 sm:pb-2.5"
+      >
+        {toolsData.map((tool) => (
+          <DockIconItem key={tool.id} tool={tool} mouseX={mouseX} />
+        ))}
+      </motion.div>
     </div>
   );
 }
