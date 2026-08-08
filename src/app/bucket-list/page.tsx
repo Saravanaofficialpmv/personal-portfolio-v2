@@ -788,82 +788,17 @@ export default function BucketListPage() {
               {/* Locked view vs Unlocked content */}
               {activeSection.id === "personal" && !isUnlocked ? (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-full bg-neutral-900 text-white rounded-3xl p-8 sm:p-14 border border-neutral-800 flex flex-col items-center text-center gap-6 relative overflow-hidden shadow-2xl my-2"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="w-full py-24 border border-dashed border-neutral-300/80 rounded-3xl bg-neutral-50/60 flex flex-col items-center justify-center gap-3 text-center my-4"
                 >
-                  {/* Ambient glowing radial lights */}
-                  <div className="absolute -top-32 -right-32 w-80 h-80 bg-[#E8342A]/25 rounded-full blur-3xl pointer-events-none" />
-                  <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
-
-                  {/* Lock Icon Box */}
-                  <div className="w-16 h-16 rounded-2xl bg-neutral-800 border border-neutral-700/80 flex items-center justify-center text-[#E8342A] shadow-inner relative z-10">
-                    <Lock className="w-8 h-8 stroke-[2.2]" />
+                  <div className="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-xs flex items-center justify-center text-neutral-400">
+                    <Lock className="w-5 h-5 text-neutral-400 stroke-[2]" />
                   </div>
-
-                  {/* Vault Header text */}
-                  <div className="flex flex-col gap-2 max-w-lg relative z-10">
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E8342A]/15 text-[#FF5E62] border border-[#E8342A]/30 text-xs font-mono tracking-wider uppercase font-semibold self-center">
-                      <span>🔒 PERSONAL VAULT LOCKED</span>
-                    </div>
-                    <h3 className="font-notch text-3xl sm:text-5xl font-bold tracking-tight text-white pt-2">
-                      Click 3 Secret Words
-                    </h3>
-                    <p className="text-sm sm:text-base text-neutral-400 font-light leading-relaxed">
-                      To unlock the personal bucket list, click the 3 secret words in order:
-                    </p>
-                  </div>
-
-                  {/* 3 Clickable Word Buttons */}
-                  <div className="flex flex-wrap items-center justify-center gap-3.5 my-2 relative z-10 select-none">
-                    {[
-                      { id: "Life", label: "Life" },
-                      { id: "Wealth", label: "Wealth" },
-                      { id: "Growth", label: "Growth" },
-                    ].map((w, idx) => {
-                      const isClicked = clickedWords.includes(w.id);
-                      return (
-                        <motion.button
-                          key={w.id}
-                          whileHover={{ scale: 1.06 }}
-                          whileTap={{ scale: 0.94 }}
-                          onClick={() => handleWordClick(w.id)}
-                          className={`px-6 py-3.5 rounded-2xl text-sm font-mono flex items-center gap-3 transition-all cursor-pointer border ${
-                            isClicked
-                              ? "bg-[#E8342A] text-white border-[#E8342A] shadow-lg shadow-[#E8342A]/35 font-medium scale-105"
-                              : "bg-neutral-800/90 text-neutral-200 border-neutral-700 hover:border-[#E8342A]/60 hover:text-white hover:bg-neutral-800"
-                          }`}
-                        >
-                          <span className="opacity-50 text-xs font-bold">{idx + 1}.</span>
-                          <span className="font-notch text-lg font-bold">{w.label}</span>
-                          {isClicked ? (
-                            <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
-                              <Check className="w-3.5 h-3.5 text-white stroke-[3]" />
-                            </div>
-                          ) : (
-                            <Lock className="w-4 h-4 text-neutral-400 opacity-60" />
-                          )}
-                        </motion.button>
-                      );
-                    })}
-                  </div>
-
-                  {/* Vault Progress Bar */}
-                  <div className="flex flex-col items-center gap-2.5 w-full max-w-xs relative z-10">
-                    <div className="flex items-center justify-between w-full text-xs font-mono text-neutral-400">
-                      <span>Vault Key Progress</span>
-                      <span className="text-[#FF5E62] font-bold">{clickedWords.length} / 3 Words</span>
-                    </div>
-                    <div className="w-full h-2.5 bg-neutral-800 rounded-full overflow-hidden border border-neutral-700/60 p-0.5">
-                      <motion.div
-                        className="h-full bg-gradient-to-r from-[#FF3B83] via-[#FF5E62] to-[#E8342A] rounded-full shadow-xs"
-                        initial={{ width: "0%" }}
-                        animate={{ width: `${(clickedWords.length / 3) * 100}%` }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
-                      />
-                    </div>
-                  </div>
+                  <span className="text-xs font-mono tracking-widest text-neutral-400 uppercase font-semibold">
+                    PERSONAL BUCKET LIST IS LOCKED
+                  </span>
                 </motion.div>
               ) : (
                 /* Subcategories list */
