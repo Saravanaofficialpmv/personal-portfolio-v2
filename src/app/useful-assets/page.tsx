@@ -47,63 +47,6 @@ const assetsList: Asset[] = [
     driveUrl: "https://drive.google.com/drive/folders/1AdiiflFptylyoADX1GtlFQqXyzQtNRtI",
     featured: true,
   },
-  {
-    id: "figma-ui-system",
-    title: "Portfolio & Product Design System",
-    category: "UI Kits",
-    description:
-      "Clean dark/light theme tokens, typography scales, pill buttons, glassmorphic cards, and responsive grid layouts.",
-    tags: ["Figma", "UI Kit", "Design System"],
-    fileType: ".fig File",
-    format: "Figma",
-    driveUrl: MASTER_DRIVE_LINK,
-    featured: true,
-  },
-  {
-    id: "custom-sticker-pack",
-    title: "Creative Sticky Notes & Sticker Pack",
-    category: "Icons & Graphics",
-    description:
-      "Playful vector stickers, corkboard textures, paper peel overlays, and badge assets for interactive web components.",
-    tags: ["Graphics", "PNG", "SVG", "Stickers"],
-    fileType: "Asset Bundle",
-    format: "Drive",
-    driveUrl: MASTER_DRIVE_LINK,
-    featured: true,
-  },
-  {
-    id: "nextjs-starter-template",
-    title: "Next.js + Tailwind Craft Boilerplate",
-    category: "Dev Starters",
-    description:
-      "Pre-configured Next.js App Router starter with Framer Motion animations, custom notch fonts, and dark mode toggles.",
-    tags: ["React", "Next.js", "Tailwind", "TypeScript"],
-    fileType: "Code Repo",
-    format: "Code",
-    driveUrl: MASTER_DRIVE_LINK,
-  },
-  {
-    id: "inka-invoice-template",
-    title: "Inka Billing & Invoice Design Sheet",
-    category: "Design Templates",
-    description:
-      "Clean printable invoice layouts, itemized billing tables, and tax breakdown component specs.",
-    tags: ["PDF", "Figma", "Invoice", "UI Design"],
-    fileType: "Design Template",
-    format: "Figma",
-    driveUrl: MASTER_DRIVE_LINK,
-  },
-  {
-    id: "icon-micro-animations",
-    title: "Micro-Interaction Icon Set",
-    category: "Icons & Graphics",
-    description:
-      "Smooth Lucide icon animated wrappers, state transitions, hover ripples, and spring motion helpers.",
-    tags: ["SVG", "Framer Motion", "Icons"],
-    fileType: "Component Bundle",
-    format: "Code",
-    driveUrl: MASTER_DRIVE_LINK,
-  },
 ];
 
 const categories = [
