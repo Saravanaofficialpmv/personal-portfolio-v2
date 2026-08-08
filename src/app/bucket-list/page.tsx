@@ -66,7 +66,7 @@ const bucketSections: BucketSection[] = [
             title: "Build a strong professional portfolio",
             description:
               "Craft a world-class digital portfolio that showcases high-impact engineering and design precision.",
-            completed: false,
+            completed: true,
             link: "/",
           },
           {
