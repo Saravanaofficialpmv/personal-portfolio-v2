@@ -71,6 +71,18 @@ const assetsList: Asset[] = [
     driveUrl: "https://docs.google.com/spreadsheets/d/1Lw0nNHKormz5I6YNBlMBdOFIKLM2scZbVNOqfx8sNpg/edit?usp=sharing",
     featured: true,
   },
+  {
+    id: "ecommerce-audience-profitability",
+    title: "Ecommerce Audience Profitability Blueprint",
+    category: "Design Templates",
+    description:
+      "Strategic guide detailing target audience segmentation, customer lifetime value optimization, and profit-driven funnel strategies for e-commerce brands.",
+    tags: ["Blueprint", "E-commerce", "Profitability", "Strategy"],
+    fileType: "Google Doc",
+    format: "Drive",
+    driveUrl: "https://docs.google.com/document/d/1Vv20uQXesiu0eDvoNIaPK3oEO4sfnVEw4rdc7NtCEQE/edit?tab=t.0#heading=h.my7bfj9rdde8",
+    featured: true,
+  },
 ];
 
 const categories = [
