@@ -127,14 +127,6 @@ const bucketSections: BucketSection[] = [
         titleSecondary: "Personal Brand",
         items: [
           {
-            id: "personal-website",
-            title: "Build my own personal website",
-            description:
-              "Design and engineer a fast, expressive digital home for my work and thoughts.",
-            completed: false,
-            link: "/",
-          },
-          {
             id: "instagram-presence",
             title: "Build a strong Instagram presence",
             description:
