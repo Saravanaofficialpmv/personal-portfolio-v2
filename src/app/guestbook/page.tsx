@@ -226,7 +226,7 @@ export default function GuestbookPage() {
     setPreviewRotation(nextAngle);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim()) return;
 
@@ -251,34 +251,35 @@ export default function GuestbookPage() {
       y: pastePos.y,
     };
 
-    setTimeout(async () => {
-      try {
-        await addDoc(collection(db, "guestbook_stickers"), {
-          name: newSticker.name,
-          message: newSticker.message,
-          date: newSticker.date,
-          color: newSticker.color,
-          rotation: newSticker.rotation,
-          stamp: newSticker.stamp,
-          x: newSticker.x,
-          y: newSticker.y,
-          createdAt: new Date(),
-        });
-      } catch (err: unknown) {
-        console.error("Firestore addDoc error:", err);
-      }
+    // Optimistically add sticker to local state immediately
+    setStickers((prev) => [newSticker, ...prev]);
+    setMessage("");
+    setSelectedColor(getDifferentColor(newSticker.color));
+    setPreviewRotation(getRandomAngle());
+    setIsSubmitting(false);
 
-      setMessage("");
-      setSelectedColor(getDifferentColor(newSticker.color));
-      setPreviewRotation(getRandomAngle());
-      setIsSubmitting(false);
+    // Shift next paste position slightly
+    setPastePos((prev) => ({
+      x: (prev.x + 14) % 70,
+      y: (prev.y + 12) % 70,
+    }));
 
-      // Shift next paste position slightly
-      setPastePos((prev) => ({
-        x: (prev.x + 14) % 70,
-        y: (prev.y + 12) % 70,
-      }));
-    }, 350);
+    // Persist to Firestore in the background
+    try {
+      await addDoc(collection(db, "guestbook_stickers"), {
+        name: newSticker.name,
+        message: newSticker.message,
+        date: newSticker.date,
+        color: newSticker.color,
+        rotation: newSticker.rotation,
+        stamp: newSticker.stamp,
+        x: newSticker.x,
+        y: newSticker.y,
+        createdAt: new Date(),
+      });
+    } catch (err: unknown) {
+      console.error("Firestore addDoc error:", err);
+    }
   };
 
   const handleShare = (sticker: StickerEntry) => {
