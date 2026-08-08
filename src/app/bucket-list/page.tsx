@@ -758,33 +758,6 @@ export default function BucketListPage() {
                 </div>
               </div>
 
-              {/* Just Unlocked Celebration Toast Banner */}
-              <AnimatePresence>
-                {justUnlocked && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                    className="w-full bg-[#E8342A] text-white p-4 rounded-2xl flex items-center justify-between gap-4 shadow-lg"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
-                        <Sparkles className="w-5 h-5 text-white animate-spin" />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-notch text-base font-bold">🎉 Personal Vault Unlocked!</span>
-                        <span className="text-xs text-white/80 font-light">
-                          You clicked all 3 secret words: Life, Wealth &amp; Growth.
-                        </span>
-                      </div>
-                    </div>
-                    <span className="text-xs font-mono bg-white/20 px-3 py-1 rounded-full uppercase tracking-wider">
-                      UNLOCKED
-                    </span>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
               {/* Locked view vs Unlocked content */}
               {activeSection.id === "personal" && !isUnlocked ? (
                 <motion.div
