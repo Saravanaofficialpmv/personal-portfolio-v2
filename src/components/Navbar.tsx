@@ -23,6 +23,7 @@ import {
   FileText,
   Package,
   Wrench,
+  ExternalLink,
 } from "lucide-react";
 
 const mainNavItems = [
@@ -39,6 +40,7 @@ const searchableItems = [
   { name: "Resume & Education", category: "Page", path: "/resume" },
   { name: "Bucket List", category: "Page", path: "/bucket-list" },
   { name: "Guestbook", category: "Page", path: "/guestbook" },
+  { name: "Useful Assets & Resources", category: "Drive Link", path: "https://drive.google.com/drive/folders/1AdiiflFptylyoADX1GtlFQqXyzQtNRtI?usp=share_link" },
   { name: "Inka Billing App", category: "Project", path: "/works#inka" },
   { name: "SS Wholesale", category: "Project", path: "/works#ss-wholesale" },
   { name: "AquaWind IoT", category: "Project", path: "/works#aquawind" },
@@ -250,8 +252,10 @@ export default function Navbar() {
                   {/* Card 3: List Items Column */}
                   <div className="flex flex-col gap-2 sm:gap-2.5 justify-between">
                     {/* Item 1: Useful Assets */}
-                    <Link
-                      href="/about"
+                    <a
+                      href="https://drive.google.com/drive/folders/1AdiiflFptylyoADX1GtlFQqXyzQtNRtI?usp=share_link"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       onClick={() => setIsMoreOpen(false)}
                       className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] transition-colors group cursor-pointer text-left w-full overflow-hidden"
                     >
@@ -259,14 +263,15 @@ export default function Navbar() {
                         <Package className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </div>
                       <div className="flex flex-col overflow-hidden">
-                        <span className="font-notch text-xs font-semibold text-white truncate">
-                          Useful Assets
+                        <span className="font-notch text-xs font-semibold text-white truncate flex items-center gap-1.5">
+                          <span>Useful Assets</span>
+                          <ExternalLink className="w-3 h-3 text-neutral-400 group-hover:text-white transition-colors shrink-0" />
                         </span>
                         <span className="text-[11px] text-neutral-400 font-light truncate block">
                           Design resources & templates
                         </span>
                       </div>
-                    </Link>
+                    </a>
 
                     {/* Item 2: Tools Which I Use */}
                     <Link
@@ -388,7 +393,11 @@ export default function Navbar() {
                       key={item.name}
                       onClick={() => {
                         setIsSearchOpen(false);
-                        router.push(item.path);
+                        if (item.path.startsWith("http")) {
+                          window.open(item.path, "_blank", "noopener,noreferrer");
+                        } else {
+                          router.push(item.path);
+                        }
                       }}
                       className="flex items-center justify-between p-3 rounded-xl hover:bg-white/10 transition-colors text-left group"
                     >

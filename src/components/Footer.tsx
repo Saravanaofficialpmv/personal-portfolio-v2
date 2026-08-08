@@ -125,14 +125,27 @@ export default function Footer({ ctaVerb = "dream" }: FooterProps) {
                       { name: "About", href: "/about" },
                       { name: "Works", href: "/works" },
                       { name: "Resume", href: "/resume" },
+                      { name: "Useful Assets", href: "https://drive.google.com/drive/folders/1AdiiflFptylyoADX1GtlFQqXyzQtNRtI?usp=share_link", external: true },
                     ].map((item) => (
                       <li key={item.name}>
-                        <Link
-                          href={item.href}
-                          className="text-base md:text-lg text-[#171717] hover:text-[#E8342A] transition-colors duration-150 font-light"
-                        >
-                          {item.name}
-                        </Link>
+                        {item.external ? (
+                          <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-base md:text-lg text-[#171717] hover:text-[#E8342A] transition-colors duration-150 font-light flex items-center gap-1"
+                          >
+                            <span>{item.name}</span>
+                            <ArrowUpRight className="w-3.5 h-3.5 text-[#5C5C5C]" />
+                          </a>
+                        ) : (
+                          <Link
+                            href={item.href}
+                            className="text-base md:text-lg text-[#171717] hover:text-[#E8342A] transition-colors duration-150 font-light"
+                          >
+                            {item.name}
+                          </Link>
+                        )}
                       </li>
                     ))}
                   </ul>
