@@ -47,6 +47,18 @@ const assetsList: Asset[] = [
     driveUrl: "https://drive.google.com/drive/folders/1AdiiflFptylyoADX1GtlFQqXyzQtNRtI",
     featured: true,
   },
+  {
+    id: "secure-app-blueprint",
+    title: "How to Build a Complete Secure App Blueprint",
+    category: "Design Templates",
+    description:
+      "Comprehensive architectural blueprint, security checklist, and step-by-step framework for shipping production-grade secure mobile applications.",
+    tags: ["Blueprint", "Security", "App Architecture", "Mobile"],
+    fileType: "PDF Blueprint",
+    format: "Drive",
+    driveUrl: "https://drive.google.com/file/d/1GXAIgaeZDxdLQ1WkhhVYB6Qnt6ebpx5H/view?usp=sharing",
+    featured: true,
+  },
 ];
 
 const categories = [
