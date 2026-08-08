@@ -275,20 +275,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Infinite Curved Interest Scroller */}
-      <div className="relative w-full py-0 border-b border-[#E0E0E0] overflow-hidden">
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-white via-white/80 to-transparent" />
-        <CurvedLoop
-          marqueeText="Building Apps ✦ Designing Products ✦ Crafting Packaging ✦ Product Design ✦ Artificial Intelligence ✦ Mobile Applications ✦ Full-Stack Development ✦ Cloud Technologies ✦ System Architecture ✦"
-          speed={1.8}
-          curveAmount={40}
-          interactive={true}
-          className="font-notch fill-[#5C5C5C]"
-        />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-white via-white/80 to-transparent" />
-      </div>
-
-      {/* 4. Featured Product Showcase */}
+      {/* 3. Featured Product Showcase */}
       <section className="w-full max-w-[1168px] flex flex-col gap-6">
         <div className="flex flex-col items-start gap-1">
           <span className="text-xs uppercase tracking-widest text-[#A3A3A3] font-medium">
@@ -324,7 +311,7 @@ export default function Home() {
                 SS Wholesale<span className="text-[#E8342A]">.</span>
               </h3>
               <span className="text-xs text-[#A3A3A3] uppercase tracking-wider font-medium">
-                End-to-End B2B Wholesale Ordering & Inventory Platform
+                End-to-End B2B Wholesale Ordering &amp; Inventory Platform
               </span>
             </div>
 
@@ -367,6 +354,19 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* 4. Infinite Curved Interest Scroller */}
+      <div className="relative w-full py-0 border-y border-[#E0E0E0] overflow-hidden">
+        <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-white via-white/80 to-transparent" />
+        <CurvedLoop
+          marqueeText="Building Apps ✦ Designing Products ✦ Crafting Packaging ✦ Product Design ✦ Artificial Intelligence ✦ Mobile Applications ✦ Full-Stack Development ✦ Cloud Technologies ✦ System Architecture ✦"
+          speed={1.8}
+          curveAmount={40}
+          interactive={true}
+          className="font-notch fill-[#5C5C5C]"
+        />
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-white via-white/80 to-transparent" />
+      </div>
 
       {/* 6. My Works Showcase */}
       <section className="w-full max-w-[1168px] flex flex-col gap-8">
