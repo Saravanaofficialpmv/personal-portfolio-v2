@@ -59,6 +59,18 @@ const assetsList: Asset[] = [
     driveUrl: "https://drive.google.com/file/d/1GXAIgaeZDxdLQ1WkhhVYB6Qnt6ebpx5H/view?usp=sharing",
     featured: true,
   },
+  {
+    id: "perfect-store-checklist",
+    title: "Checklist to Build a Perfect Store",
+    category: "Design Templates",
+    description:
+      "Comprehensive e-commerce checklist detailing high-converting product page elements, checkout optimization, SEO setup, and store launch criteria.",
+    tags: ["Checklist", "Shopify", "E-commerce", "Spreadsheet"],
+    fileType: "Google Sheet",
+    format: "Drive",
+    driveUrl: "https://docs.google.com/spreadsheets/d/1Lw0nNHKormz5I6YNBlMBdOFIKLM2scZbVNOqfx8sNpg/edit?usp=sharing",
+    featured: true,
+  },
 ];
 
 const categories = [
