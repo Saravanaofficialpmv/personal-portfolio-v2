@@ -278,12 +278,12 @@ export default function AppIconsDock() {
   const mouseX = useMotionValue(Infinity);
 
   return (
-    <div className="w-full flex justify-center py-4">
+    <div className="w-full flex justify-center py-2">
       {/* Centered Horizontal macOS Dock Bar with authentic fisheye magnification */}
       <motion.div
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
-        className="inline-flex items-end gap-2 sm:gap-2.5 p-2.5 sm:p-3 px-3 sm:px-4 h-[76px] sm:h-[84px] bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[28px] shadow-[0_16px_40px_rgba(0,0,0,0.45)] max-w-full overflow-x-auto scrollbar-none select-none pb-2 sm:pb-2.5"
+        className="inline-flex items-end gap-2 sm:gap-2.5 p-2 sm:p-2.5 px-3 sm:px-4 bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[22px] shadow-[0_12px_36px_rgba(0,0,0,0.4)] max-w-full overflow-x-auto md:overflow-visible scrollbar-none select-none"
       >
         {toolsData.map((tool) => (
           <DockIconItem key={tool.id} tool={tool} mouseX={mouseX} />
