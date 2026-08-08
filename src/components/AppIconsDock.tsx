@@ -221,8 +221,8 @@ function DockIconItem({
     return val - (bounds.left + bounds.width / 2);
   });
 
-  // Continuous bell-curve distance for smooth multi-icon wave [-180, 0, 180] -> [44, 76, 44]
-  const widthSync = useTransform(distance, [-180, 0, 180], [44, 76, 44]);
+  // Continuous bell-curve distance for smooth multi-icon wave [-170, 0, 170] -> [44, 72, 44]
+  const widthSync = useTransform(distance, [-170, 0, 170], [44, 72, 44]);
 
   // Feather-light spring physics matching authentic macOS Dock behavior
   const width = useSpring(widthSync, {
@@ -283,7 +283,7 @@ export default function AppIconsDock() {
       <motion.div
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
-        className="inline-flex items-end gap-1.5 sm:gap-2 p-2.5 sm:p-3 px-3.5 sm:px-4.5 h-[70px] sm:h-[78px] bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[26px] shadow-[0_16px_40px_rgba(0,0,0,0.45)] max-w-full overflow-x-auto scrollbar-none select-none pb-2 sm:pb-2.5"
+        className="inline-flex items-end gap-1.5 sm:gap-2 p-2.5 sm:p-3 pt-3.5 sm:pt-4 px-3.5 sm:px-4.5 h-[84px] sm:h-[92px] bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[28px] shadow-[0_16px_40px_rgba(0,0,0,0.45)] max-w-full overflow-x-auto scrollbar-none select-none pb-2 sm:pb-2.5"
       >
         {toolsData.map((tool) => (
           <DockIconItem key={tool.id} tool={tool} mouseX={mouseX} />
