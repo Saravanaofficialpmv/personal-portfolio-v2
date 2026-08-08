@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { CheckSquare, Square, ArrowUpRight, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { CheckSquare, Square, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 
@@ -15,227 +16,580 @@ interface BucketItem {
 }
 
 interface BucketCategory {
+  id: string;
   num: string;
   titlePrimary: string;
   titleSecondary: string;
   items: BucketItem[];
 }
 
-const bucketCategories: BucketCategory[] = [
+interface BucketSection {
+  id: string;
+  num: string;
+  badge: string;
+  title: string;
+  description: string;
+  categories: BucketCategory[];
+}
+
+const bucketSections: BucketSection[] = [
   {
+    id: "professional",
     num: "01",
-    titlePrimary: "Build.",
-    titleSecondary: "Ship & Share",
-    items: [
+    badge: "PROFESSIONAL",
+    title: "Career & Personal Brand",
+    description:
+      "Milestones for engineering mastery, product shipping, open-source impact, and personal brand building.",
+    categories: [
       {
-        id: "linkedin-followers",
-        title: "Get 11,000+ organic LinkedIn followers",
-        description:
-          "Didn't chase followers. My open-source contributions and this portfolio site did the talking.",
-        completed: true,
-        date: "Apr 2026",
+        id: "career-dev",
+        num: "01.1",
+        titlePrimary: "Career &",
+        titleSecondary: "Development",
+        items: [
+          {
+            id: "skilled-confident",
+            title: "Become highly skilled and confident in my field",
+            description:
+              "Master software architecture, modern frontend patterns, and system design with deep confidence.",
+            completed: false,
+          },
+          {
+            id: "continuous-improvement",
+            title: "Continuously improve my technical and professional skills",
+            description:
+              "Refine code quality, performance tuning, and technical leadership day by day.",
+            completed: false,
+          },
+          {
+            id: "strong-portfolio",
+            title: "Build a strong professional portfolio",
+            description:
+              "Craft a world-class digital portfolio that showcases high-impact engineering and design precision.",
+            completed: false,
+            link: "/",
+          },
+          {
+            id: "launch-products",
+            title: "Build and launch 2+ real products",
+            description:
+              "Turn original ideas into production-ready software applications solving real user problems.",
+            completed: false,
+          },
+          {
+            id: "revenue-product",
+            title: "Ship a product that generates independent revenue",
+            description:
+              "Build and monetize a SaaS or digital product that creates recurring value.",
+            completed: false,
+          },
+          {
+            id: "open-source-contrib",
+            title: "Make my first meaningful open-source contribution",
+            description:
+              "Ship PRs and features to prominent open-source repositories powering the modern web.",
+            completed: false,
+          },
+          {
+            id: "organic-recognition",
+            title: "Build a project that gains significant organic recognition",
+            description:
+              "Craft a tool or library so useful that developers naturally star, fork, and share it.",
+            completed: false,
+          },
+          {
+            id: "technical-deep-dives",
+            title: "Write 10 high-quality technical deep-dives",
+            description:
+              "Publish thorough articles on browser engine internals, state architecture, and rendering performance.",
+            completed: false,
+          },
+          {
+            id: "new-language",
+            title: "Learn and become proficient in a new programming language",
+            description:
+              "Gain mastery in Rust, Go, or Swift to rethink low-level performance and concurrency.",
+            completed: false,
+          },
+          {
+            id: "remote-opportunity",
+            title: "Get a strong remote/international career opportunity",
+            description:
+              "Join a top-tier global organization shipping high-scale software from anywhere.",
+            completed: false,
+          },
+        ],
       },
       {
-        id: "github-followers",
-        title: "Get 300+ followers on GitHub",
-        description:
-          "Open-sourced tools I built for myself. Useful code finds its audience.",
-        completed: true,
-        date: "Mar 2026",
-      },
-      {
-        id: "remote-job",
-        title: "Get a remote job",
-        description:
-          "Full-time remote at a forward-thinking company. No commute, no office politics — just shipping code from wherever.",
-        completed: true,
-        date: "Jan 2025",
-      },
-      {
-        id: "open-source",
-        title: "First open-source contribution",
-        description:
-          "Contributed a feature to a popular open-source library. First PR merged, started driving traffic to my GitHub.",
-        completed: true,
-        date: "Dec 2024",
-      },
-      {
-        id: "first-app",
-        title: "Build my first application",
-        description:
-          "A notes app with localStorage. Terrible code, but when it worked without a page reload, something clicked.",
-        completed: true,
-        date: "Sep 2023",
-      },
-      {
-        id: "technical-deep-dives",
-        title: "Write 10 technical deep-dives",
-        description:
-          "Not SEO listicles. Real deep-dives on RSC internals, database indexing, building a bundler from scratch.",
-        completed: false,
-      },
-      {
-        id: "new-language",
-        title: "Learn a new programming language",
-        description:
-          "Go, Rust, or Swift. Something that forces me to think differently about the problems I already know how to solve.",
-        completed: false,
-      },
-      {
-        id: "github-stars",
-        title: "Hit 1K stars on a GitHub repo",
-        description:
-          "By building something so useful that a thousand strangers vouch for it.",
-        completed: false,
-      },
-      {
-        id: "earning-product",
-        title: "Ship a product that earns on its own",
-        description:
-          "A SaaS, a tool, anything. Proof that I can create value independent of my time.",
-        completed: false,
+        id: "content-brand",
+        num: "01.2",
+        titlePrimary: "Content &",
+        titleSecondary: "Personal Brand",
+        items: [
+          {
+            id: "personal-website",
+            title: "Build my own personal website",
+            description:
+              "Design and engineer a fast, expressive digital home for my work and thoughts.",
+            completed: false,
+            link: "/",
+          },
+          {
+            id: "instagram-presence",
+            title: "Build a strong Instagram presence",
+            description:
+              "Share design breakdowns, development workflows, and tech insights regularly.",
+            completed: false,
+          },
+          {
+            id: "genuine-followers",
+            title: "Reach 10K+ genuine followers",
+            description:
+              "Cultivate an authentic audience of fellow builders, designers, and tech enthusiasts.",
+            completed: false,
+          },
+          {
+            id: "consistent-content",
+            title: "Create content consistently",
+            description:
+              "Maintain a steady output of value-adding posts, tutorials, and behind-the-scenes build logs.",
+            completed: false,
+          },
+          {
+            id: "recognizable-brand",
+            title: "Build a recognizable personal brand",
+            description:
+              "Establish a distinct identity known for technical craftsmanship and visual excellence.",
+            completed: false,
+          },
+          {
+            id: "document-growth",
+            title: "Document my projects, experiences, and growth",
+            description:
+              "Keep a public log of lessons learned, mistakes made, and milestones achieved.",
+            completed: false,
+          },
+          {
+            id: "content-views",
+            title: "Create content that reaches 1M+ total views",
+            description:
+              "Produce impactful posts and technical content that resonate across social channels.",
+            completed: false,
+          },
+          {
+            id: "tech-talk",
+            title: "Give my first technical talk/presentation",
+            description:
+              "Present live at a conference or meetup on UI engineering and software design.",
+            completed: false,
+          },
+          {
+            id: "mentor-developers",
+            title: "Mentor 10+ aspiring developers",
+            description:
+              "Guide early-career engineers through portfolio reviews, code quality, and job strategies.",
+            completed: false,
+          },
+          {
+            id: "tech-conference",
+            title: "Attend a major global technology conference",
+            description:
+              "Connect with world-class engineers and product leaders at an international event.",
+            completed: false,
+          },
+        ],
       },
     ],
   },
   {
+    id: "personal",
     num: "02",
-    titlePrimary: "Grind.",
-    titleSecondary: "Inside Out",
-    items: [
+    badge: "PERSONAL",
+    title: "Life, Wealth & Growth",
+    description:
+      "Goals for financial independence, family well-being, relationships, health, travel, and personal evolution.",
+    categories: [
       {
-        id: "portfolio-website",
-        title: "Create portfolio website",
-        description:
-          "This site. Every pixel is intentional, every interaction earned its place. The project that ties everything else together.",
-        completed: true,
-        date: "Aug 2024",
-        link: "/",
+        id: "financial-freedom",
+        num: "02.1",
+        titlePrimary: "Financial",
+        titleSecondary: "Freedom",
+        items: [
+          {
+            id: "net-worth",
+            title: "Reach ₹25 lakh+ net worth",
+            description:
+              "Accumulate durable net worth through savings, equity, and asset appreciation.",
+            completed: false,
+          },
+          {
+            id: "investments",
+            title: "Build ₹5 lakh+ in investments",
+            description:
+              "Deploy capital consistently into diversified index funds and long-term equity.",
+            completed: false,
+          },
+          {
+            id: "emergency-fund",
+            title: "Maintain an emergency fund covering 6 months of expenses",
+            description:
+              "Keep a cash buffer to ensure financial peace of mind during market shifts.",
+            completed: false,
+          },
+          {
+            id: "income-sources",
+            title: "Build 2+ sources of income",
+            description:
+              "Establish multiple revenue streams across salary, products, and investment yields.",
+            completed: false,
+          },
+          {
+            id: "financial-independence",
+            title: "Become financially independent",
+            description:
+              "Reach a state where investments generate enough return to cover all living costs.",
+            completed: false,
+          },
+          {
+            id: "money-control",
+            title: "Reach a point where money doesn't control my major life decisions",
+            description:
+              "Gain total autonomy to choose work and life paths based solely on passion and purpose.",
+            completed: false,
+          },
+        ],
       },
       {
-        id: "pure-vegetarian",
-        title: "Go pure vegetarian",
-        description:
-          "No meat, no eggs. No exceptions, no 'just this once.' Years in and don't miss it.",
-        completed: true,
-        date: "2021",
+        id: "family",
+        num: "02.2",
+        titlePrimary: "Family &",
+        titleSecondary: "Belonging",
+        items: [
+          {
+            id: "parents-secure",
+            title: "Make my parents financially secure",
+            description:
+              "Ensure my parents never have to worry about healthcare, housing, or living costs.",
+            completed: false,
+          },
+          {
+            id: "parents-trip",
+            title: "Take my parents on an international trip",
+            description:
+              "Gift them an all-expenses-paid vacation abroad to experience new cultures.",
+            completed: false,
+          },
+          {
+            id: "parents-gift",
+            title: "Buy something meaningful for my parents from my own earnings",
+            description:
+              "Present them with a significant token of gratitude funded entirely by my work.",
+            completed: false,
+          },
+          {
+            id: "comfortable-home",
+            title: "Provide a comfortable home for my family",
+            description:
+              "Ensure a spacious, safe, and welcoming living environment for everyone.",
+            completed: false,
+          },
+          {
+            id: "quality-time",
+            title: "Spend meaningful quality time with my family",
+            description:
+              "Prioritize uninterrupted family dinners, trips, and daily conversations.",
+            completed: false,
+          },
+          {
+            id: "important-moments",
+            title: "Be there for my family during important moments",
+            description:
+              "Always show up for family celebrations, milestones, and emergencies.",
+            completed: false,
+          },
+        ],
       },
       {
-        id: "health-reset",
-        title: "Quit sugar, coffee, and packaged foods",
-        description:
-          "All at once. No cheat days. The hardest bugs to fix are the ones in your diet.",
-        completed: true,
-        date: "2019",
+        id: "relationship",
+        num: "02.3",
+        titlePrimary: "Relationship &",
+        titleSecondary: "Love",
+        items: [
+          {
+            id: "healthy-relationship",
+            title: "Continue building a healthy and strong relationship",
+            description:
+              "Nurture trust, open dialogue, empathy, and mutual understanding every single day.",
+            completed: false,
+          },
+          {
+            id: "mutual-growth",
+            title: "Support each other's personal and career growth",
+            description:
+              "Empower each other to pursue ambitious dreams while staying grounded.",
+            completed: false,
+          },
+          {
+            id: "travel-together",
+            title: "Travel somewhere unforgettable together",
+            description:
+              "Journey to breathtaking destinations and share life-changing travel experiences.",
+            completed: false,
+          },
+          {
+            id: "meaningful-memories",
+            title: "Create meaningful memories together",
+            description:
+              "Cherish everyday rituals, unexpected road trips, and quiet evenings together.",
+            completed: false,
+          },
+          {
+            id: "stable-future",
+            title: "Build a stable future together",
+            description:
+              "Lay a solid foundation of shared goals, financial harmony, and emotional security.",
+            completed: false,
+          },
+          {
+            id: "happy-family",
+            title: "Build a happy family together",
+            description:
+              "Create a warm, loving home environment filled with joy, kindness, and laughter.",
+            completed: false,
+          },
+        ],
       },
       {
-        id: "pushups-challenge",
-        title: "100 pushups in 200 seconds",
-        description:
-          "No breaks, no excuses. Just chest to floor, 100 times, under 3 minutes 20 seconds.",
-        completed: true,
-        date: "2024",
+        id: "health",
+        num: "02.4",
+        titlePrimary: "Physical &",
+        titleSecondary: "Emotional Health",
+        items: [
+          {
+            id: "fit-strong",
+            title: "Become genuinely fit and physically strong",
+            description:
+              "Build functional muscle, endurance, and physical strength through consistent training.",
+            completed: false,
+          },
+          {
+            id: "mentally-resilient",
+            title: "Become emotionally and mentally resilient",
+            description:
+              "Develop a calm, grounded mindset that navigates high-pressure situations with grace.",
+            completed: false,
+          },
+          {
+            id: "workout-routine",
+            title: "Build a consistent workout routine",
+            description:
+              "Establish a non-negotiable weekly training discipline without relying on motivation.",
+            completed: false,
+          },
+          {
+            id: "diet-sleep",
+            title: "Maintain a healthy diet and sleep schedule",
+            description:
+              "Fuel my body with clean nutrition, proper hydration, and 7-8 hours of quality sleep.",
+            completed: false,
+          },
+          {
+            id: "run-10k",
+            title: "Run a 10K",
+            description:
+              "Train systematically to complete a 10-kilometer run with good stamina.",
+            completed: false,
+          },
+          {
+            id: "health-lifestyle",
+            title: "Maintain my health as a lifelong lifestyle",
+            description:
+              "Treat longevity, movement, and wellness as permanent daily priorities.",
+            completed: false,
+          },
+          {
+            id: "handle-stress",
+            title: "Learn to handle stress, failure and uncertainty better",
+            description:
+              "Reframe setbacks as learning signals and remain steadfast during turbulent times.",
+            completed: false,
+          },
+        ],
       },
       {
-        id: "run-10k",
-        title: "Run a 10K under 60 minutes",
-        description:
-          "Currently can't run 3K without wanting to quit. Sub-60 is the goal. Finishing is the real goal.",
-        completed: false,
+        id: "experiences",
+        num: "02.5",
+        titlePrimary: "Life &",
+        titleSecondary: "Experiences",
+        items: [
+          {
+            id: "solo-trip",
+            title: "Take a solo trip abroad",
+            description:
+              "Navigate a foreign country entirely independently to test self-reliance.",
+            completed: false,
+          },
+          {
+            id: "travel-10-countries",
+            title: "Travel to 10 countries",
+            description:
+              "Explore diverse cultures, architectures, cuisines, and landscapes across the world.",
+            completed: false,
+          },
+          {
+            id: "live-3-cities",
+            title: "Live in 3 different cities",
+            description:
+              "Experience living in distinct tech hubs or cultural capitals to broaden perspective.",
+            completed: false,
+          },
+          {
+            id: "experience-snowfall",
+            title: "Experience snowfall",
+            description: "Stand under falling snow amidst winter mountains.",
+            completed: false,
+          },
+          {
+            id: "scuba-diving",
+            title: "Go scuba diving",
+            description:
+              "Explore coral reefs and underwater ecosystems below the ocean surface.",
+            completed: false,
+          },
+          {
+            id: "skydiving",
+            title: "Go skydiving",
+            description:
+              "Jump from 14,000 feet and experience adrenaline-filled freefall.",
+            completed: false,
+          },
+          {
+            id: "major-concert",
+            title: "Attend a major concert/sports event",
+            description:
+              "Feel the live stadium energy of a global music act or sports championship.",
+            completed: false,
+          },
+          {
+            id: "long-vacation",
+            title: "Take a long vacation without worrying about work",
+            description:
+              "Unplug completely from Slack, email, and code for multiple weeks.",
+            completed: false,
+          },
+          {
+            id: "dream-workspace",
+            title: "Build my dream home/workspace",
+            description:
+              "Design an ergonomic, aesthetically inspiring desk setup with ambient lighting.",
+            completed: false,
+          },
+        ],
       },
       {
-        id: "read-books",
-        title: "Read 50 non-fiction books",
-        description:
-          "Deepening perspective across psychology, system architecture, philosophy, and product engineering.",
-        completed: false,
-      },
-    ],
-  },
-  {
-    num: "03",
-    titlePrimary: "Explore.",
-    titleSecondary: "Wander & Discover",
-    items: [
-      {
-        id: "home-office",
-        title: "Build a dedicated home office & workspace",
-        description:
-          "Minimal setup with ambient lighting, ergonomic chair, dual monitors, and clean cable management.",
-        completed: true,
-        date: "Nov 2024",
-      },
-      {
-        id: "cities-living",
-        title: "Live in 3 different cities",
-        description:
-          "Experiencing distinct cultures, tech hubs, and lifestyles firsthand.",
-        completed: false,
-      },
-      {
-        id: "solo-travel",
-        title: "Travel solo abroad",
-        description:
-          "Stepping out of comfort zones into unfamiliar terrain, culture, and perspectives.",
-        completed: false,
-      },
-      {
-        id: "tech-conference",
-        title: "Attend a major global tech conference",
-        description:
-          "Connecting with global builders, founders, and engineers shaping the web.",
-        completed: false,
-      },
-    ],
-  },
-  {
-    num: "04",
-    titlePrimary: "Experience.",
-    titleSecondary: "Life & Beyond",
-    items: [
-      {
-        id: "mentor-developers",
-        title: "Mentor 10 aspiring developers",
-        description:
-          "Helping junior engineers navigate web development, portfolio building, and career growth.",
-        completed: true,
-        date: "2025",
-      },
-      {
-        id: "tech-talk",
-        title: "Give a tech talk or keynote",
-        description:
-          "Sharing lessons from building digital products, UI engineering, or scaling applications.",
-        completed: false,
-      },
-      {
-        id: "financial-independence",
-        title: "Achieve financial independence",
-        description:
-          "Building freedom through high-impact work, products, and investments.",
-        completed: false,
+        id: "personal-growth",
+        num: "02.6",
+        titlePrimary: "Personal",
+        titleSecondary: "Growth",
+        items: [
+          {
+            id: "read-50-books",
+            title: "Read 50 meaningful non-fiction books",
+            description:
+              "Absorb timeless ideas across psychology, philosophy, system design, and history.",
+            completed: false,
+          },
+          {
+            id: "excellent-communicator",
+            title: "Become an excellent communicator",
+            description:
+              "Articulate thoughts crisply, write persuasively, and listen with focus.",
+            completed: false,
+          },
+          {
+            id: "public-speaking",
+            title: "Become confident in public speaking",
+            description:
+              "Speak effortlessly in front of audiences large and small.",
+            completed: false,
+          },
+          {
+            id: "exceptional-discipline",
+            title: "Develop exceptional discipline",
+            description:
+              "Build extreme consistency and focus, executing plans regardless of mood.",
+            completed: false,
+          },
+          {
+            id: "learn-cooking",
+            title: "Learn cooking",
+            description:
+              "Master preparing wholesome, delicious meals from scratch for myself and others.",
+            completed: false,
+          },
+          {
+            id: "learn-swimming",
+            title: "Learn swimming",
+            description:
+              "Become confident and skilled swimming in deep pools and open waters.",
+            completed: false,
+          },
+          {
+            id: "learn-language",
+            title: "Learn another language",
+            description:
+              "Achieve conversational fluency in a new spoken language.",
+            completed: false,
+          },
+          {
+            id: "time-alone",
+            title: "Become comfortable spending time alone",
+            description:
+              "Find peace and productivity in quiet solitude without needing distraction.",
+            completed: false,
+          },
+          {
+            id: "stop-comparing",
+            title: "Stop comparing my journey with others",
+            description:
+              "Stay focused on my own growth curve, timeline, and core values.",
+            completed: false,
+          },
+          {
+            id: "freedom-time",
+            title: "Build a life that gives me freedom over my time",
+            description:
+              "Structure life so I have complete ownership over how every hour is spent.",
+            completed: false,
+          },
+        ],
       },
     ],
   },
 ];
 
 export default function BucketListPage() {
-  const allItems = bucketCategories.flatMap((cat) => cat.items);
-  const completedCount = allItems.filter((i) => i.completed).length;
-  const totalCount = allItems.length;
-  const progressPercent = Math.round((completedCount / totalCount) * 100);
+  const [activeTab, setActiveTab] = useState<"professional" | "personal">("professional");
+
+  const activeSection =
+    bucketSections.find((section) => section.id === activeTab) || bucketSections[0];
+
+  const tabs = [
+    { id: "professional" as const, label: "PROFESSIONAL" },
+    { id: "personal" as const, label: "PERSONAL" },
+  ];
 
   return (
-    <div className="w-full bg-[#0A0A0C] text-white min-h-screen pt-28 md:pt-36 selection:bg-[#E8342A]/30 selection:text-white">
+    <div className="w-full bg-white text-neutral-900 min-h-screen pt-28 md:pt-36 selection:bg-[#E8342A]/20 selection:text-[#E8342A]">
       {/* Container matching main layout grid */}
       <div className="w-full max-w-[1168px] mx-auto px-4 md:px-8 flex flex-col items-center gap-12 md:gap-16 pb-20">
-        
         {/* Header Hero Section */}
         <div className="w-full flex flex-col items-center text-center gap-4 py-6 relative">
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#A3A3A3] font-mono"
+            className="flex items-center gap-2 text-xs uppercase tracking-widest text-neutral-500 font-mono"
           >
             <span className="text-[#E8342A]">✦</span>
             <span>BUCKET LIST</span>
@@ -245,7 +599,7 @@ export default function BucketListPage() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-notch text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white flex flex-wrap items-center justify-center gap-x-3 gap-y-1"
+            className="font-notch text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-neutral-900 flex flex-wrap items-center justify-center gap-x-3 gap-y-1"
           >
             <span>Checked &amp;</span>{" "}
             <span className="font-serif italic font-normal bg-gradient-to-r from-[#FF3B83] via-[#FF5E62] to-[#FF9966] bg-clip-text text-transparent">
@@ -257,125 +611,160 @@ export default function BucketListPage() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-sm sm:text-base text-[#A1A1AA] font-light max-w-xl pt-2 leading-relaxed"
+            className="text-sm sm:text-base text-neutral-600 font-light max-w-xl pt-2 leading-relaxed"
           >
-            A personal log of milestones, adventures, and lifetime goals — some completed, others in progress.
+            A personal blueprint of lifetime ambitions — organized into Professional engineering goals and Personal life growth.
           </motion.p>
 
-          {/* Progress Indicator Banner */}
+          {/* Section Filter Tabs with Smooth Sliding Pill */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-6 flex flex-col items-center gap-2 bg-[#141417] border border-white/10 rounded-2xl px-6 py-3 shadow-xl"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-6 inline-flex items-center p-1.5 bg-neutral-100 border border-neutral-200/80 rounded-full shadow-xs relative"
           >
-            <div className="flex items-center gap-3 text-xs font-notch font-medium">
-              <span className="text-[#A1A1AA]">Progress</span>
-              <span className="text-[#E8342A] font-bold">
-                {completedCount} of {totalCount} completed ({progressPercent}%)
-              </span>
-            </div>
-            <div className="w-48 sm:w-64 h-1.5 bg-white/10 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-[#E8342A] to-[#FF6B6B] rounded-full transition-all duration-1000 ease-out"
-                style={{ width: `${progressPercent}%` }}
-              />
-            </div>
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`relative px-6 py-2.5 rounded-full text-xs font-mono transition-colors duration-300 select-none z-10 ${
+                    isActive ? "text-white font-medium" : "text-neutral-600 hover:text-neutral-900"
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTabPill"
+                      className="absolute inset-0 bg-[#E8342A] rounded-full -z-10 shadow-md"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  {tab.label}
+                </button>
+              );
+            })}
           </motion.div>
         </div>
 
-        {/* Categories Sections Grid */}
-        <div className="w-full flex flex-col gap-16 md:gap-24">
-          {bucketCategories.map((category) => (
-            <section
-              key={category.num}
-              className="w-full grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start border-t border-white/[0.08] pt-8 md:pt-12"
+        {/* Animated Section Content Switching */}
+        <div className="w-full">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeSection.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="w-full flex flex-col gap-12 md:gap-16"
             >
-              {/* Left Column (Sticky Title Category) */}
-              <div className="md:col-span-4 flex flex-col items-start md:sticky md:top-28">
-                <span className="text-xs font-mono text-[#71717A] tracking-wider mb-2">
-                  {category.num}
-                </span>
-                <h2 className="font-notch font-bold text-3xl sm:text-4xl text-white tracking-tight leading-tight">
-                  {category.titlePrimary}
-                </h2>
-                <h3 className="font-serif italic text-2xl sm:text-3xl text-[#71717A] font-normal leading-tight">
-                  {category.titleSecondary}
-                </h3>
+              {/* Section Header Banner */}
+              <div className="w-full border-b border-neutral-200 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div className="flex flex-col gap-2">
+                  <span className="text-xs font-mono tracking-widest text-[#E8342A] uppercase font-bold">
+                    {activeSection.badge}
+                  </span>
+                  <h2 className="font-notch text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900">
+                    {activeSection.title}
+                  </h2>
+                </div>
+                <p className="text-xs sm:text-sm text-neutral-600 font-light max-w-md">
+                  {activeSection.description}
+                </p>
               </div>
 
-              {/* Right Column (Bucket Items List) */}
-              <div className="md:col-span-8 flex flex-col divide-y divide-white/[0.08]">
-                {category.items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="py-5 first:pt-0 last:pb-0 flex items-start gap-3.5 sm:gap-4 group"
+              {/* Subcategories list */}
+              <div className="w-full flex flex-col gap-16 md:gap-24">
+                {activeSection.categories.map((category) => (
+                  <section
+                    key={category.id}
+                    className="w-full grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start"
                   >
-                    {/* Checkbox Icon */}
-                    <div className="shrink-0 pt-0.5 select-none">
-                      {item.completed ? (
-                        <div className="w-5 h-5 rounded bg-white/10 border border-white/20 text-white flex items-center justify-center shadow-xs group-hover:border-[#E8342A]/60 group-hover:text-[#E8342A] transition-colors">
-                          <CheckSquare className="w-3.5 h-3.5 stroke-[2.5]" />
-                        </div>
-                      ) : (
-                        <div className="w-5 h-5 rounded border border-white/20 bg-transparent flex items-center justify-center group-hover:border-white/40 transition-colors">
-                          <Square className="w-3.5 h-3.5 text-transparent" />
-                        </div>
-                      )}
+                    {/* Left Column (Sticky Title Category) */}
+                    <div className="md:col-span-4 flex flex-col items-start md:sticky md:top-28">
+                      <h3 className="font-notch font-bold text-3xl sm:text-4xl text-neutral-900 tracking-tight leading-tight">
+                        {category.titlePrimary}
+                      </h3>
+                      <h4 className="font-serif italic text-2xl sm:text-3xl text-neutral-500 font-normal leading-tight">
+                        {category.titleSecondary}
+                      </h4>
                     </div>
 
-                    {/* Content Block */}
-                    <div className="flex flex-col flex-1 gap-1">
-                      <div className="flex items-center justify-between gap-3 flex-wrap">
-                        {/* Title */}
-                        <div className="flex items-center gap-1.5">
-                          {item.link ? (
-                            <Link
-                              href={item.link}
-                              className={`font-notch text-base sm:text-lg font-medium transition-colors flex items-center gap-1 hover:underline ${
-                                item.completed
-                                  ? "text-white hover:text-[#E8342A]"
-                                  : "text-[#A1A1AA] hover:text-white"
+                    {/* Right Column (Bucket Items List) */}
+                    <div className="md:col-span-8 flex flex-col divide-y divide-neutral-200/70">
+                      {category.items.map((item) => (
+                        <div
+                          key={item.id}
+                          className="py-5 first:pt-0 last:pb-0 flex items-start gap-3.5 sm:gap-4 group"
+                        >
+                          {/* Checkbox Icon */}
+                          <div className="shrink-0 pt-0.5 select-none">
+                            {item.completed ? (
+                              <div className="w-5 h-5 rounded bg-[#E8342A] text-white flex items-center justify-center shadow-xs">
+                                <CheckSquare className="w-3.5 h-3.5 stroke-[2.5]" />
+                              </div>
+                            ) : (
+                              <div className="w-5 h-5 rounded border border-neutral-300 bg-white flex items-center justify-center group-hover:border-neutral-500 transition-colors shadow-2xs">
+                                <Square className="w-3.5 h-3.5 text-transparent" />
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Content Block */}
+                          <div className="flex flex-col flex-1 gap-1">
+                            <div className="flex items-center justify-between gap-3 flex-wrap">
+                              {/* Title */}
+                              <div className="flex items-center gap-1.5">
+                                {item.link ? (
+                                  <Link
+                                    href={item.link}
+                                    className={`font-notch text-base sm:text-lg font-medium transition-colors flex items-center gap-1 hover:underline ${
+                                      item.completed
+                                        ? "text-neutral-900 hover:text-[#E8342A]"
+                                        : "text-neutral-800 hover:text-[#E8342A]"
+                                    }`}
+                                  >
+                                    <span>{item.title}</span>
+                                    <ArrowUpRight className="w-4 h-4 opacity-70" />
+                                  </Link>
+                                ) : (
+                                  <h4
+                                    className={`font-notch text-base sm:text-lg font-medium transition-colors ${
+                                      item.completed
+                                        ? "text-neutral-900 group-hover:text-[#E8342A]"
+                                        : "text-neutral-800 group-hover:text-[#E8342A]"
+                                    }`}
+                                  >
+                                    {item.title}
+                                  </h4>
+                                )}
+                              </div>
+
+                              {/* Completion Date Badge */}
+                              {item.completed && item.date && (
+                                <span className="bg-neutral-100 border border-neutral-200 text-neutral-600 text-xs px-3 py-0.5 rounded-full font-mono whitespace-nowrap shadow-2xs">
+                                  {item.date}
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Description */}
+                            <p
+                              className={`text-xs sm:text-[13px] font-light leading-relaxed ${
+                                item.completed ? "text-neutral-500" : "text-neutral-500"
                               }`}
                             >
-                              <span>{item.title}</span>
-                              <ArrowUpRight className="w-4 h-4 opacity-70" />
-                            </Link>
-                          ) : (
-                            <h4
-                              className={`font-notch text-base sm:text-lg font-medium transition-colors ${
-                                item.completed
-                                  ? "text-white group-hover:text-[#E8342A]"
-                                  : "text-[#A1A1AA] group-hover:text-white"
-                              }`}
-                            >
-                              {item.title}
-                            </h4>
-                          )}
+                              {item.description}
+                            </p>
+                          </div>
                         </div>
-
-                        {/* Completion Date Badge */}
-                        {item.completed && item.date && (
-                          <span className="bg-white/[0.06] border border-white/10 text-neutral-400 text-xs px-3 py-0.5 rounded-full font-mono whitespace-nowrap shadow-xs">
-                            {item.date}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Description */}
-                      <p
-                        className={`text-xs sm:text-[13px] font-light leading-relaxed ${
-                          item.completed ? "text-[#A1A1AA]" : "text-[#71717A]"
-                        }`}
-                      >
-                        {item.description}
-                      </p>
+                      ))}
                     </div>
-                  </div>
+                  </section>
                 ))}
               </div>
-            </section>
-          ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 

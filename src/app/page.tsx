@@ -10,6 +10,7 @@ import ProjectCard, { ProjectData } from "@/components/ProjectCard";
 import SSWholesaleSlideshowModal from "@/components/SSWholesaleSlideshowModal";
 import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
 import CurvedLoop from "@/components/CurvedLoop";
+import StickerPeel from "@/components/StickerPeel";
 
 interface ClientLogoItem {
   name: string;
@@ -59,20 +60,6 @@ const featuredProjects: ProjectData[] = [
     featured: true,
   },
   {
-    id: "interwove",
-    title: "Interwove",
-    category: "Web Development",
-    tags: ["WEB DEVELOPMENT", "E-COMMERCE", "BRANDING"],
-    description:
-      "Premium luxury apparel e-commerce store built for Interwove featuring seamless shopping experience, refined product showcases, custom storefront, and responsive design.",
-    imageUrl: "/interwove.png",
-    linkText: "Visit Store",
-    linkUrl: "https://interwove.in",
-    gradientBg:
-      "linear-gradient(173deg, rgb(248, 246, 242) 10%, rgb(230, 225, 215) 90%)",
-    featured: true,
-  },
-  {
     id: "inka",
     title: "Inka",
     category: "Mobile Apps",
@@ -84,6 +71,20 @@ const featuredProjects: ProjectData[] = [
     linkUrl: "https://github.com/Saravanaofficialpmv",
     gradientBg:
       "linear-gradient(173deg, rgb(255, 242, 238) 10%, rgb(255, 218, 210) 90%)",
+    featured: true,
+  },
+  {
+    id: "interwove",
+    title: "Interwove",
+    category: "Web Development",
+    tags: ["WEB DEVELOPMENT", "E-COMMERCE", "BRANDING"],
+    description:
+      "Premium luxury apparel e-commerce store built for Interwove featuring seamless shopping experience, refined product showcases, custom storefront, and responsive design.",
+    imageUrl: "/interwove.png",
+    linkText: "Visit Store",
+    linkUrl: "https://interwove.in",
+    gradientBg:
+      "linear-gradient(173deg, rgb(248, 246, 242) 10%, rgb(230, 225, 215) 90%)",
     featured: true,
   },
   {
@@ -223,14 +224,28 @@ export default function Home() {
       </section>
 
       {/* 2. About Brief Section */}
-      <section className="w-full max-w-[1168px] grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-6 border-y border-[#E0E0E0]">
+      <section className="w-full max-w-[1168px] grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-6 border-y border-[#E0E0E0] relative">
         <div className="flex flex-col gap-2">
           <span className="text-xs uppercase tracking-widest text-[#A3A3A3] font-medium">
             KNOW ME
           </span>
-          <h2 className="font-notch font-normal text-2xl md:text-3xl text-[#171717]">
-            Little about <span className="text-[#5C5C5C]">myself.</span>
-          </h2>
+          <div className="flex items-center gap-3 flex-wrap">
+            <h2 className="font-notch font-normal text-2xl md:text-3xl text-[#171717] flex items-center gap-3">
+              <span>Little about <span className="text-[#5C5C5C]">myself.</span></span>
+            </h2>
+            <div className="relative w-16 h-16 shrink-0 -my-3">
+              <StickerPeel
+                imageSrc="/icon.svg"
+                width={70}
+                rotate={12}
+                peelBackHoverPct={35}
+                peelBackActivePct={55}
+                shadowIntensity={0.4}
+                lightingIntensity={0}
+                initialPosition="center"
+              />
+            </div>
+          </div>
           <p className="text-sm md:text-base text-[#171717] font-light leading-relaxed pt-2">
             <span className="font-semibold text-[#171717]">I&apos;m Saravana.</span> I started in engineering, moved to design, and somewhere along the way started building of my own, giving me a different instinct &mdash; less &ldquo;make it pretty,&rdquo; more &ldquo;will this actually work, and would someone use it.&rdquo;
           </p>

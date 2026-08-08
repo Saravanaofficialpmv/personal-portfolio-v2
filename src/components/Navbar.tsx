@@ -38,6 +38,7 @@ const searchableItems = [
   { name: "Selected Works", category: "Page", path: "/works" },
   { name: "Resume & Education", category: "Page", path: "/resume" },
   { name: "Bucket List", category: "Page", path: "/bucket-list" },
+  { name: "Guestbook", category: "Page", path: "/guestbook" },
   { name: "Inka Billing App", category: "Project", path: "/works#inka" },
   { name: "SS Wholesale", category: "Project", path: "/works#ss-wholesale" },
   { name: "AquaWind IoT", category: "Project", path: "/works#aquawind" },
@@ -201,11 +202,9 @@ export default function Navbar() {
               >
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
                   {/* Card 1: Guestbook */}
-                  <button
-                    onClick={() => {
-                      setIsMoreOpen(false);
-                      setIsBookModalOpen(true);
-                    }}
+                  <Link
+                    href="/guestbook"
+                    onClick={() => setIsMoreOpen(false)}
                     className="relative h-28 sm:h-48 rounded-xl sm:rounded-2xl overflow-hidden group border border-white/10 flex flex-col justify-end p-3 sm:p-4 transition-transform duration-300 hover:scale-[1.02] cursor-pointer text-left w-full"
                   >
                     <Image
@@ -223,7 +222,7 @@ export default function Navbar() {
                         Let me know you were here
                       </p>
                     </div>
-                  </button>
+                  </Link>
 
                   {/* Card 2: Bucket List */}
                   <Link

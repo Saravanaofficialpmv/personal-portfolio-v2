@@ -24,20 +24,6 @@ const allProjects: ProjectData[] = [
     featured: true,
   },
   {
-    id: "interwove",
-    title: "Interwove",
-    category: "Web Development",
-    tags: ["WEB DEVELOPMENT", "E-COMMERCE", "BRANDING", "UI/UX DESIGN"],
-    description:
-      "Premium luxury apparel e-commerce store built for Interwove featuring seamless shopping experience, refined product showcases, custom storefront, and responsive design.",
-    imageUrl: "/interwove.png",
-    linkText: "Visit Store",
-    linkUrl: "https://interwove.in",
-    gradientBg:
-      "linear-gradient(173deg, rgb(248, 246, 242) 10%, rgb(230, 225, 215) 90%)",
-    featured: true,
-  },
-  {
     id: "inka",
     title: "Inka",
     category: "Mobile Applications",
@@ -52,17 +38,17 @@ const allProjects: ProjectData[] = [
     featured: true,
   },
   {
-    id: "ss-wholesale",
-    title: "SS Wholesale",
-    category: "Mobile Applications",
-    tags: ["MOBILE APP", "FLUTTER", "FIREBASE", "OFFLINE SYNC"],
+    id: "interwove",
+    title: "Interwove",
+    category: "Web Development",
+    tags: ["WEB DEVELOPMENT", "E-COMMERCE", "BRANDING", "UI/UX DESIGN"],
     description:
-      "Mobile wholesale ordering application with inventory management, customer management, order tracking, offline synchronization, and Firebase backend.",
-    imageUrl: "/ss-wholesale.png",
-    linkText: "View Mobile App",
-    linkUrl: "https://github.com/Saravanaofficialpmv",
+      "Premium luxury apparel e-commerce store built for Interwove featuring seamless shopping experience, refined product showcases, custom storefront, and responsive design.",
+    imageUrl: "/interwove.png",
+    linkText: "Visit Store",
+    linkUrl: "https://interwove.in",
     gradientBg:
-      "linear-gradient(174deg, rgb(238, 247, 255) 10%, rgb(215, 235, 255) 90%)",
+      "linear-gradient(173deg, rgb(248, 246, 242) 10%, rgb(230, 225, 215) 90%)",
     featured: true,
   },
   {
