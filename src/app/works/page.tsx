@@ -24,6 +24,25 @@ const allProjects: ProjectData[] = [
     featured: true,
   },
   {
+    id: "awenest",
+    title: "Awenest",
+    category: "Web Development",
+    tags: ["WEB DEVELOPMENT", "US BRAND", "E-COMMERCE", "FULL-PAGE WORK"],
+    description:
+      "Custom e-commerce storefront for US-based eco-conscious lifestyle brand Awenest. Designed with interactive product catalogs, full-page responsive layouts, and a refined shopping experience.",
+    imageUrl: "/awenest.png",
+    secondaryImageUrl: "/awenest-store.png",
+    primaryImageTitle: "Homepage",
+    secondaryImageTitle: "Product Page",
+    linkText: "Preview the UI",
+    gradientBg:
+      "linear-gradient(173deg, rgb(240, 248, 240) 10%, rgb(215, 238, 220) 90%)",
+    featured: true,
+    isPreviewModal: true,
+    imageFit: "contain",
+    imageBg: "#ADADAD",
+  },
+  {
     id: "inka",
     title: "Inka",
     category: "Mobile Applications",

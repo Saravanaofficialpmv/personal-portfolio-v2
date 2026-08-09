@@ -13,7 +13,10 @@ import {
   Copy,
   Check,
   CheckCircle2,
+  User,
+  Send,
 } from "lucide-react";
+import { db, collection, addDoc } from "@/lib/firebase";
 
 interface BookACallModalProps {
   isOpen: boolean;
@@ -26,9 +29,12 @@ export default function BookACallModal({
   onClose,
   onOpenSearch,
 }: BookACallModalProps) {
+  const [step, setStep] = useState<"message" | "details" | "success">("message");
   const [message, setMessage] = useState("");
+  const [senderName, setSenderName] = useState("");
+  const [senderContact, setSenderContact] = useState("");
   const [copied, setCopied] = useState(false);
-  const [sentSuccess, setSentSuccess] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
   useEffect(() => {
     (async function () {
@@ -41,8 +47,6 @@ export default function BookACallModal({
     })();
   }, []);
 
-  const [isSending, setIsSending] = useState(false);
-
   const email = "saravanapmvofficial@gmail.com";
 
   const handleCopyEmail = () => {
@@ -51,27 +55,49 @@ export default function BookACallModal({
     setTimeout(() => setCopied(false), 2500);
   };
 
+  const handleContinueToDetails = () => {
+    if (!message.trim()) return;
+    setStep("details");
+  };
+
   const handleSendMessage = async () => {
     if (!message.trim() || isSending) return;
     setIsSending(true);
 
+    const payload = {
+      message: message.trim(),
+      senderName: senderName.trim() || "Portfolio Visitor",
+      senderEmail: senderContact.trim() || "Not provided",
+      senderPhone: senderContact.trim() || "",
+    };
+
     try {
+      // 1. Send via Next.js Backend API (delivers to email + local storage)
       await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: message.trim(),
-          senderEmail: "Portfolio Popup Visitor",
-        }),
+        body: JSON.stringify(payload),
       });
 
-      setSentSuccess(true);
+      // 2. Also save to Firebase Firestore contact_messages collection for backup
+      try {
+        await addDoc(collection(db, "contact_messages"), {
+          ...payload,
+          timestamp: new Date().toISOString(),
+        });
+      } catch (fsErr) {
+        console.warn("Firestore backup warning:", fsErr);
+      }
+
+      setStep("success");
       setTimeout(() => {
-        setSentSuccess(false);
+        setStep("message");
         setMessage("");
+        setSenderName("");
+        setSenderContact("");
         setIsSending(false);
         onClose();
-      }, 2500);
+      }, 3500);
     } catch (err) {
       console.error("Failed to send message:", err);
       setIsSending(false);
@@ -130,18 +156,18 @@ export default function BookACallModal({
             </div>
 
             {/* Top Card: Send Saravana a message */}
-            <div className="bg-[#1C1C1E] border border-white/10 rounded-xl sm:rounded-2xl p-3.5 sm:p-5 flex flex-col gap-2 sm:gap-3 relative overflow-hidden">
-              {sentSuccess ? (
-                <div className="py-4 sm:py-8 flex flex-col items-center justify-center gap-2 text-center">
-                  <CheckCircle2 className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-400 animate-bounce" />
+            <div className="bg-[#1C1C1E] border border-white/10 rounded-xl sm:rounded-2xl p-3.5 sm:p-5 flex flex-col gap-2.5 sm:gap-3 relative overflow-hidden transition-all duration-300">
+              {step === "success" ? (
+                <div className="py-4 sm:py-6 flex flex-col items-center justify-center gap-2 text-center">
+                  <CheckCircle2 className="w-7 h-7 sm:w-9 sm:h-9 text-emerald-400 animate-bounce" />
                   <h4 className="font-notch text-sm sm:text-base font-semibold text-white">
-                    Message Sent!
+                    Message Delivered to Saravana!
                   </h4>
-                  <p className="text-[11px] sm:text-xs text-neutral-400 font-light">
-                    Thanks for reaching out. Saravana will get back to you soon.
+                  <p className="text-[11px] sm:text-xs text-neutral-300 font-light max-w-sm">
+                    Thanks {senderName || "friend"}! Your message and details have been sent directly to <strong className="text-white font-mono">saravanapmvofficial@gmail.com</strong>.
                   </p>
                 </div>
-              ) : (
+              ) : step === "message" ? (
                 <>
                   <div className="flex items-center gap-2.5 sm:gap-3">
                     <div className="relative w-7 h-7 sm:w-9 sm:h-9 rounded-full overflow-hidden border border-white/20 shrink-0">
@@ -170,7 +196,7 @@ export default function BookACallModal({
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && !e.shiftKey) {
                         e.preventDefault();
-                        handleSendMessage();
+                        handleContinueToDetails();
                       }
                     }}
                     className="w-full bg-transparent text-xs sm:text-sm text-white placeholder-neutral-500 outline-none resize-none pt-0.5 font-light"
@@ -188,15 +214,74 @@ export default function BookACallModal({
                       new line
                     </div>
                     <button
-                      onClick={handleSendMessage}
-                      disabled={!message.trim() || isSending}
+                      onClick={handleContinueToDetails}
+                      disabled={!message.trim()}
                       className="bg-white/10 hover:bg-white/20 border border-white/10 text-white disabled:opacity-40 disabled:cursor-not-allowed rounded-full px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-xs font-medium transition-all flex items-center justify-center gap-1.5 cursor-pointer ml-auto"
                     >
-                      <span>{isSending ? "Sending..." : "Continue"}</span>
+                      <span>Continue</span>
                       <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                     </button>
                   </div>
                 </>
+              ) : (
+                /* STEP 2: SENDER DETAILS (NAME & EMAIL/PHONE) */
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <User className="w-4 h-4 text-[#E8342A]" />
+                      <span className="font-notch text-xs sm:text-sm font-semibold text-white">
+                        Where should Saravana get back to you?
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => setStep("message")}
+                      className="text-[10px] sm:text-xs text-neutral-400 hover:text-white underline cursor-pointer"
+                    >
+                      Edit message
+                    </button>
+                  </div>
+
+                  {/* Quoted Message Preview */}
+                  <div className="bg-white/5 border-l-2 border-[#E8342A] p-2 sm:p-2.5 rounded-r-lg text-xs text-neutral-300 italic truncate max-w-full">
+                    &ldquo;{message}&rdquo;
+                  </div>
+
+                  {/* Visitor Contact Fields */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <input
+                      type="text"
+                      placeholder="Your Name *"
+                      value={senderName}
+                      onChange={(e) => setSenderName(e.target.value)}
+                      className="w-full bg-[#141416] border border-white/10 focus:border-[#E8342A] rounded-xl px-3 py-2 text-xs text-white placeholder-neutral-500 outline-none font-light transition-colors"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Email or Phone *"
+                      value={senderContact}
+                      onChange={(e) => setSenderContact(e.target.value)}
+                      className="w-full bg-[#141416] border border-white/10 focus:border-[#E8342A] rounded-xl px-3 py-2 text-xs text-white placeholder-neutral-500 outline-none font-light transition-colors"
+                    />
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex items-center justify-between gap-2 pt-1">
+                    <button
+                      onClick={() => setStep("message")}
+                      className="px-3 py-1.5 rounded-full border border-white/10 text-neutral-400 hover:text-white text-xs font-medium cursor-pointer"
+                    >
+                      ← Back
+                    </button>
+                    <button
+                      onClick={handleSendMessage}
+                      disabled={isSending}
+                      className="bg-[#E8342A] hover:bg-[#d02e25] text-white disabled:opacity-50 rounded-full px-5 py-1.5 text-xs font-medium transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+                    >
+                      <Send className="w-3.5 h-3.5" />
+                      <span>{isSending ? "Sending to Email..." : "Send Message"}</span>
+                    </button>
+                  </div>
+                </div>
               )}
             </div>
 

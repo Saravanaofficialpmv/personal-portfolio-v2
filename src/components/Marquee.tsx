@@ -6,12 +6,14 @@ interface MarqueeProps {
   children: React.ReactNode;
   speed?: "slow" | "normal" | "fast";
   reverse?: boolean;
+  gap?: string;
 }
 
 export default function Marquee({
   children,
   speed = "normal",
   reverse = false,
+  gap = "gap-12",
 }: MarqueeProps) {
   const speedClass =
     speed === "fast"
@@ -28,10 +30,10 @@ export default function Marquee({
         maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
       }}
     >
-      <div className={`flex gap-12 py-2 ${speedClass} ${reverse ? "flex-row-reverse" : ""}`}>
-        <div className="flex items-center gap-12 shrink-0">{children}</div>
-        <div className="flex items-center gap-12 shrink-0">{children}</div>
-        <div className="flex items-center gap-12 shrink-0">{children}</div>
+      <div className={`flex ${gap} py-2 ${speedClass} ${reverse ? "flex-row-reverse" : ""}`}>
+        <div className={`flex items-center ${gap} shrink-0`}>{children}</div>
+        <div className={`flex items-center ${gap} shrink-0`}>{children}</div>
+        <div className={`flex items-center ${gap} shrink-0`}>{children}</div>
       </div>
     </div>
   );

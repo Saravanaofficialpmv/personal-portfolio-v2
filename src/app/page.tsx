@@ -9,7 +9,6 @@ import Marquee from "@/components/Marquee";
 import ProjectCard, { ProjectData } from "@/components/ProjectCard";
 import SSWholesaleSlideshowModal from "@/components/SSWholesaleSlideshowModal";
 import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
-import CurvedLoop from "@/components/CurvedLoop";
 import StickerPeel from "@/components/StickerPeel";
 
 interface ClientLogoItem {
@@ -58,6 +57,25 @@ const featuredProjects: ProjectData[] = [
     gradientBg:
       "linear-gradient(173deg, rgb(255, 250, 235) 10%, rgb(255, 235, 180) 90%)",
     featured: true,
+  },
+  {
+    id: "awenest",
+    title: "Awenest",
+    category: "Web Development",
+    tags: ["WEB DEVELOPMENT", "US BRAND", "E-COMMERCE", "FULL-PAGE WORK"],
+    description:
+      "Custom e-commerce storefront for US-based eco-conscious lifestyle brand Awenest. Designed with interactive product catalogs, full-page responsive layouts, and a refined shopping experience.",
+    imageUrl: "/awenest.png",
+    secondaryImageUrl: "/awenest-store.png",
+    primaryImageTitle: "Homepage",
+    secondaryImageTitle: "Product Page",
+    linkText: "Preview the UI",
+    gradientBg:
+      "linear-gradient(173deg, rgb(240, 248, 240) 10%, rgb(215, 238, 220) 90%)",
+    featured: true,
+    isPreviewModal: true,
+    imageFit: "contain",
+    imageBg: "#ADADAD",
   },
   {
     id: "inka",
@@ -355,17 +373,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Infinite Curved Interest Scroller */}
-      <div className="relative w-full max-w-[1168px] py-0 border-y border-[#E0E0E0] overflow-hidden">
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-white via-white/80 to-transparent" />
-        <CurvedLoop
-          marqueeText="Building Apps ✦ Designing Products ✦ Crafting Packaging ✦ Product Design ✦ Artificial Intelligence ✦ Mobile Applications ✦ Full-Stack Development ✦ Cloud Technologies ✦ System Architecture ✦"
-          speed={1.8}
-          curveAmount={40}
-          interactive={true}
-          className="font-notch fill-[#5C5C5C]"
-        />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-white via-white/80 to-transparent" />
+      {/* 4. Infinite Interest Marquee */}
+      <div className="relative w-full max-w-[1168px] py-4 border-y border-[#E0E0E0] overflow-hidden">
+        <Marquee speed="normal" gap="gap-6 sm:gap-8">
+          {interestItems.map((item, idx) => (
+            <div
+              key={idx}
+              className="flex items-center gap-6 sm:gap-8 font-notch text-base sm:text-lg md:text-xl font-normal text-[#5C5C5C] whitespace-nowrap shrink-0"
+            >
+              <span>{item}</span>
+              <span className="text-[#E8342A]">✦</span>
+            </div>
+          ))}
+        </Marquee>
       </div>
 
       {/* 6. My Works Showcase */}

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import AppIconsDock from "@/components/AppIconsDock";
 import AboutPhotoFrames from "@/components/AboutPhotoFrames";
+import JourneyBentoReel from "@/components/JourneyBentoReel";
 
 interface Experience {
   role: string;
@@ -60,32 +61,7 @@ const experiences: Experience[] = [
   },
 ];
 
-const journeyCards = [
-  {
-    title: "Inka Billing App",
-    subtitle: "Freelancer Billing & Revenue",
-    description: "Mobile app for freelancers to manage clients, track revenues, and generate invoices instantly.",
-    imageUrl: "/inka.png",
-  },
-  {
-    title: "SS Wholesale Platform",
-    subtitle: "Mobile & Backend",
-    description: "Wholesale ordering system with inventory management and offline Firebase synchronization.",
-    imageUrl: "/ss-wholesale.png",
-  },
-  {
-    title: "AquaWind IoT System",
-    subtitle: "Hardware & Cloud",
-    description: "Smart water management with ESP32 sensors and real-time cloud data visualization.",
-    imageUrl: "/aquawind.png",
-  },
-  {
-    title: "UniSphere Platform",
-    subtitle: "Mobile & Cloud System",
-    description: "Mobile application and digital platform integrating real-time analytics and campus management.",
-    imageUrl: "/unisphere.png",
-  },
-];
+
 
 
 
@@ -291,45 +267,7 @@ export default function AboutPage() {
       </section>
 
       {/* 5. Journey Horizontal Scroller Section */}
-      <section className="w-full max-w-[1168px] flex flex-col gap-6">
-        <div className="flex flex-col items-start gap-1">
-          <span className="text-xs uppercase tracking-widest text-[#A3A3A3] font-medium">
-            MY JOURNEY 2022 → 2026
-          </span>
-          <h2 className="font-notch font-normal text-2xl md:text-3xl text-[#171717]">
-            Being through <span className="text-[#5C5C5C]">so far.</span>
-          </h2>
-        </div>
-
-        <div className="w-full overflow-x-auto pb-4 flex gap-6 snap-x snap-mandatory scrollbar-none">
-          {journeyCards.map((card, i) => (
-            <div
-              key={i}
-              className="w-72 sm:w-80 shrink-0 snap-start bg-white border border-[#E0E0E0] rounded-2xl overflow-hidden shadow-sm flex flex-col group"
-            >
-              <div className="relative h-48 w-full bg-[#F7F7F7]">
-                <Image
-                  src={card.imageUrl}
-                  alt={card.title}
-                  fill
-                  className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-5 flex flex-col gap-2">
-                <h3 className="font-notch font-medium text-base text-[#171717]">
-                  {card.title}
-                </h3>
-                <span className="text-xs text-[#E8342A] font-semibold">
-                  {card.subtitle}
-                </span>
-                <p className="text-xs text-[#5C5C5C] font-light leading-relaxed pt-1">
-                  {card.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <JourneyBentoReel />
     </div>
   );
 }
