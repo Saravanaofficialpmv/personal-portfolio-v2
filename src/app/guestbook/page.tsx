@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Share2, Check, Sticker, Plus, Move, MousePointerClick, LayoutGrid, RotateCw, RotateCcw, Sparkles, RefreshCw, Database } from "lucide-react";
 import Image from "next/image";
@@ -121,16 +121,21 @@ export default function GuestbookPage() {
   const [selectedColor, setSelectedColor] = useState<StickerEntry["color"]>("mint");
   const boardRef = useRef<HTMLDivElement>(null);
 
-  const [getRandomAngle] = useState(() => () => {
+  const getRandomAngle = useCallback(() => {
     const angles = [-5, -4, -3, -2, 2, 3, 4, 5];
     return angles[Math.floor(Math.random() * angles.length)];
-  });
-  const [previewRotation, setPreviewRotation] = useState<number>(getRandomAngle);
+  }, []);
+
+  const [previewRotation, setPreviewRotation] = useState<number>(-3);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [clickPin, setClickPin] = useState<{ x: number; y: number } | null>(null);
   const [pastePos, setPastePos] = useState<{ x: number; y: number }>({ x: 20, y: 15 });
   const [viewMode, setViewMode] = useState<"canvas" | "grid">("canvas");
+
+  useEffect(() => {
+    setPreviewRotation(getRandomAngle());
+  }, [getRandomAngle]);
 
   // Real-time Firestore sync with LocalStorage backup
   useEffect(() => {
@@ -357,16 +362,7 @@ export default function GuestbookPage() {
 
           {/* Interactive Controls & View Switcher */}
           <div className="flex items-center gap-3 pt-3 flex-wrap justify-center">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 text-xs font-mono text-neutral-600">
-              <Database className={`w-3.5 h-3.5 ${dbStatus === "connected" ? "text-emerald-600 animate-pulse" : "text-amber-500"}`} />
-              <span>
-                {dbStatus === "connected"
-                  ? "LIVE FIRESTORE DB ONLINE • Click board to paste"
-                  : dbStatus === "error"
-                  ? `OFFLINE/RULES ISSUE (${dbErrorMessage || "Publish Rules in Firebase"})`
-                  : "Connecting to Wall Database..."}
-              </span>
-            </div>
+
 
             <div className="inline-flex items-center p-1 rounded-xl bg-neutral-200/80 border border-neutral-300 gap-1 text-xs">
               <button
@@ -493,7 +489,7 @@ export default function GuestbookPage() {
                 title="Re-roll random tilt angle"
               >
                 <RefreshCw className="w-3 h-3" />
-                <span>Re-roll Tilt ({previewRotation > 0 ? `+${previewRotation}°` : `${previewRotation}°`})</span>
+                <span suppressHydrationWarning>Re-roll Tilt ({previewRotation > 0 ? `+${previewRotation}°` : `${previewRotation}°`})</span>
               </button>
             </div>
 
