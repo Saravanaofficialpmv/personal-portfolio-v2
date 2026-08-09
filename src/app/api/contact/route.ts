@@ -94,17 +94,18 @@ ${newMessage.message}
 
     // 2. Dispatch via Resend API if API Key is configured
     const resendApiKey = process.env.RESEND_API_KEY;
-    if (resendApiKey) {
+    if (resendApiKey && resendApiKey !== "your_resend_api_key_here") {
       try {
         const resend = new Resend(resendApiKey);
-        await resend.emails.send({
+        const resendData = await resend.emails.send({
           from: "Portfolio Contact <onboarding@resend.dev>",
           to: DESTINATION_EMAIL,
           subject: emailSubject,
           html: emailHtml,
         });
+        console.log("✅ Resend email sent successfully:", resendData);
       } catch (emailErr) {
-        console.error("Resend email send error:", emailErr);
+        console.error("❌ Resend email error:", emailErr);
       }
     } else if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
       // 3. Dispatch via SMTP Nodemailer if SMTP credentials are set
