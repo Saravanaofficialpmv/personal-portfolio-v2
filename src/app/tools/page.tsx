@@ -58,14 +58,6 @@ const hardwareList: HardwareItem[] = [
     badgeColor: "bg-sky-50 text-sky-700 border-sky-200",
     imageSrc: "/gear/macbook-setup.png",
   },
-  {
-    id: "dynamic-mic",
-    title: "Kreo Kast Dynamic Studio Mic",
-    specs: "Dynamic Broadcast Microphone • XLR / USB-C",
-    badge: "XLR / AUDIO",
-    badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
-    imageSrc: "/gear/dynamic-mic.png",
-  },
 ];
 
 const devCraftToolsExtended: DevCraftTool[] = [
