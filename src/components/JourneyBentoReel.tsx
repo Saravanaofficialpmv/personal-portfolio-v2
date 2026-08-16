@@ -49,7 +49,7 @@ const realJourneyItems: JourneyBentoItem[] = [
     description:
       "Custom e-commerce storefront for US eco-conscious lifestyle brand Awenest with interactive product catalogs.",
     variant: "text-top",
-    imageUrl: "/awenest-store.png",
+    imageUrl: "/awenest.png",
     imageFit: "cover",
   },
   {

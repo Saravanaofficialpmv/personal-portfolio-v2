@@ -66,9 +66,12 @@ const featuredProjects: ProjectData[] = [
     description:
       "Custom e-commerce storefront for US-based eco-conscious lifestyle brand Awenest. Designed with interactive product catalogs, full-page responsive layouts, and a refined shopping experience.",
     imageUrl: "/awenest.png",
-    secondaryImageUrl: "/awenest-store.png",
+    modalImageUrl: "/awenest-home.png",
+    secondaryImageUrl: "/awenest-product.png",
     primaryImageTitle: "Homepage",
     secondaryImageTitle: "Product Page",
+    primaryUrl: "awenests.com",
+    secondaryUrl: "awenests.com/products/mag-pro-24oz",
     linkText: "Preview the UI",
     gradientBg:
       "linear-gradient(173deg, rgb(240, 248, 240) 10%, rgb(215, 238, 220) 90%)",

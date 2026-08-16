@@ -110,6 +110,60 @@ const getDifferentColor = (lastColor?: StickerEntry["color"]): StickerEntry["col
   return filtered[Math.floor(Math.random() * filtered.length)] || "pink";
 };
 
+const BOARD_SLOTS = [
+  { x: 4, y: 4 },
+  { x: 37, y: 4 },
+  { x: 69, y: 4 },
+  { x: 4, y: 36 },
+  { x: 37, y: 36 },
+  { x: 69, y: 36 },
+  { x: 4, y: 68 },
+  { x: 37, y: 68 },
+  { x: 69, y: 68 },
+  { x: 20, y: 20 },
+  { x: 53, y: 20 },
+  { x: 20, y: 52 },
+  { x: 53, y: 52 },
+];
+
+const getNonOverlappingPos = (
+  existingStickers: StickerEntry[],
+  preferredPos?: { x: number; y: number }
+): { x: number; y: number } => {
+  if (preferredPos) {
+    const isTooClose = existingStickers.some((st) => {
+      if (st.x === undefined || st.y === undefined) return false;
+      const dx = Math.abs(st.x - preferredPos.x);
+      const dy = Math.abs(st.y - preferredPos.y);
+      return dx < 24 && dy < 24;
+    });
+    if (!isTooClose) {
+      return preferredPos;
+    }
+  }
+
+  let bestSlot = BOARD_SLOTS[existingStickers.length % BOARD_SLOTS.length];
+  let maxMinDist = -1;
+
+  for (const slot of BOARD_SLOTS) {
+    let minDist = Infinity;
+    for (const st of existingStickers) {
+      const stX = st.x ?? 20;
+      const stY = st.y ?? 20;
+      const dx = slot.x - stX;
+      const dy = slot.y - stY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < minDist) minDist = dist;
+    }
+    if (minDist > maxMinDist) {
+      maxMinDist = minDist;
+      bestSlot = slot;
+    }
+  }
+
+  return bestSlot;
+};
+
 export const dynamic = "force-dynamic";
 
 export default function GuestbookPage() {
@@ -130,7 +184,7 @@ export default function GuestbookPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [clickPin, setClickPin] = useState<{ x: number; y: number } | null>(null);
-  const [pastePos, setPastePos] = useState<{ x: number; y: number }>({ x: 20, y: 15 });
+  const [pastePos, setPastePos] = useState<{ x: number; y: number }>({ x: 4, y: 4 });
   const [viewMode, setViewMode] = useState<"canvas" | "grid">("canvas");
 
   useEffect(() => {
@@ -172,8 +226,8 @@ export default function GuestbookPage() {
                 color: data.color || "yellow",
                 rotation: data.rotation || 0,
                 stamp: data.stamp || "STICKER NOTE ★",
-                x: data.x ?? 20,
-                y: data.y ?? 20,
+                x: data.x,
+                y: data.y,
                 createdAt: data.createdAt?.seconds || Date.now(),
               };
             });
@@ -181,12 +235,25 @@ export default function GuestbookPage() {
             // Sort newest first
             firebaseData.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
-            setStickers(firebaseData);
-            setSelectedColor(getDifferentColor(firebaseData[0]?.color));
+            // Prevent overlaps when loading existing items
+            const assignedStickers: StickerEntry[] = [];
+            for (const item of firebaseData) {
+              const targetPos = item.x !== undefined && item.y !== undefined ? { x: item.x, y: item.y } : undefined;
+              const nonOverlapping = getNonOverlappingPos(assignedStickers, targetPos);
+              assignedStickers.push({
+                ...item,
+                x: nonOverlapping.x,
+                y: nonOverlapping.y,
+              });
+            }
+
+            setStickers(assignedStickers);
+            setSelectedColor(getDifferentColor(assignedStickers[0]?.color));
+            setPastePos(getNonOverlappingPos(assignedStickers));
             
             // Backup to local storage
             try {
-              localStorage.setItem("guestbook_user_reviews", JSON.stringify(firebaseData));
+              localStorage.setItem("guestbook_user_reviews", JSON.stringify(assignedStickers));
             } catch (e) {
               console.warn("LocalStorage backup save error:", e);
             }
@@ -272,6 +339,9 @@ export default function GuestbookPage() {
       year: "numeric",
     });
 
+    // Ensure new sticker does not overlap any existing sticker
+    const targetPos = getNonOverlappingPos(stickers, pastePos);
+
     const newSticker: StickerEntry = {
       id: Date.now().toString(),
       name: name.trim() || "Visitor",
@@ -280,22 +350,21 @@ export default function GuestbookPage() {
       color: selectedColor,
       rotation: previewRotation,
       stamp: "STICKER NOTE ★",
-      x: pastePos.x,
-      y: pastePos.y,
+      x: targetPos.x,
+      y: targetPos.y,
     };
 
+    const updatedStickers = [newSticker, ...stickers];
+
     // Optimistically add sticker to local state immediately
-    setStickers((prev) => [newSticker, ...prev]);
+    setStickers(updatedStickers);
     setMessage("");
     setSelectedColor(getDifferentColor(newSticker.color));
     setPreviewRotation(getRandomAngle());
     setIsSubmitting(false);
 
-    // Shift next paste position slightly
-    setPastePos((prev) => ({
-      x: (prev.x + 14) % 70,
-      y: (prev.y + 12) % 70,
-    }));
+    // Calculate next available non-overlapping spot for subsequent paste
+    setPastePos(getNonOverlappingPos(updatedStickers));
 
     // Persist to Firestore in the background
     try {

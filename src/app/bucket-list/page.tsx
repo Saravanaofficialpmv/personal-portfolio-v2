@@ -564,34 +564,55 @@ export default function BucketListPage() {
   const [activeTab, setActiveTab] = useState<"professional" | "personal">("professional");
   const [clickedWords, setClickedWords] = useState<string[]>([]);
   const [isUnlocked, setIsUnlocked] = useState<boolean>(false);
-  const [justUnlocked, setJustUnlocked] = useState<boolean>(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("personal_bucket_unlocked");
     if (saved === "true") {
       setIsUnlocked(true);
-      setClickedWords(["Life", "Wealth", "Growth"]);
+      setClickedWords([]);
     }
   }, []);
 
   const handleWordClick = (word: string) => {
-    if (isUnlocked) return;
-    if (!clickedWords.includes(word)) {
-      const nextWords = [...clickedWords, word];
-      setClickedWords(nextWords);
-      if (nextWords.length === 3) {
-        setJustUnlocked(true);
-        setIsUnlocked(true);
-        localStorage.setItem("personal_bucket_unlocked", "true");
-        setTimeout(() => setJustUnlocked(false), 4000);
+    if (!isUnlocked) {
+      // Unlock sequence: "Life" -> "Wealth" -> "Growth"
+      const expectedUnlockSequence = ["Life", "Wealth", "Growth"];
+      const nextIndex = clickedWords.length;
+      if (word === expectedUnlockSequence[nextIndex]) {
+        const nextWords = [...clickedWords, word];
+        setClickedWords(nextWords);
+        if (nextWords.length === 3) {
+          setIsUnlocked(true);
+          localStorage.setItem("personal_bucket_unlocked", "true");
+          setClickedWords([]);
+        }
+      } else {
+        if (word === expectedUnlockSequence[0]) {
+          setClickedWords([word]);
+        } else {
+          setClickedWords([]);
+        }
+      }
+    } else {
+      // Lock sequence in reverse: "Growth" -> "Wealth" -> "Life"
+      const expectedLockSequence = ["Growth", "Wealth", "Life"];
+      const nextIndex = clickedWords.length;
+      if (word === expectedLockSequence[nextIndex]) {
+        const nextWords = [...clickedWords, word];
+        setClickedWords(nextWords);
+        if (nextWords.length === 3) {
+          setIsUnlocked(false);
+          setClickedWords([]);
+          localStorage.removeItem("personal_bucket_unlocked");
+        }
+      } else {
+        if (word === expectedLockSequence[0]) {
+          setClickedWords([word]);
+        } else {
+          setClickedWords([]);
+        }
       }
     }
-  };
-
-  const handleLockAgain = () => {
-    setIsUnlocked(false);
-    setClickedWords([]);
-    localStorage.removeItem("personal_bucket_unlocked");
   };
 
   const activeSection =
@@ -686,21 +707,10 @@ export default function BucketListPage() {
               {/* Section Header Banner */}
               <div className="w-full border-b border-neutral-200 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-2">
+                  <div>
                     <span className="text-xs font-mono tracking-widest text-[#E8342A] uppercase font-bold">
                       {activeSection.badge}
                     </span>
-                    {activeSection.id === "personal" && (
-                      <span
-                        className={`text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full border ${
-                          isUnlocked
-                            ? "bg-emerald-50 text-emerald-600 border-emerald-200"
-                            : "bg-amber-50 text-amber-600 border-amber-200"
-                        }`}
-                      >
-                        {isUnlocked ? "🔓 Unlocked" : "🔒 Protected Vault"}
-                      </span>
-                    )}
                   </div>
                   <h2 className="font-notch text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 flex items-center gap-2 flex-wrap">
                     {activeSection.id === "personal" ? (
@@ -710,7 +720,6 @@ export default function BucketListPage() {
                           className={`cursor-pointer hover:text-[#E8342A] transition-colors ${
                             clickedWords.includes("Life") ? "text-[#E8342A] underline underline-offset-4 decoration-[#E8342A]/40" : ""
                           }`}
-                          title="Click word 1: Life"
                         >
                           Life
                         </span>
@@ -720,7 +729,6 @@ export default function BucketListPage() {
                           className={`cursor-pointer hover:text-[#E8342A] transition-colors ${
                             clickedWords.includes("Wealth") ? "text-[#E8342A] underline underline-offset-4 decoration-[#E8342A]/40" : ""
                           }`}
-                          title="Click word 2: Wealth"
                         >
                           Wealth
                         </span>
@@ -730,7 +738,6 @@ export default function BucketListPage() {
                           className={`cursor-pointer hover:text-[#E8342A] transition-colors ${
                             clickedWords.includes("Growth") ? "text-[#E8342A] underline underline-offset-4 decoration-[#E8342A]/40" : ""
                           }`}
-                          title="Click word 3: Growth"
                         >
                           Growth
                         </span>
@@ -745,16 +752,6 @@ export default function BucketListPage() {
                   <p className="text-xs sm:text-sm text-neutral-600 font-light max-w-md">
                     {activeSection.description}
                   </p>
-                  {activeSection.id === "personal" && isUnlocked && (
-                    <button
-                      onClick={handleLockAgain}
-                      className="shrink-0 px-3 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-xs font-mono flex items-center gap-1.5 transition-colors cursor-pointer border border-neutral-200 shadow-2xs"
-                      title="Lock Personal Vault"
-                    >
-                      <Lock className="w-3.5 h-3.5 text-neutral-500" />
-                      <span>Lock</span>
-                    </button>
-                  )}
                 </div>
               </div>
 

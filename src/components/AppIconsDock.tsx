@@ -206,6 +206,90 @@ const toolsData: ToolItem[] = [
   },
 ];
 
+interface VerticalDockItemProps {
+  tool: ToolItem;
+  mouseY: MotionValue<number>;
+  isSelected?: boolean;
+  onSelect?: (tool: ToolItem) => void;
+}
+
+function VerticalDockIconItem({
+  tool,
+  mouseY,
+  isSelected,
+  onSelect,
+}: VerticalDockItemProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Calculate distance between mouse Y and vertical center of this icon
+  const distance = useTransform(mouseY, (val) => {
+    const bounds = ref.current?.getBoundingClientRect();
+    if (!bounds) return Infinity;
+    const windowScrollY = typeof window !== "undefined" ? window.scrollY : 0;
+    return val - (bounds.top + bounds.height / 2 + windowScrollY);
+  });
+
+  // Continuous bell-curve distance for smooth multi-icon wave [-150, 0, 150] -> [40, 62, 40]
+  const sizeSync = useTransform(distance, [-150, 0, 150], [40, 62, 40]);
+
+  // Feather-light spring physics matching authentic macOS Dock behavior
+  const size = useSpring(sizeSync, {
+    mass: 0.08,
+    stiffness: 170,
+    damping: 14,
+  });
+
+  return (
+    <div
+      ref={ref}
+      className="relative shrink-0 flex items-center justify-center cursor-pointer group"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onSelect?.(tool)}
+    >
+      {/* Floating Tooltip on Hover to the Right */}
+      <AnimatePresence>
+        {isHovered && (
+          <motion.div
+            initial={{ opacity: 0, x: -4, scale: 0.9 }}
+            animate={{ opacity: 1, x: 8, scale: 1 }}
+            exit={{ opacity: 0, x: -2, scale: 0.9 }}
+            transition={{ duration: 0.12, ease: "easeOut" }}
+            className="absolute left-full top-1/2 -translate-y-1/2 z-40 pointer-events-none whitespace-nowrap bg-[#171717] text-white text-xs font-mono font-medium px-3 py-1.5 rounded-lg shadow-xl border border-white/10 flex items-center gap-2"
+          >
+            <span>{tool.name}</span>
+            <span className="text-[10px] text-[#A3A3A3] border-l border-neutral-700 pl-2">
+              {tool.category}
+            </span>
+            <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-[#171717]" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Dynamic Animated Icon Box */}
+      <motion.div
+        style={{ width: size, height: size }}
+        whileTap={{ scale: 0.9 }}
+        className={`relative shrink-0 rounded-[12px] sm:rounded-[14px] overflow-hidden flex items-center justify-center p-0.5 transition-all shadow-sm bg-black ${
+          isSelected
+            ? "ring-2 ring-white ring-offset-2 ring-offset-[#18181B] opacity-100"
+            : "opacity-90 hover:opacity-100"
+        }`}
+      >
+        <Image
+          src={tool.image}
+          alt={tool.name}
+          width={80}
+          height={80}
+          className="w-full h-full object-cover rounded-[10px] sm:rounded-[12px] bg-black"
+          priority
+        />
+      </motion.div>
+    </div>
+  );
+}
+
 function DockIconItem({
   tool,
   mouseX,
@@ -257,18 +341,18 @@ function DockIconItem({
         )}
       </AnimatePresence>
 
-      {/* Dynamic Animated Icon Box (Expands layout width & height smoothly in bottom-aligned baseline) */}
+      {/* Dynamic Animated Icon Box */}
       <motion.div
         style={{ width, height: width }}
         whileTap={{ scale: 0.9 }}
-        className="relative shrink-0 rounded-[12px] sm:rounded-[14px] overflow-hidden cursor-pointer flex items-center justify-center p-0.5 opacity-90 hover:opacity-100 transition-opacity shadow-sm"
+        className="relative shrink-0 rounded-[12px] sm:rounded-[14px] overflow-hidden cursor-pointer flex items-center justify-center p-0.5 opacity-90 hover:opacity-100 transition-opacity shadow-sm bg-black"
       >
         <Image
           src={tool.image}
           alt={tool.name}
           width={80}
           height={80}
-          className="w-full h-full object-cover rounded-[10px] sm:rounded-[12px]"
+          className="w-full h-full object-cover rounded-[10px] sm:rounded-[12px] bg-black"
           priority
         />
       </motion.div>
@@ -276,8 +360,42 @@ function DockIconItem({
   );
 }
 
-export default function AppIconsDock() {
+export interface AppIconsDockProps {
+  orientation?: "horizontal" | "vertical";
+  activeToolId?: string;
+  onSelectTool?: (tool: ToolItem) => void;
+}
+
+export default function AppIconsDock({
+  orientation = "horizontal",
+  activeToolId,
+  onSelectTool,
+}: AppIconsDockProps) {
   const mouseX = useMotionValue(Infinity);
+  const mouseY = useMotionValue(Infinity);
+
+  if (orientation === "vertical") {
+    return (
+      <div className="flex justify-center p-2">
+        {/* Authentic Dark Vertical macOS Dock Capsule Bar */}
+        <motion.div
+          onMouseMove={(e) => mouseY.set(e.pageY)}
+          onMouseLeave={() => mouseY.set(Infinity)}
+          className="inline-flex flex-col items-center gap-2 sm:gap-2.5 p-2.5 sm:p-3 bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[26px] shadow-[0_16px_40px_rgba(0,0,0,0.5)] select-none"
+        >
+          {toolsData.map((tool) => (
+            <VerticalDockIconItem
+              key={tool.id}
+              tool={tool}
+              mouseY={mouseY}
+              isSelected={activeToolId === tool.id}
+              onSelect={onSelectTool}
+            />
+          ))}
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full flex justify-center py-4 px-2">
@@ -294,4 +412,5 @@ export default function AppIconsDock() {
     </div>
   );
 }
+
 

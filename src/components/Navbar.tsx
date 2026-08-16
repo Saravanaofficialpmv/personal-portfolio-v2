@@ -12,7 +12,6 @@ import {
   ChevronUp,
   Link2,
   BookOpen,
-  CreditCard,
   X,
   ArrowUpRight,
   Sparkles,
@@ -24,6 +23,7 @@ import {
   Package,
   Wrench,
   ExternalLink,
+  CreditCard,
 } from "lucide-react";
 
 const mainNavItems = [

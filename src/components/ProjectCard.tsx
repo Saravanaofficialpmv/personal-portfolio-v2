@@ -13,9 +13,12 @@ export interface ProjectData {
   tags: string[];
   description: string;
   imageUrl: string;
+  modalImageUrl?: string;
   secondaryImageUrl?: string;
   primaryImageTitle?: string;
   secondaryImageTitle?: string;
+  primaryUrl?: string;
+  secondaryUrl?: string;
   linkText?: string;
   linkUrl?: string;
   gradientBg?: string;
@@ -32,9 +35,15 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
-  const defaultActive = project.secondaryImageUrl || project.imageUrl;
-  const [activeImg, setActiveImg] = useState<string>(defaultActive);
+  const primaryImg = project.modalImageUrl || project.imageUrl;
+  const [activeImg, setActiveImg] = useState<string>(primaryImg);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      setActiveImg(project.modalImageUrl || project.imageUrl);
+    }
+  }, [isModalOpen, project.modalImageUrl, project.imageUrl]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -58,6 +67,22 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     "linear-gradient(173deg, rgb(238, 247, 255) 10%, rgb(230, 244, 255) 90%)";
 
   const isModalAction = project.isPreviewModal || (!project.linkUrl && project.isLongImage);
+
+  const getDisplayUrl = () => {
+    if (activeImg === project.secondaryImageUrl && project.secondaryUrl) {
+      return project.secondaryUrl.replace(/^https?:\/\//, "");
+    }
+    if (
+      (activeImg === project.modalImageUrl || activeImg === project.imageUrl) &&
+      project.primaryUrl
+    ) {
+      return project.primaryUrl.replace(/^https?:\/\//, "");
+    }
+    if (project.linkUrl) {
+      return project.linkUrl.replace(/^https?:\/\//, "");
+    }
+    return "awenests.com";
+  };
 
   return (
     <>
@@ -141,10 +166,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 </div>
 
                 {/* URL Pill */}
-                <div className="hidden sm:flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-white border border-[#D0D0D0] text-[11px] text-[#5C5C5C] font-mono truncate max-w-[120px] md:max-w-[160px]">
+                <div className="hidden sm:flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-white border border-[#D0D0D0] text-[11px] text-[#5C5C5C] font-mono truncate max-w-[120px] md:max-w-[200px]">
                   <Lock className="w-2.5 h-2.5 text-[#27C93F] shrink-0" />
                   <span className="truncate">
-                    {project.linkUrl ? project.linkUrl.replace(/^https?:\/\//, "") : "awenests.com"}
+                    {getDisplayUrl()}
                   </span>
                 </div>
 
@@ -154,9 +179,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                     <div className="flex items-center gap-0.5 sm:gap-1 bg-[#DEDEDE] p-0.5 rounded-md text-[10px] font-medium text-[#444]">
                       <button
                         type="button"
-                        onClick={() => setActiveImg(project.imageUrl)}
+                        onClick={() => setActiveImg(project.modalImageUrl || project.imageUrl)}
                         className={`px-2 py-0.5 rounded transition-colors cursor-pointer ${
-                          activeImg === project.imageUrl
+                          activeImg === (project.modalImageUrl || project.imageUrl)
                             ? "bg-white text-[#171717] shadow-xs font-semibold"
                             : "hover:text-[#000]"
                         }`}
@@ -271,7 +296,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                   </div>
                   <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-white border border-[#D0D0D0] text-xs text-[#5C5C5C] font-mono">
                     <Lock className="w-3 h-3 text-[#27C93F] shrink-0" />
-                    <span>{project.linkUrl ? project.linkUrl.replace(/^https?:\/\//, "") : "awenests.com"}</span>
+                    <span>{getDisplayUrl()}</span>
                   </div>
                   <span className="hidden md:inline-block text-xs font-semibold text-[#171717] font-notch">
                     {project.title} — Full UI Preview
@@ -283,9 +308,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                   <div className="flex items-center gap-1 bg-[#DEDEDE] p-1 rounded-lg text-xs font-medium text-[#444]">
                     <button
                       type="button"
-                      onClick={() => setActiveImg(project.imageUrl)}
+                      onClick={() => setActiveImg(project.modalImageUrl || project.imageUrl)}
                       className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
-                        activeImg === project.imageUrl
+                        activeImg === (project.modalImageUrl || project.imageUrl)
                           ? "bg-white text-[#171717] shadow-sm font-semibold"
                           : "hover:text-[#000]"
                       }`}
