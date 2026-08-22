@@ -10,6 +10,22 @@ import LogoShowcase from "@/components/LogoShowcase";
 
 const allProjects: ProjectData[] = [
   {
+    id: "tipsy",
+    title: "Tipsy 3D Avatar Maker",
+    category: "Web Development",
+    tags: ["OPEN SOURCE", "3D AVATAR STUDIO", "VECTOR ANIMATION", "NEXT.JS"],
+    description:
+      "Interactive procedural vector and 3D avatar creator featuring 22 organic animation states, 26 morphing shapes, real-time cursor gaze tracking, timeline montage editor, and universal multi-format exports (SVG, PNG, GIF, MP4).",
+    imageUrl: "/tipsy-mockup.png",
+    linkText: "Try Tipsy Studio",
+    linkUrl: "https://tibsy.saroo.online",
+    githubUrl: "https://github.com/Saravanaofficialpmv/Tipsy-Animated-avatar",
+    githubText: "GitHub Repo",
+    gradientBg:
+      "linear-gradient(173deg, rgb(246, 240, 255) 10%, rgb(230, 220, 255) 90%)",
+    featured: true,
+  },
+  {
     id: "heydigital",
     title: "HeyDigital",
     category: "Web Development",
@@ -229,15 +245,30 @@ export default function WorksPage() {
                       {project.description}
                     </p>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3">
                     <span className="text-xs text-[#A3A3A3] font-notch uppercase">
                       {project.category}
                     </span>
+                    {project.githubUrl && (
+                      <Link
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-lg bg-[#F7F7F7] border border-[#E0E0E0] text-[#171717] hover:bg-[#171717] hover:text-white transition-colors"
+                        title="GitHub Repository"
+                      >
+                        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                        </svg>
+                      </Link>
+                    )}
                     {project.linkUrl && (
                       <Link
                         href={project.linkUrl}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="p-2 rounded-lg bg-[#F7F7F7] border border-[#E0E0E0] text-[#171717] hover:bg-[#171717] hover:text-white transition-colors"
+                        title="Visit Project"
                       >
                         <ArrowUpRight className="w-4 h-4" />
                       </Link>

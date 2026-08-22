@@ -45,6 +45,22 @@ const interestItems = [
 
 const featuredProjects: ProjectData[] = [
   {
+    id: "tipsy",
+    title: "Tipsy 3D Avatar Maker",
+    category: "Web Development",
+    tags: ["OPEN SOURCE", "3D AVATARS", "VECTOR ANIMATION", "NEXT.JS"],
+    description:
+      "Open-source procedural vector and 3D avatar creator featuring 22 organic animation states, 26 morphing shapes, real-time cursor gaze tracking, timeline montage editor, and universal multi-format exports (SVG, PNG, GIF, MP4).",
+    imageUrl: "/tipsy-mockup.png",
+    linkText: "Try Tipsy Studio",
+    linkUrl: "https://tibsy.saroo.online",
+    githubUrl: "https://github.com/Saravanaofficialpmv/Tipsy-Animated-avatar",
+    githubText: "GitHub Repo",
+    gradientBg:
+      "linear-gradient(173deg, rgb(246, 240, 255) 10%, rgb(230, 220, 255) 90%)",
+    featured: true,
+  },
+  {
     id: "heydigital",
     title: "HeyDigital",
     category: "Web Development",
@@ -92,20 +108,6 @@ const featuredProjects: ProjectData[] = [
     linkUrl: "https://github.com/Saravanaofficialpmv",
     gradientBg:
       "linear-gradient(173deg, rgb(255, 242, 238) 10%, rgb(255, 218, 210) 90%)",
-    featured: true,
-  },
-  {
-    id: "interwove",
-    title: "Interwove",
-    category: "Web Development",
-    tags: ["WEB DEVELOPMENT", "E-COMMERCE", "BRANDING"],
-    description:
-      "Premium luxury apparel e-commerce store built for Interwove featuring seamless shopping experience, refined product showcases, custom storefront, and responsive design.",
-    imageUrl: "/interwove.png",
-    linkText: "Visit Store",
-    linkUrl: "https://interwove.in",
-    gradientBg:
-      "linear-gradient(173deg, rgb(248, 246, 242) 10%, rgb(230, 225, 215) 90%)",
     featured: true,
   },
   {

@@ -32,6 +32,16 @@ const realJourneyItems: JourneyBentoItem[] = [
     badgeAuthor: "2024 – Present",
   },
   {
+    id: "tipsy-avatar",
+    title: "Tipsy Avatar Maker",
+    subtitle: "Open Source 3D Vector Studio",
+    description:
+      "Procedural SVG & 3D avatar creator with 22 animations, 26 morphing shapes, gaze physics, and timeline exports.",
+    variant: "image-top",
+    imageUrl: "/tipsy-mockup.png",
+    imageFit: "cover",
+  },
+  {
     id: "inka-app",
     title: "Inka Billing App",
     subtitle: "Freelancer Billing & Revenue",
