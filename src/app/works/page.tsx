@@ -111,8 +111,8 @@ const allProjects: ProjectData[] = [
     description:
       "Mobile application & academic collaboration platform integrating smart features, real-time analytics, and cloud synchronization.",
     imageUrl: "/unisphere.png",
-    linkText: "View Mobile App",
-    linkUrl: "https://github.com/Saravanaofficialpmv",
+    linkText: "Explore App",
+    linkUrl: "https://unisphere.org.in",
     gradientBg:
       "linear-gradient(173deg, rgb(240, 235, 255) 10%, rgb(220, 210, 255) 90%)",
     featured: true,
@@ -169,14 +169,14 @@ export default function WorksPage() {
                 onClick={() => setActiveTab(tab.label)}
                 className={`px-3 sm:px-4 py-1.5 rounded-lg text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer ${
                   isActive
-                    ? "bg-[#171717] text-white shadow-sm"
+                    ? "bg-[#E8342A] text-white shadow-sm"
                     : "text-[#171717] hover:bg-[#E0E0E0]"
                 }`}
               >
                 {tab.label}{" "}
                 <span
                   className={
-                    isActive ? "text-white/70" : "text-[#A3A3A3]"
+                    isActive ? "text-white/85" : "text-[#A3A3A3]"
                   }
                 >
                   {tab.count}

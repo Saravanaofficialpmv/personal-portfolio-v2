@@ -133,7 +133,7 @@ const featuredProjects: ProjectData[] = [
       "Mobile application & academic collaboration platform integrating smart features, real-time analytics, and cloud synchronization.",
     imageUrl: "/unisphere.png",
     linkText: "Explore App",
-    linkUrl: "https://github.com/Saravanaofficialpmv",
+    linkUrl: "https://unisphere.org.in",
     gradientBg:
       "linear-gradient(173deg, rgb(240, 235, 255) 10%, rgb(220, 210, 255) 90%)",
     featured: true,

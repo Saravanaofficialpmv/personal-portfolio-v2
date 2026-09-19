@@ -74,7 +74,7 @@ const bucketSections: BucketSection[] = [
             title: "Build and launch 2+ real products",
             description:
               "Turn original ideas into production-ready software applications solving real user problems.",
-            completed: false,
+            completed: true,
           },
           {
             id: "revenue-product",
@@ -312,14 +312,14 @@ const bucketSections: BucketSection[] = [
             title: "Continue building a healthy and strong relationship",
             description:
               "Nurture trust, open dialogue, empathy, and mutual understanding every single day.",
-            completed: false,
+            completed: true,
           },
           {
             id: "mutual-growth",
             title: "Support each other's personal and career growth",
             description:
               "Empower each other to pursue ambitious dreams while staying grounded.",
-            completed: false,
+            completed: true,
           },
           {
             id: "travel-together",
@@ -538,7 +538,7 @@ const bucketSections: BucketSection[] = [
             title: "Become comfortable spending time alone",
             description:
               "Find peace and productivity in quiet solitude without needing distraction.",
-            completed: false,
+            completed: true,
           },
           {
             id: "stop-comparing",

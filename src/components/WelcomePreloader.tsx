@@ -61,7 +61,7 @@ export default function WelcomePreloader() {
             y: "-100%",
             transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] },
           }}
-          className="fixed inset-0 z-[100] bg-[#0d0e0e] flex items-center justify-center text-white select-none pointer-events-auto overflow-hidden"
+          className="fixed inset-0 z-[100] bg-[#0d0e0e] flex items-center justify-center text-white select-none pointer-events-auto overflow-hidden no-print"
         >
           {/* Fixed-layout stage ensuring diamonds sit perfectly STILL without moving */}
           <div className="relative flex items-center justify-center gap-2 sm:gap-4 px-2 h-28 sm:h-36 md:h-44">

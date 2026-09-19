@@ -1,229 +1,347 @@
 "use client";
 
-import { Download, ExternalLink } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function ResumePage() {
-  const handleDownload = () => {
-    // In production, trigger PDF download
-    alert("Downloading Saravana's Official Resume PDF...");
-  };
-
   return (
-    <div className="w-full flex flex-col items-center gap-12 md:gap-16 pt-28 md:pt-36 pb-16 px-4 md:px-8">
-      {/* Hero Header */}
-      <section className="w-full max-w-[1168px] flex flex-col items-center gap-6 text-center">
+    <div className="w-full flex flex-col items-center gap-10 md:gap-14 pt-28 md:pt-36 pb-20 px-4 sm:px-6 md:px-8 bg-[#FAFAFA] text-[#171717] print:p-0 print:gap-0 print:bg-white">
+      {/* Top Hero Controls (Hidden on Print) */}
+      <section className="w-full max-w-[820px] flex flex-col items-center gap-6 text-center no-print">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#5C5C5C]"
+          transition={{ duration: 0.4 }}
+          className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#5C5C5C] font-semibold"
         >
           <span className="text-[#E8342A]">✦</span>
           <span>RESUME</span>
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="font-notch font-medium text-4xl sm:text-6xl md:text-7xl text-[#171717] tracking-tight"
-        >
-          sure, let&apos;s keep it <span className="text-[#5C5C5C]">formal.</span>
-        </motion.h1>
+        <div className="flex flex-col items-center gap-3">
+          <h1 className="font-notch font-medium text-4xl sm:text-6xl md:text-7xl text-[#171717] tracking-tight leading-tight">
+            sure, let’s keep it <span className="text-[#5C5C5C]">formal</span>
+          </h1>
+          <p className="text-sm sm:text-base md:text-lg text-[#5C5C5C] font-normal max-w-md leading-relaxed">
+            For recruiters, hiring managers, and anyone who prefers the short version.
+          </p>
+        </div>
 
-        <p className="text-xs sm:text-sm text-[#5C5C5C] font-light max-w-md">
-          For recruiters, hiring managers, and anyone who prefers the short version.
-        </p>
-
-        <button
-          onClick={handleDownload}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#171717] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#333333] transition-all cursor-pointer shadow-md hover:shadow-lg"
-        >
-          <span>Download</span>
-          <Download className="w-4 h-4" />
-        </button>
+        {/* Action Button: DOWNLOAD RESUME */}
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <a
+            href="/saravana-resume.pdf"
+            download="Saravana_S_Resume.pdf"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#171717] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#333333] transition-all cursor-pointer shadow-sm hover:shadow-md active:scale-95"
+          >
+            <span>DOWNLOAD RESUME</span>
+            <ArrowDown className="w-4 h-4 text-[#E8342A]" />
+          </a>
+        </div>
       </section>
 
-      {/* Styled Printable Paper Resume Document */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-        className="w-full max-w-[840px] bg-white border border-[#E0E0E0] rounded-2xl md:rounded-[24px] p-6 sm:p-10 md:p-14 shadow-xl flex flex-col gap-8 text-[#171717]"
-      >
-        {/* Document Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#E0E0E0] pb-6">
-          <div className="flex flex-col">
-            <h2 className="font-notch font-bold text-2xl sm:text-3xl tracking-tight text-[#171717]">
-              SARAVANA S
-            </h2>
-            <p className="text-xs text-[#E8342A] font-semibold pt-0.5">
-              Product Designer • AI &amp; DS Student • Full-Stack Developer
-            </p>
-            <div className="flex items-center gap-3 text-xs text-[#5C5C5C] pt-1">
-              <a
-                href="https://www.linkedin.com/in/saravana-selvaraju/"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-[#E8342A] transition-colors"
-              >
-                linkedin.com/in/saravana-selvaraju
-              </a>
-              <span>•</span>
-              <a
-                href="https://github.com/Saravanaofficialpmv"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-[#E8342A] transition-colors"
-              >
-                github.com/Saravanaofficialpmv
-              </a>
-            </div>
+      {/* ==================================================
+          A4 SINGLE PAGE RESUME
+          ================================================== */}
+      <div className="w-full flex flex-col items-center gap-2">
+        <div className="w-full max-w-[820px] flex items-center justify-between text-[11px] font-mono text-[#737373] px-2 no-print">
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-semibold text-[#171717]">A4 RESUME PREVIEW</span>
           </div>
-
-          <div className="flex flex-col sm:items-end text-xs text-[#5C5C5C] font-mono">
-            <span>WhatsApp: +91 90804 07021</span>
-            <a
-              href="mailto:saravanapmvofficial@gmail.com"
-              className="hover:text-[#E8342A] transition-colors"
-            >
-              saravanapmvofficial@gmail.com
-            </a>
-            <span>Tamil Nadu, India</span>
-          </div>
+          <span className="text-[#A3A3A3]">READY TO DOWNLOAD</span>
         </div>
 
-        {/* 1. Work Experience */}
-        <div className="flex flex-col gap-3">
-          <h3 className="font-notch font-bold text-xs uppercase tracking-widest text-[#A3A3A3]">
-            WORK EXPERIENCE
-          </h3>
-          <div className="flex flex-col gap-4 border-b border-[#E0E0E0]/60 pb-4">
-            <div>
-              <div className="flex items-center justify-between font-notch">
-                <span className="font-bold text-xs md:text-sm text-[#171717]">
-                  FOUNDER &amp; APP DEVELOPER — heydotin
-                </span>
-                <span className="text-xs text-[#E8342A] font-semibold">2024 – Present</span>
+        <div className="a4-page w-full max-w-[820px] bg-white border border-[#E0E0E0] rounded-2xl md:rounded-[20px] p-6 sm:p-7 md:p-8 shadow-xl flex flex-col justify-between text-[#171717]">
+          {/* Main Top Content */}
+          <div className="flex flex-col gap-2.5">
+            {/* 1. DOCUMENT HEADER */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-[#E0E0E0] pb-2">
+              <div className="flex flex-col">
+                <h2 className="font-notch font-bold text-2xl sm:text-[24px] text-[#171717] leading-tight">
+                  SARAVANA S
+                </h2>
+                <p className="text-xs text-[#E8342A] font-semibold pt-0.5">
+                  Product Designer • AI &amp; DS Student • Full-Stack Developer
+                </p>
+                <div className="flex flex-wrap items-center gap-2 text-[11px] text-[#5C5C5C] pt-0.5 font-mono">
+                  <a
+                    href="https://linkedin.com/in/saravana-selvaraju"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-[#E8342A] transition-colors"
+                  >
+                    linkedin.com/in/saravana-selvaraju
+                  </a>
+                  <span>•</span>
+                  <a
+                    href="https://github.com/Saravanaofficialpmv"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-[#E8342A] transition-colors"
+                  >
+                    github.com/Saravanaofficialpmv
+                  </a>
+                  <span>•</span>
+                  <a
+                    href="https://saroo.online"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-[#E8342A] transition-colors font-medium text-[#171717]"
+                  >
+                    saroo.online
+                  </a>
+                </div>
               </div>
-              <p className="text-xs text-[#5C5C5C] font-light pt-0.5">
-                Founder &amp; lead app developer crafting digital products, mobile apps, and scalable web solutions.
-              </p>
-            </div>
-            <div>
-              <div className="flex items-center justify-between font-notch">
-                <span className="font-bold text-xs md:text-sm text-[#171717]">
-                  FREELANCE SHOPIFY WEB DESIGNER — Self-Employed
-                </span>
-                <span className="text-xs text-[#5C5C5C]">2022 – 2024</span>
-              </div>
-              <p className="text-xs text-[#5C5C5C] font-light pt-0.5">
-                Designed and developed custom, responsive Shopify e-commerce storefronts and digital web solutions for diverse client brands.
-              </p>
-            </div>
-          </div>
-        </div>
 
-        {/* 2. Education */}
-        <div className="flex flex-col gap-3">
-          <h3 className="font-notch font-bold text-xs uppercase tracking-widest text-[#A3A3A3]">
-            EDUCATION
-          </h3>
-          <div className="flex flex-col gap-1 border-b border-[#E0E0E0]/60 pb-4">
-            <div className="flex items-center justify-between font-notch">
-              <span className="font-bold text-sm text-[#171717]">
-                B.TECH – ARTIFICIAL INTELLIGENCE &amp; DATA SCIENCE
-              </span>
-              <span className="text-xs text-[#5C5C5C]">Graduation: 2027</span>
-            </div>
-            <p className="text-xs text-[#5C5C5C] font-light">
-              Karur, Tamil Nadu
-            </p>
-          </div>
-        </div>
-
-        {/* 2. Key Projects */}
-        <div className="flex flex-col gap-3">
-          <h3 className="font-notch font-bold text-xs uppercase tracking-widest text-[#A3A3A3]">
-            KEY PROJECTS
-          </h3>
-          <div className="flex flex-col gap-4 border-b border-[#E0E0E0]/60 pb-4">
-            <div>
-              <div className="flex items-center justify-between font-notch">
-                <span className="font-bold text-xs md:text-sm text-[#171717]">
-                  SS WHOLESALE – Wholesale Mobile Ordering Platform
-                </span>
-                <span className="text-xs text-[#E8342A]">Flutter • Firebase</span>
+              <div className="flex flex-col sm:items-end text-[11px] text-[#5C5C5C] font-mono shrink-0 leading-tight">
+                <span>WhatsApp: +91 90804 07021</span>
+                <a
+                  href="mailto:saravanapmvofficial@gmail.com"
+                  className="hover:text-[#E8342A] transition-colors"
+                >
+                  saravanapmvofficial@gmail.com
+                </a>
+                <span>Tamil Nadu, India</span>
               </div>
-              <p className="text-xs text-[#5C5C5C] font-light pt-0.5">
-                Wholesale ordering platform featuring real-time inventory management, customer tracking, order management, offline data synchronization, and Firebase backend integration.
+            </div>
+
+            {/* 2. PROFESSIONAL SUMMARY */}
+            <div className="flex flex-col gap-0.5 border-b border-[#E0E0E0]/70 pb-2">
+              <h3 className="font-notch font-bold text-[10px] uppercase tracking-wider text-[#171717] flex items-center gap-1.5">
+                <span className="text-[#E8342A]">✦</span>
+                <span>PROFESSIONAL SUMMARY</span>
+              </h3>
+              <p className="text-[10.5px] text-[#171717] font-normal leading-relaxed">
+                Product-focused Artificial Intelligence &amp; Data Science student and full-stack developer building digital products across web, mobile, e-commerce, branding, and interactive experiences. Combines product thinking, UI/UX design, and modern technologies to turn ideas into practical, scalable solutions.
               </p>
             </div>
 
-            <div>
-              <div className="flex items-center justify-between font-notch">
-                <span className="font-bold text-xs md:text-sm text-[#171717]">
-                  AQUAWIND – IoT Smart Water Management System
-                </span>
-                <span className="text-xs text-[#E8342A]">IoT • ESP32 • Cloud</span>
+            {/* 3. WORK EXPERIENCE */}
+            <div className="flex flex-col gap-1.5 border-b border-[#E0E0E0]/70 pb-2">
+              <h3 className="font-notch font-bold text-[10px] uppercase tracking-wider text-[#171717] flex items-center gap-1.5">
+                <span className="text-[#E8342A]">✦</span>
+                <span>WORK EXPERIENCE</span>
+              </h3>
+
+              {/* Job 01: heydotin */}
+              <div className="flex flex-col gap-0.5">
+                <div className="flex items-center justify-between font-notch">
+                  <span className="font-bold text-xs text-[#171717]">
+                    FOUNDER &amp; APP DEVELOPER — heydotin
+                  </span>
+                  <span className="text-[10.5px] text-[#E8342A] font-semibold">
+                    2024 — PRESENT
+                  </span>
+                </div>
+                <ul className="flex flex-col gap-0.5 text-[10px] text-[#404040] leading-snug pl-0.5">
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-[#A3A3A3] select-none">•</span>
+                    <span>Lead digital product development across web applications, mobile products, UI/UX, e-commerce experiences, branding, and interactive digital experiences.</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-[#A3A3A3] select-none">•</span>
+                    <span>Work across product ideation, interface design, application development, backend integration, deployment, and production workflows.</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-[#A3A3A3] select-none">•</span>
+                    <span>Build practical digital products using modern mobile, web, cloud, and automation technologies.</span>
+                  </li>
+                </ul>
               </div>
-              <p className="text-xs text-[#5C5C5C] font-light pt-0.5">
-                Smart water monitoring and distribution platform powered by IoT sensors, ESP32 microcontrollers, and cloud services for real-time water optimization.
-              </p>
-            </div>
 
-            <div>
-              <div className="flex items-center justify-between font-notch">
-                <span className="font-bold text-xs md:text-sm text-[#171717]">
-                  INKA – Freelancer Billing & Invoicing Mobile App
-                </span>
-                <span className="text-xs text-[#E8342A]">Flutter • Mobile • Billing</span>
+              {/* Job 02: Freelance */}
+              <div className="flex flex-col gap-0.5 pt-1 border-t border-[#E0E0E0]/40">
+                <div className="flex items-center justify-between font-notch">
+                  <span className="font-bold text-xs text-[#171717]">
+                    FREELANCE SHOPIFY WEB DESIGNER — Self-Employed
+                  </span>
+                  <span className="text-[10.5px] text-[#5C5C5C] font-medium">
+                    2022 — 2024
+                  </span>
+                </div>
+                <ul className="flex flex-col gap-0.5 text-[10px] text-[#404040] leading-snug pl-0.5">
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-[#A3A3A3] select-none">•</span>
+                    <span>Designed and developed custom Shopify e-commerce experiences for client brands.</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-[#A3A3A3] select-none">•</span>
+                    <span>Customized Shopify themes, product pages, responsive layouts, navigation, and storefront experiences.</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-[#A3A3A3] select-none">•</span>
+                    <span>Combined UI/UX design, branding, and e-commerce development to create polished customer-facing experiences.</span>
+                  </li>
+                </ul>
               </div>
-              <p className="text-xs text-[#5C5C5C] font-light pt-0.5">
-                Mobile billing and invoicing platform for freelancers featuring revenue tracking dashboards, client management, and instant digital invoice generation.
-              </p>
             </div>
-          </div>
-        </div>
 
-        {/* 3. Tech Stack & Capabilities */}
-        <div className="flex flex-col gap-3 border-b border-[#E0E0E0]/60 pb-4">
-          <h3 className="font-notch font-bold text-xs uppercase tracking-widest text-[#A3A3A3]">
-            TECHNOLOGIES &amp; TOOLS
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-            <div>
-              <span className="font-bold text-[#171717]">Design &amp; Frontend:</span>
-              <p className="text-[#5C5C5C] font-light">Figma, Photoshop, HTML, CSS, JavaScript, React, Tailwind CSS</p>
-            </div>
-            <div>
-              <span className="font-bold text-[#171717]">Mobile &amp; Backend:</span>
-              <p className="text-[#5C5C5C] font-light">Flutter, Dart, Python, FastAPI, Firebase, Supabase</p>
-            </div>
-            <div>
-              <span className="font-bold text-[#171717]">Databases &amp; Cloud:</span>
-              <p className="text-[#5C5C5C] font-light">Firestore, MySQL, MongoDB, Vercel, Render, Firebase Hosting</p>
-            </div>
-            <div>
-              <span className="font-bold text-[#171717]">Tools &amp; Workflow:</span>
-              <p className="text-[#5C5C5C] font-light">Git, GitHub, Postman, IoT Workflows, System Design</p>
-            </div>
-          </div>
-        </div>
+            {/* 4. SELECTED WORK */}
+            <div className="flex flex-col gap-1.5 border-b border-[#E0E0E0]/70 pb-2">
+              <div className="flex items-center justify-between">
+                <h3 className="font-notch font-bold text-[10px] uppercase tracking-wider text-[#171717] flex items-center gap-1.5">
+                  <span className="text-[#E8342A]">✦</span>
+                  <span>SELECTED WORK</span>
+                </h3>
+                <span className="text-[9.5px] font-mono text-[#A3A3A3]">04 FEATURED PROJECTS</span>
+              </div>
 
-        {/* 4. Quick Facts & Languages */}
-        <div className="flex flex-col gap-3">
-          <h3 className="font-notch font-bold text-xs uppercase tracking-widest text-[#A3A3A3]">
-            QUICK FACTS &amp; LANGUAGES
-          </h3>
-          <div className="flex flex-col gap-2 text-xs text-[#5C5C5C] font-light">
-            <p>• Languages spoken: <strong>English, Tamil</strong></p>
-            <p>• Passionate about bridging UI/UX design with scalable full-stack &amp; AI development</p>
-            <p>• Enjoys solving real-world challenges through mobile, cloud, and IoT technologies</p>
+              {/* Project 01: UNISPHERE */}
+              <div className="flex flex-col gap-0.5">
+                <div className="flex items-center justify-between font-notch">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10.5px] font-bold text-[#E8342A]">01</span>
+                    <span className="font-bold text-[11.5px] text-[#171717]">
+                      UNISPHERE – Academic Collaboration Platform
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-[#E8342A] font-medium">
+                    Mobile App • Flutter • Cloud Integration
+                  </span>
+                </div>
+                <p className="text-[10px] text-[#5C5C5C] font-normal leading-tight">
+                  Mobile application and academic collaboration platform designed to bring academic activities, collaboration, and smart digital features into a unified experience.
+                </p>
+              </div>
+
+              {/* Project 02: INKA */}
+              <div className="flex flex-col gap-0.5 pt-1 border-t border-[#E0E0E0]/40">
+                <div className="flex items-center justify-between font-notch">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10.5px] font-bold text-[#E8342A]">02</span>
+                    <span className="font-bold text-[11.5px] text-[#171717]">
+                      INKA – Freelancer Billing &amp; Revenue Tracking App
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-[#E8342A] font-medium">
+                    Mobile App • Flutter • Billing &amp; Invoicing
+                  </span>
+                </div>
+                <p className="text-[10px] text-[#5C5C5C] font-normal leading-tight">
+                  Freelance billing and revenue tracking application featuring client management, instant invoice creation, and financial dashboard analytics.
+                </p>
+              </div>
+
+              {/* Project 03: INTERWOVE */}
+              <div className="flex flex-col gap-0.5 pt-1 border-t border-[#E0E0E0]/40">
+                <div className="flex items-center justify-between font-notch">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10.5px] font-bold text-[#E8342A]">03</span>
+                    <span className="font-bold text-[11.5px] text-[#171717]">
+                      INTERWOVE – Luxury E-commerce Store
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-[#E8342A] font-medium">
+                    Web Development • E-commerce • Branding • UI/UX
+                  </span>
+                </div>
+                <p className="text-[10px] text-[#5C5C5C] font-normal leading-tight">
+                  Premium luxury apparel e-commerce experience combining refined product presentation, responsive design, custom storefront development, and brand-focused UI/UX.
+                </p>
+              </div>
+
+              {/* Project 04: SS WHOLESALE */}
+              <div className="flex flex-col gap-0.5 pt-1 border-t border-[#E0E0E0]/40">
+                <div className="flex items-center justify-between font-notch">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10.5px] font-bold text-[#E8342A]">04</span>
+                    <span className="font-bold text-[11.5px] text-[#171717]">
+                      SS WHOLESALE – Wholesale Mobile Ordering Platform
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-[#E8342A] font-medium">
+                    Mobile App • Flutter • Firebase • Business Platform
+                  </span>
+                </div>
+                <p className="text-[10px] text-[#5C5C5C] font-normal leading-tight">
+                  Wholesale ordering platform featuring product, customer, and order management with real-time inventory and offline synchronization.
+                </p>
+              </div>
+            </div>
+
+            {/* 5. EDUCATION */}
+            <div className="flex flex-col gap-0.5 border-b border-[#E0E0E0]/70 pb-2">
+              <h3 className="font-notch font-bold text-[10px] uppercase tracking-wider text-[#171717] flex items-center gap-1.5">
+                <span className="text-[#E8342A]">✦</span>
+                <span>EDUCATION</span>
+              </h3>
+              <div className="flex flex-col gap-0.5">
+                <div className="flex items-center justify-between font-notch">
+                  <span className="font-bold text-xs text-[#171717]">
+                    B.TECH — ARTIFICIAL INTELLIGENCE &amp; DATA SCIENCE
+                  </span>
+                  <span className="text-[10px] text-[#E8342A] font-semibold">
+                    2023 — 2027
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-[10px] text-[#5C5C5C]">
+                  <span>VSB Engineering College</span>
+                  <span>Karur, Tamil Nadu</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 6. TECHNICAL SKILLS */}
+            <div className="flex flex-col gap-1 border-b border-[#E0E0E0]/70 pb-2">
+              <h3 className="font-notch font-bold text-[10px] uppercase tracking-wider text-[#171717] flex items-center gap-1.5">
+                <span className="text-[#E8342A]">✦</span>
+                <span>TECHNICAL SKILLS</span>
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-0.5 text-[10px] leading-snug">
+                <div>
+                  <span className="font-bold text-[#171717]">FRONTEND &amp; WEB: </span>
+                  <span className="text-[#404040] font-normal">React, Next.js</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#171717]">MOBILE: </span>
+                  <span className="text-[#404040] font-normal">Flutter, Dart</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#171717]">BACKEND &amp; CLOUD: </span>
+                  <span className="text-[#404040] font-normal">FastAPI, Firebase, Supabase, Firestore</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#171717]">DESIGN: </span>
+                  <span className="text-[#404040] font-normal">Figma, Canva, UI/UX Design, Product Design</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#171717]">E-COMMERCE: </span>
+                  <span className="text-[#404040] font-normal">Shopify, Theme Customization</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#171717]">TOOLS: </span>
+                  <span className="text-[#404040] font-normal">n8n</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 7. LANGUAGES */}
+            <div className="flex flex-col gap-0.5">
+              <h3 className="font-notch font-bold text-[10px] uppercase tracking-wider text-[#171717] flex items-center gap-1.5">
+                <span className="text-[#E8342A]">✦</span>
+                <span>LANGUAGES</span>
+              </h3>
+              <div className="flex items-center gap-6 text-[10px] text-[#404040] pt-0.5">
+                <div>
+                  <span className="font-bold text-[#171717]">ENGLISH: </span>
+                  <span className="font-normal">Professional Working Proficiency</span>
+                </div>
+                <div>
+                  <span className="font-bold text-[#171717]">TAMIL: </span>
+                  <span className="font-normal">Native / Bilingual</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Document Footer */}
+          <div className="pt-2 border-t border-[#E0E0E0] flex items-center justify-between text-[9.5px] font-mono text-[#A3A3A3] mt-2">
+            <span>SARAVANA S</span>
+            <span>Portfolio: saroo.online</span>
           </div>
         </div>
-      </motion.section>
+      </div>
     </div>
   );
 }
