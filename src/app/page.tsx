@@ -10,6 +10,7 @@ import ProjectCard, { ProjectData } from "@/components/ProjectCard";
 import SSWholesaleSlideshowModal from "@/components/SSWholesaleSlideshowModal";
 import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
 import StickerPeel from "@/components/StickerPeel";
+import AboutPhotoFrames from "@/components/AboutPhotoFrames";
 
 interface ClientLogoItem {
   name: string;
@@ -196,29 +197,10 @@ export default function Home() {
         </div>
 
         {/* 3-Panel Photo Lander Grid */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="w-full grid grid-cols-3 gap-2.5 sm:gap-4 md:gap-6"
-        >
-          {["FRAME 1", "FRAME 2", "FRAME 3"].map((frameText, idx) => (
-            <div
-              key={idx}
-              className="relative h-44 sm:h-72 md:h-84 rounded-xl sm:rounded-2xl border border-[#E0E0E0] bg-[#F7F7F7] flex flex-col items-center justify-center p-2 sm:p-4 select-none shadow-xs"
-            >
-              <div className="flex items-center gap-1 sm:gap-2 whitespace-nowrap">
-                <span className="text-[#E8342A] text-[10px] sm:text-xs">✦</span>
-                <span className="font-notch font-medium text-xs sm:text-2xl md:text-3xl text-[#171717] tracking-wider whitespace-nowrap">
-                  {frameText}
-                </span>
-              </div>
-              <span className="text-[9px] sm:text-xs text-[#A3A3A3] font-mono tracking-widest pt-1 uppercase text-center">
-                IMAGE PLACEHOLDER
-              </span>
-            </div>
-          ))}
-        </motion.div>
+        <AboutPhotoFrames
+          imageSrc="/home-hero.webp"
+          objectPosition="object-[center_22%]"
+        />
 
         {/* Client / Partner Logo Marquee */}
         <div className="w-full pt-6 border-t border-[#E0E0E0]/60 flex flex-col gap-4 items-center">
