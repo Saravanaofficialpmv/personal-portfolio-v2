@@ -396,20 +396,22 @@ export default function AppIconsDock({
   }
 
   return (
-    <div className="w-full flex flex-col items-center justify-center py-2 px-2">
+    <div className="w-full flex flex-col items-center justify-center py-2 px-1 sm:px-2">
       <p className="text-xs text-[#8C8C8C] font-medium tracking-wide text-center mb-2.5 select-none">
         Hover to preview tools
       </p>
       {/* Centered Horizontal macOS Dock Bar with authentic fisheye magnification wave */}
-      <motion.div
-        onMouseMove={(e) => mouseX.set(e.pageX)}
-        onMouseLeave={() => mouseX.set(Infinity)}
-        className="inline-flex items-end gap-1.5 sm:gap-2 p-2 sm:p-2.5 px-3.5 sm:px-5 bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[24px] shadow-[0_12px_36px_rgba(0,0,0,0.4)] max-w-full overflow-visible select-none"
-      >
-        {toolsData.map((tool) => (
-          <DockIconItem key={tool.id} tool={tool} mouseX={mouseX} />
-        ))}
-      </motion.div>
+      <div className="w-full max-w-full overflow-x-auto scrollbar-none flex justify-center py-1">
+        <motion.div
+          onMouseMove={(e) => mouseX.set(e.pageX)}
+          onMouseLeave={() => mouseX.set(Infinity)}
+          className="inline-flex items-end gap-1.5 sm:gap-2 p-2 sm:p-2.5 px-3.5 sm:px-5 bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[24px] shadow-[0_12px_36px_rgba(0,0,0,0.4)] overflow-visible select-none shrink-0"
+        >
+          {toolsData.map((tool) => (
+            <DockIconItem key={tool.id} tool={tool} mouseX={mouseX} />
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 }

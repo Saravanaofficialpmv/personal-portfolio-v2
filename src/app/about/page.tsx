@@ -227,7 +227,7 @@ export default function AboutPage() {
                   src={product.image}
                   alt={product.title}
                   fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="object-cover"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
