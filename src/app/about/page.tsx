@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import AppIconsDock from "@/components/AppIconsDock";
 import JourneyBentoReel from "@/components/JourneyBentoReel";
@@ -57,6 +58,41 @@ const experiences: Experience[] = [
       "Customized liquid templates, product showcases, and integrated essential Shopify apps and payment gateways.",
       "Delivered end-to-end web design projects for diverse client brands.",
     ],
+  },
+];
+
+interface ProductConcept {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  githubUrl: string;
+}
+
+const myProducts: ProductConcept[] = [
+  {
+    id: "panam",
+    title: "Panam",
+    description:
+      "A personal finance management app designed to bring everyday finances into one place, bringing expenses, income, credit cards, investments, insurance, & recurring payments into one simple view.",
+    image: "/products/panam.png",
+    githubUrl: "https://github.com/Saravanaofficialpmv",
+  },
+  {
+    id: "yours",
+    title: "Yours",
+    description:
+      "A personal intelligence system that links your time, tasks, projects, habits, goals, & memories into one calm, context-aware iOS experience—helping you spend less time organizing life & more time living it.",
+    image: "/products/yours.png",
+    githubUrl: "https://github.com/Saravanaofficialpmv",
+  },
+  {
+    id: "moment",
+    title: "Moment",
+    description:
+      "An all-in-one fitness tracker that combines workouts, nutrition, supplements, weight, and progress in one simple experience. AI-powered meal scanning makes calorie and protein tracking effortless.",
+    image: "/products/moment.png",
+    githubUrl: "https://github.com/Saravanaofficialpmv",
   },
 ];
 
@@ -164,7 +200,66 @@ export default function AboutPage() {
         <AppIconsDock />
       </section>
 
-      {/* 4. Career Ladder Section */}
+      {/* 4. My Products — Ideas that live */}
+      <section id="my-products" className="w-full max-w-[1168px] flex flex-col gap-8">
+        <div className="flex flex-col items-start gap-1">
+          <span className="text-xs uppercase tracking-widest text-[#A3A3A3] font-medium">
+            MY PRODUCTS
+          </span>
+          <h2 className="font-notch font-bold text-2xl sm:text-3xl md:text-4xl text-[#171717] tracking-tight">
+            Ideas that <span className="font-normal text-[#5C5C5C]">live<span className="text-[#E8342A]">.</span></span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full">
+          {myProducts.map((product) => (
+            <motion.div
+              key={product.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5 }}
+              className="bg-white border border-[#EAEAEA] rounded-[24px] sm:rounded-[28px] p-5 sm:p-6 flex flex-col justify-between gap-6 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-[#DEDEDE] transition-all"
+            >
+              {/* Product Preview Mockup Header */}
+              <div className="relative w-full aspect-[262/169] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-[#F6F6F6] border border-[#EBEBEB]">
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  fill
+                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+
+              {/* Title & Description */}
+              <div className="flex flex-col gap-2.5 flex-1">
+                <h3 className="font-notch font-bold text-2xl sm:text-3xl text-[#171717] tracking-tight">
+                  {product.title}<span className="text-[#E8342A]">.</span>
+                </h3>
+                <p className="text-xs sm:text-[13.5px] text-[#5C5C5C] font-light leading-relaxed">
+                  {product.description}
+                </p>
+              </div>
+
+              {/* Action Button: View in GitHub */}
+              <div className="pt-2">
+                <a
+                  href={product.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#F7F7F7] border border-[#E0E0E0] text-xs font-semibold text-[#171717] hover:bg-[#171717] hover:text-white hover:border-[#171717] transition-all cursor-pointer group w-fit"
+                >
+                  <span>View in GitHub</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#5C5C5C] group-hover:text-white transition-colors" />
+                </a>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* 5. Career Ladder Section */}
       <section className="w-full max-w-[1168px] flex flex-col gap-8">
         <div className="flex flex-col items-start gap-1">
           <span className="text-xs uppercase tracking-widest text-[#A3A3A3] font-medium">
