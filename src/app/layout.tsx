@@ -63,9 +63,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakartaSans.variable} ${stackSansNotch.variable} ${kavivanar.variable} ${arima.variable} ${tamilCustomFont.variable} h-full antialiased`}
+      className={`${plusJakartaSans.variable} ${stackSansNotch.variable} ${kavivanar.variable} ${arima.variable} ${tamilCustomFont.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-white text-[#171717] font-sans selection:bg-[#E8342A] selection:text-white">
+      <body className="min-h-screen flex flex-col bg-white text-[#171717] font-sans selection:bg-[#E8342A] selection:text-white">
         <SmoothScroll>
           <WelcomePreloader />
           <Navbar />

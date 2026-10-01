@@ -29,9 +29,19 @@ export default function WelcomePreloader() {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      if (typeof window !== "undefined") {
+        const globalLenis = (window as unknown as { __lenis?: { resize: () => void; start: () => void } }).__lenis;
+        globalLenis?.start();
+        globalLenis?.resize();
+      }
     }
     return () => {
       document.body.style.overflow = "";
+      if (typeof window !== "undefined") {
+        const globalLenis = (window as unknown as { __lenis?: { resize: () => void; start: () => void } }).__lenis;
+        globalLenis?.start();
+        globalLenis?.resize();
+      }
     };
   }, [isLoading]);
 

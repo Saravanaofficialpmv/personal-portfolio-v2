@@ -57,11 +57,19 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       document.body.style.overflow = "hidden";
       window.addEventListener("keydown", handleKeyDown);
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
+      if (typeof window !== "undefined") {
+        (window as unknown as { __lenis?: { start: () => void; resize: () => void } }).__lenis?.start();
+        (window as unknown as { __lenis?: { start: () => void; resize: () => void } }).__lenis?.resize();
+      }
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
+      if (typeof window !== "undefined") {
+        (window as unknown as { __lenis?: { start: () => void; resize: () => void } }).__lenis?.start();
+        (window as unknown as { __lenis?: { start: () => void; resize: () => void } }).__lenis?.resize();
+      }
     };
   }, [isModalOpen]);
 
@@ -298,6 +306,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              data-lenis-prevent
               className="relative w-full max-w-6xl h-[92vh] bg-white rounded-2xl overflow-hidden flex flex-col shadow-2xl border border-white/20"
               onClick={(e) => e.stopPropagation()}
             >
@@ -359,7 +368,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               </div>
 
               {/* Modal Canvas: Full Scrollable Website View */}
-              <div className="w-full flex-1 overflow-y-auto bg-[#F2F2F2] flex justify-center p-4 sm:p-8 group/modalcanvas">
+              <div data-lenis-prevent className="w-full flex-1 overflow-y-auto bg-[#F2F2F2] flex justify-center p-4 sm:p-8 group/modalcanvas">
                 <div className="relative w-full max-w-4xl bg-white rounded-xl shadow-xl overflow-hidden border border-[#E0E0E0]">
                   <img
                     src={activeImg}

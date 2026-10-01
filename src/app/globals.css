@@ -21,7 +21,8 @@
 
   html.lenis,
   html.lenis body {
-    height: auto;
+    height: auto !important;
+    min-height: 100%;
   }
 
   .lenis.lenis-smooth {
@@ -33,7 +34,7 @@
   }
 
   .lenis.lenis-stopped {
-    overflow: hidden;
+    overflow: clip;
   }
 
   .lenis.lenis-smooth iframe {

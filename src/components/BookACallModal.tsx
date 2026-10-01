@@ -112,6 +112,7 @@ export default function BookACallModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
+          data-lenis-prevent
           className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end justify-center pb-2 sm:pb-6 pt-12 px-2 sm:px-4 overflow-y-auto"
         >
           <motion.div
@@ -120,6 +121,7 @@ export default function BookACallModal({
             exit={{ opacity: 0, y: 40, scale: 0.96 }}
             transition={{ type: "spring", stiffness: 380, damping: 32 }}
             onClick={(e) => e.stopPropagation()}
+            data-lenis-prevent
             className="w-full max-w-xl bg-[#141416] border border-white/10 rounded-[24px] sm:rounded-[28px] p-3.5 sm:p-5 shadow-2xl flex flex-col gap-2.5 sm:gap-4 text-white relative max-h-[88vh] overflow-y-auto"
           >
             {/* Header Bar */}

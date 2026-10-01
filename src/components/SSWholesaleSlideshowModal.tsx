@@ -83,6 +83,7 @@ export default function SSWholesaleSlideshowModal({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
+        data-lenis-prevent
         className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex flex-col justify-between p-4 md:p-8 overflow-hidden select-none"
       >
         {/* Top Header Bar */}
