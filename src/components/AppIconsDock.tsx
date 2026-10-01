@@ -19,7 +19,6 @@ export interface ToolItem {
   description: string;
   highlights: string[];
   image: string;
-  hideOnMobile?: boolean;
 }
 
 const toolsData: ToolItem[] = [
@@ -202,7 +201,6 @@ const toolsData: ToolItem[] = [
       "Ambient Soundscapes",
     ],
     image: "/app-icons/spotify.png",
-    hideOnMobile: true,
   },
 ];
 
@@ -290,24 +288,15 @@ function VerticalDockIconItem({
   );
 }
 
-interface DockIconItemProps {
-  tool: ToolItem;
-  mouseX: MotionValue<number>;
-  isActive: boolean;
-  onHover: (tool: ToolItem) => void;
-  onLeave: () => void;
-  onSelect: (tool: ToolItem) => void;
-}
-
 function DockIconItem({
   tool,
   mouseX,
-  isActive,
-  onHover,
-  onLeave,
-  onSelect,
-}: DockIconItemProps) {
+}: {
+  tool: ToolItem;
+  mouseX: MotionValue<number>;
+}) {
   const ref = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Calculate distance between mouse X and center of this icon
   const distance = useTransform(mouseX, (val) => {
@@ -316,8 +305,8 @@ function DockIconItem({
     return val - (bounds.left + bounds.width / 2);
   });
 
-  // Continuous bell-curve distance for smooth multi-icon wave [-150, 0, 150] -> [38, 62, 38]
-  const widthSync = useTransform(distance, [-150, 0, 150], [38, 62, 38]);
+  // Continuous bell-curve distance for smooth multi-icon wave [-150, 0, 150] -> [40, 62, 40]
+  const widthSync = useTransform(distance, [-150, 0, 150], [40, 62, 40]);
 
   // Feather-light spring physics matching authentic macOS Dock behavior
   const width = useSpring(widthSync, {
@@ -329,29 +318,39 @@ function DockIconItem({
   return (
     <div
       ref={ref}
-      className={`relative shrink-0 ${
-        tool.hideOnMobile ? "hidden sm:flex" : "flex"
-      } flex-col items-center justify-end cursor-pointer select-none`}
-      onMouseEnter={() => onHover(tool)}
-      onMouseLeave={onLeave}
-      onClick={() => onSelect(tool)}
+      className="relative shrink-0 flex flex-col items-center justify-end"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
+      {/* Floating Tooltip on Hover */}
+      <AnimatePresence>
+        {isHovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 4, scale: 0.9 }}
+            animate={{ opacity: 1, y: -12, scale: 1 }}
+            exit={{ opacity: 0, y: 2, scale: 0.9 }}
+            transition={{ duration: 0.12, ease: "easeOut" }}
+            className="absolute -top-11 left-1/2 -translate-x-1/2 z-30 pointer-events-none whitespace-nowrap bg-[#171717] text-white text-[11px] font-notch font-medium px-2.5 py-1 rounded-md shadow-md border border-white/10"
+          >
+            {tool.name}
+            {/* Tooltip Arrow */}
+            <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#171717]" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Dynamic Animated Icon Box */}
       <motion.div
         style={{ width, height: width }}
-        whileTap={{ scale: 0.88 }}
-        className={`relative shrink-0 rounded-[11px] sm:rounded-[14px] overflow-hidden flex items-center justify-center p-0.5 transition-all shadow-sm bg-black ${
-          isActive
-            ? "ring-2 ring-white/80 ring-offset-2 ring-offset-[#18181B] opacity-100 scale-105"
-            : "opacity-90 hover:opacity-100"
-        }`}
+        whileTap={{ scale: 0.9 }}
+        className="relative shrink-0 rounded-[12px] sm:rounded-[14px] overflow-hidden cursor-pointer flex items-center justify-center p-0.5 opacity-90 hover:opacity-100 transition-opacity shadow-sm bg-black"
       >
         <Image
           src={tool.image}
           alt={tool.name}
           width={80}
           height={80}
-          className="w-full h-full object-cover rounded-[9px] sm:rounded-[12px] bg-black pointer-events-none"
+          className="w-full h-full object-cover rounded-[10px] sm:rounded-[12px] bg-black"
           priority
         />
       </motion.div>
@@ -372,7 +371,6 @@ export default function AppIconsDock({
 }: AppIconsDockProps) {
   const mouseX = useMotionValue(Infinity);
   const mouseY = useMotionValue(Infinity);
-  const [activeTooltipTool, setActiveTooltipTool] = useState<ToolItem | null>(null);
 
   if (orientation === "vertical") {
     return (
@@ -398,77 +396,20 @@ export default function AppIconsDock({
   }
 
   return (
-    <div className="w-full flex flex-col items-center py-2 px-1 sm:px-2">
-      {/* Floating Tooltip Pill Above Dock (Unclipped on Mobile & Desktop) */}
-      <div className="h-7 sm:h-8 flex items-center justify-center mb-1.5">
-        <AnimatePresence mode="wait">
-          {activeTooltipTool ? (
-            <motion.div
-              key={activeTooltipTool.id}
-              initial={{ opacity: 0, y: 4, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 2, scale: 0.95 }}
-              transition={{ duration: 0.12, ease: "easeOut" }}
-              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-[#18181B] border border-white/10 text-white shadow-lg text-xs select-none"
-            >
-              <span className="font-notch font-medium text-white">
-                {activeTooltipTool.name}
-              </span>
-              <span className="text-[#5C5C5C]">•</span>
-              <span className="text-[10px] text-[#A3A3A3] font-mono tracking-wide">
-                {activeTooltipTool.category}
-              </span>
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="text-[11px] text-[#8C8C8C] font-medium tracking-wide select-none flex items-center gap-1"
-            >
-              <span className="hidden sm:inline">Hover to preview tools</span>
-              <span className="sm:hidden text-[10px] text-[#A3A3A3]">Tap or swipe to explore tools</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* Centered Dock Capsule with Scrollable Mobile Track */}
-      <div className="w-full max-w-full flex justify-center">
-        <motion.div
-          onMouseMove={(e) => mouseX.set(e.pageX)}
-          onMouseLeave={() => {
-            mouseX.set(Infinity);
-            setActiveTooltipTool(null);
-          }}
-          className="relative max-w-full bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[22px] shadow-[0_12px_36px_rgba(0,0,0,0.4)] p-1.5 sm:p-2.5 px-2 sm:px-5 select-none"
-        >
-          {/* Subtle edge fade hints on mobile to indicate scrollability */}
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-r from-[#18181B] to-transparent sm:hidden z-10 rounded-l-2xl" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-3 bg-gradient-to-l from-[#18181B] to-transparent sm:hidden z-10 rounded-r-2xl" />
-
-          {/* Inner Track: smooth horizontal swipe on mobile, centered on desktop */}
-          <div
-            data-lenis-prevent
-            className="w-full overflow-x-auto no-scrollbar touch-pan-x flex items-center sm:items-end gap-1.5 sm:gap-2 px-1 py-0.5"
-          >
-            {toolsData.map((tool) => (
-              <DockIconItem
-                key={tool.id}
-                tool={tool}
-                mouseX={mouseX}
-                isActive={activeTooltipTool?.id === tool.id}
-                onHover={(t) => setActiveTooltipTool(t)}
-                onLeave={() => setActiveTooltipTool(null)}
-                onSelect={(t) => {
-                  setActiveTooltipTool((prev) => (prev?.id === t.id ? null : t));
-                  onSelectTool?.(t);
-                }}
-              />
-            ))}
-          </div>
-        </motion.div>
-      </div>
+    <div className="w-full flex flex-col items-center justify-center py-2 px-2">
+      <p className="text-xs text-[#8C8C8C] font-medium tracking-wide text-center mb-2.5 select-none">
+        Hover to preview tools
+      </p>
+      {/* Centered Horizontal macOS Dock Bar with authentic fisheye magnification wave */}
+      <motion.div
+        onMouseMove={(e) => mouseX.set(e.pageX)}
+        onMouseLeave={() => mouseX.set(Infinity)}
+        className="inline-flex items-end gap-1.5 sm:gap-2 p-2 sm:p-2.5 px-3.5 sm:px-5 bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[24px] shadow-[0_12px_36px_rgba(0,0,0,0.4)] max-w-full overflow-visible select-none"
+      >
+        {toolsData.map((tool) => (
+          <DockIconItem key={tool.id} tool={tool} mouseX={mouseX} />
+        ))}
+      </motion.div>
     </div>
   );
 }
