@@ -71,27 +71,27 @@ interface ProductConcept {
 
 const myProducts: ProductConcept[] = [
   {
-    id: "panam",
-    title: "Panam",
+    id: "inka",
+    title: "Inka",
     description:
-      "A personal finance management app designed to bring everyday finances into one place, bringing expenses, income, credit cards, investments, insurance, & recurring payments into one simple view.",
-    image: "/products/panam.png",
+      "A mobile billing and invoicing app designed for freelancers to track revenue, manage clients, generate instant invoices, and handle payments effortlessly.",
+    image: "/products/inka.png",
     githubUrl: "https://github.com/Saravanaofficialpmv",
   },
   {
-    id: "yours",
-    title: "Yours",
+    id: "tipsy",
+    title: "Tipsy",
     description:
-      "A personal intelligence system that links your time, tasks, projects, habits, goals, & memories into one calm, context-aware iOS experience—helping you spend less time organizing life & more time living it.",
-    image: "/products/yours.png",
-    githubUrl: "https://github.com/Saravanaofficialpmv",
+      "An open-source procedural vector and 3D avatar creator featuring 22 organic animation states, 26 morphing shapes, real-time cursor gaze tracking, and universal multi-format exports.",
+    image: "/products/tipsy.png",
+    githubUrl: "https://github.com/Saravanaofficialpmv/Tipsy-Animated-avatar",
   },
   {
-    id: "moment",
-    title: "Moment",
+    id: "unisphere",
+    title: "UniSphere",
     description:
-      "An all-in-one fitness tracker that combines workouts, nutrition, supplements, weight, and progress in one simple experience. AI-powered meal scanning makes calorie and protein tracking effortless.",
-    image: "/products/moment.png",
+      "An academic collaboration and campus intelligence platform integrating smart schedules, real-time analytics, student hubs, and seamless cloud synchronization.",
+    image: "/products/unisphere.png",
     githubUrl: "https://github.com/Saravanaofficialpmv",
   },
 ];
