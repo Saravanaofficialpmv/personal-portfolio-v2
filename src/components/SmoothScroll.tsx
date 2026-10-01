@@ -17,14 +17,14 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
   const pathname = usePathname();
 
   useEffect(() => {
-    // Tuned for a luxurious, buttery-smooth feel with controlled, non-aggressive scroll speed
+    // Snappy and responsive: settles quickly without floaty drag or sluggish delay
     const lenis = new Lenis({
-      lerp: 0.08,             // Buttery smooth deceleration curve
-      wheelMultiplier: 0.8,   // Lowers speed per wheel step so scrolling doesn't fly or jump aggressively
-      touchMultiplier: 1.0,   // Natural 1:1 touch response without acceleration jumps
-      smoothWheel: true,      // Smoothly interpolate mouse wheel scrolls
-      syncTouch: false,       // Use native fluid touch physics on mobile/trackpads
-      autoResize: true,       // Dynamically update scroll height when images/DOM render
+      lerp: 0.16,             // Snappy settling (eliminates floaty/sluggish inertia delay)
+      wheelMultiplier: 1.0,   // Direct, tactile 1:1 wheel response
+      touchMultiplier: 1.0,   // Natural 1:1 touch response
+      smoothWheel: true,      // Smooth interpolation for mouse wheel
+      syncTouch: false,       // Use native 120Hz trackpad/touch physics without drag
+      autoResize: true,       // Recalculate dimensions on content load
     });
 
     lenisRef.current = lenis;
