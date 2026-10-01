@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import {
   motion,
@@ -291,9 +291,11 @@ function VerticalDockIconItem({
 function DockIconItem({
   tool,
   mouseX,
+  isMobile,
 }: {
   tool: ToolItem;
   mouseX: MotionValue<number>;
+  isMobile: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -305,8 +307,12 @@ function DockIconItem({
     return val - (bounds.left + bounds.width / 2);
   });
 
-  // Continuous bell-curve distance for smooth multi-icon wave [-150, 0, 150] -> [40, 62, 40]
-  const widthSync = useTransform(distance, [-150, 0, 150], [40, 62, 40]);
+  // Continuous bell-curve distance: compact on mobile so all 12 icons fit, full-size on desktop
+  const minWidth = isMobile ? 24 : 40;
+  const maxWidth = isMobile ? 38 : 62;
+  const range = isMobile ? [-90, 0, 90] : [-150, 0, 150];
+
+  const widthSync = useTransform(distance, range, [minWidth, maxWidth, minWidth]);
 
   // Feather-light spring physics matching authentic macOS Dock behavior
   const width = useSpring(widthSync, {
@@ -343,14 +349,14 @@ function DockIconItem({
       <motion.div
         style={{ width, height: width }}
         whileTap={{ scale: 0.9 }}
-        className="relative shrink-0 rounded-[12px] sm:rounded-[14px] overflow-hidden cursor-pointer flex items-center justify-center p-0.5 opacity-90 hover:opacity-100 transition-opacity shadow-sm bg-black"
+        className="relative shrink-0 rounded-[7px] sm:rounded-[14px] overflow-hidden cursor-pointer flex items-center justify-center p-0.5 opacity-90 hover:opacity-100 transition-opacity shadow-sm bg-black"
       >
         <Image
           src={tool.image}
           alt={tool.name}
           width={80}
           height={80}
-          className="w-full h-full object-cover rounded-[10px] sm:rounded-[12px] bg-black"
+          className="w-full h-full object-cover rounded-[6px] sm:rounded-[12px] bg-black"
           priority
         />
       </motion.div>
@@ -371,6 +377,16 @@ export default function AppIconsDock({
 }: AppIconsDockProps) {
   const mouseX = useMotionValue(Infinity);
   const mouseY = useMotionValue(Infinity);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   if (orientation === "vertical") {
     return (
@@ -405,10 +421,10 @@ export default function AppIconsDock({
         <motion.div
           onMouseMove={(e) => mouseX.set(e.pageX)}
           onMouseLeave={() => mouseX.set(Infinity)}
-          className="inline-flex items-end gap-1.5 sm:gap-2 p-2 sm:p-2.5 px-3.5 sm:px-5 bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[24px] shadow-[0_12px_36px_rgba(0,0,0,0.4)] overflow-visible select-none shrink-0"
+          className="inline-flex items-end gap-1 sm:gap-2 p-1.5 sm:p-2.5 px-2.5 sm:px-5 bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[24px] shadow-[0_12px_36px_rgba(0,0,0,0.4)] w-max select-none shrink-0"
         >
           {toolsData.map((tool) => (
-            <DockIconItem key={tool.id} tool={tool} mouseX={mouseX} />
+            <DockIconItem key={tool.id} tool={tool} mouseX={mouseX} isMobile={isMobile} />
           ))}
         </motion.div>
       </div>
