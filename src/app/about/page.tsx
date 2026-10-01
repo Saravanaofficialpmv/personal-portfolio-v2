@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import AppIconsDock from "@/components/AppIconsDock";
-import AboutPhotoFrames from "@/components/AboutPhotoFrames";
 import JourneyBentoReel from "@/components/JourneyBentoReel";
 
 interface Experience {
@@ -61,10 +60,6 @@ const experiences: Experience[] = [
   },
 ];
 
-
-
-
-
 export default function AboutPage() {
   const [timeString, setTimeString] = useState("11:11 PM");
 
@@ -86,7 +81,7 @@ export default function AboutPage() {
 
   return (
     <div className="w-full flex flex-col items-center gap-20 md:gap-28 pt-28 md:pt-36 pb-16 px-4 md:px-8">
-      {/* 1. Header & Collage */}
+      {/* 1. Header */}
       <section className="w-full max-w-[1168px] flex flex-col items-center gap-6 md:gap-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -106,9 +101,6 @@ export default function AboutPage() {
         >
           two sides <span className="font-normal text-[#171717]">of one designer.</span>
         </motion.h1>
-
-        {/* 1, 2, 3 Photo Frames */}
-        <AboutPhotoFrames />
       </section>
 
       {/* 2. Summary & Location Details */}
@@ -163,8 +155,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-
 
       {/* 3. Tech Stack & Tools App Icons Dock */}
       <section id="software-tools" className="w-full max-w-[1168px] flex flex-col gap-6 items-center md:items-start">

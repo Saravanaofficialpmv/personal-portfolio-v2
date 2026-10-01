@@ -10,12 +10,9 @@ import {
   Folder,
   Palette,
   Code,
-  FileText,
   Sparkles,
-  Download,
   Share2,
   Check,
-  Layers,
 } from "lucide-react";
 import Footer from "@/components/Footer";
 

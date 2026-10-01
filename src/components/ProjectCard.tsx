@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Lock, Maximize2, X, Eye } from "lucide-react";
+import { ArrowUpRight, Lock, Maximize2, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export interface ProjectData {

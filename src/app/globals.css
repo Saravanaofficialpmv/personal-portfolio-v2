@@ -68,15 +68,6 @@
   }
 }
 
-@keyframes marqueeRight {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
 .animate-marquee {
   display: flex;
   width: max-content;
@@ -95,15 +86,6 @@
 
 .animate-marquee-fast:hover {
   animation-play-state: paused;
-}
-
-/* Glassmorphism utility */
-.glass-pill {
-  background-color: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 /* Custom scrollbar */
@@ -188,3 +170,26 @@
     word-spacing: normal !important;
   }
 }
+
+/* Responsive Viewport Fit for Hero Frame */
+.hero-viewport-frames {
+  max-width: min(940px, calc((100vh - 400px) * 2.65)) !important;
+}
+
+@media (max-height: 860px) {
+  .hero-viewport-fit {
+    padding-top: clamp(7.5rem, 13vh, 8.75rem) !important;
+  }
+  .hero-viewport-gap {
+    gap: clamp(1.5rem, 3.2vh, 2.25rem) !important;
+  }
+  .hero-viewport-headline {
+    font-size: clamp(2.25rem, 4.8vh, 3.5rem) !important;
+    line-height: 1.24 !important;
+  }
+  .hero-viewport-subtext {
+    font-size: clamp(0.82rem, 1.6vh, 0.95rem) !important;
+    line-height: 1.65 !important;
+  }
+}
+

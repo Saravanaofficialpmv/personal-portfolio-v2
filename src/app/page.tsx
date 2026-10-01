@@ -145,20 +145,20 @@ export default function Home() {
   const [isSlideshowOpen, setIsSlideshowOpen] = useState(false);
 
   return (
-    <div className="w-full flex flex-col items-center gap-20 md:gap-28 pt-28 md:pt-36 pb-16 px-4 md:px-8">
+    <div className="w-full flex flex-col items-center gap-20 md:gap-28 pt-28 sm:pt-32 md:pt-36 pb-16 px-4 md:px-8 hero-viewport-fit">
       {/* Slideshow Modal */}
       <SSWholesaleSlideshowModal
         isOpen={isSlideshowOpen}
         onClose={() => setIsSlideshowOpen(false)}
       />
       {/* 1. Hero / Landing Section */}
-      <section className="w-full max-w-[1168px] flex flex-col items-center gap-8 md:gap-12">
+      <section className="w-full max-w-[1168px] flex flex-col items-center gap-7 sm:gap-8 md:gap-9 hero-viewport-gap">
         {/* Welcome Tag Badge */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-3 px-6 py-2.5 border border-[#D6D6D6] rounded-full bg-white text-xs tracking-wider shadow-xs"
+          className="inline-flex items-center gap-2.5 sm:gap-3 px-5 sm:px-6 py-2 sm:py-2.5 border border-[#D6D6D6] rounded-full bg-white text-xs tracking-wider shadow-xs"
         >
           <span className="text-[#5C5C5C] font-normal tracking-[0.15em]">HELLO</span>
           <svg className="w-3 h-3 inline-block shrink-0 -mt-0.5" viewBox="-1.5 0 20 20">
@@ -174,14 +174,15 @@ export default function Home() {
         </motion.div>
 
         {/* Main Headline */}
-        <div className="flex flex-col items-center text-center gap-3">
+        <div className="flex flex-col items-center text-center gap-4 sm:gap-5">
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-notch font-medium text-3xl sm:text-5xl md:text-6xl tracking-tight text-[#171717] leading-tight max-w-4xl"
+            className="font-notch font-medium text-3xl sm:text-5xl md:text-6xl tracking-tight text-[#171717] leading-[1.24] max-w-4xl text-center hero-viewport-headline"
           >
-            Building Apps<span className="period-highlight">.</span> Designing
+            Building Apps<span className="period-highlight">.</span> Designing{" "}
+            <br className="hidden sm:inline" />
             Products<span className="period-highlight">.</span> Crafting
             Packaging<span className="period-highlight">.</span>
           </motion.h1>
@@ -190,42 +191,45 @@ export default function Home() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xs sm:text-sm md:text-base text-[#383838] font-normal max-w-2xl text-center leading-relaxed"
+            className="text-xs sm:text-sm md:text-base text-[#383838] font-normal max-w-2xl text-center leading-relaxed hero-viewport-subtext"
           >
-            Product designer who maps messy problems into interfaces that get out of the way. From the brief changes &ndash; the obsession with clarity, calm, and the boring details doesn&rsquo;t.
+            Product designer who maps messy problems into interfaces that get out of the way. From{" "}
+            <br className="hidden md:inline" />
+            the brief changes &ndash; the obsession with clarity, calm, and the boring details doesn&rsquo;t.
           </motion.p>
         </div>
 
         {/* 3-Panel Photo Lander Grid */}
         <AboutPhotoFrames
           imageSrc="/home-hero.webp"
-          objectPosition="object-[center_22%]"
+          objectPosition="object-[center_23%]"
+          className="hero-viewport-frames pt-1 sm:pt-2 md:pt-3"
         />
+      </section>
 
-        {/* Client / Partner Logo Marquee */}
-        <div className="w-full pt-6 border-t border-[#E0E0E0]/60 flex flex-col gap-4 items-center">
-          <span className="text-xs uppercase tracking-widest text-[#A3A3A3] font-medium">
-            Trusted by multiple clients worldwide
-          </span>
-          <Marquee speed="normal">
-            {[...clientLogos, ...clientLogos, ...clientLogos].map((logo, idx) => (
-              <div
-                key={`${logo.name}-${idx}`}
-                className="relative w-28 sm:w-32 md:w-36 h-8 sm:h-9 md:h-10 flex items-center justify-center group shrink-0 mx-2"
-              >
-                <Image
-                  src={logo.logoUrl}
-                  alt={logo.name}
-                  fill
-                  sizes="(max-width: 768px) 112px, 144px"
-                  className={`object-contain transition-opacity duration-300 opacity-80 group-hover:opacity-100 ${
-                    logo.invert ? "invert" : ""
-                  } ${logo.className || ""}`}
-                />
-              </div>
-            ))}
-          </Marquee>
-        </div>
+      {/* Client / Partner Logo Marquee */}
+      <section className="w-full max-w-[1168px] pt-8 sm:pt-12 border-t border-[#E0E0E0]/60 flex flex-col gap-4 items-center">
+        <span className="text-xs uppercase tracking-widest text-[#A3A3A3] font-medium">
+          Trusted by multiple clients worldwide
+        </span>
+        <Marquee speed="normal">
+          {[...clientLogos, ...clientLogos, ...clientLogos].map((logo, idx) => (
+            <div
+              key={`${logo.name}-${idx}`}
+              className="relative w-28 sm:w-32 md:w-36 h-8 sm:h-9 md:h-10 flex items-center justify-center group shrink-0 mx-2"
+            >
+              <Image
+                src={logo.logoUrl}
+                alt={logo.name}
+                fill
+                sizes="(max-width: 768px) 112px, 144px"
+                className={`object-contain transition-opacity duration-300 opacity-80 group-hover:opacity-100 ${
+                  logo.invert ? "invert" : ""
+                } ${logo.className || ""}`}
+              />
+            </div>
+          ))}
+        </Marquee>
       </section>
 
       {/* 2. About Brief Section */}

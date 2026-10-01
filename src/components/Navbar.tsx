@@ -10,20 +10,10 @@ import {
   Search,
   ChevronDown,
   ChevronUp,
-  Link2,
-  BookOpen,
   X,
-  ArrowUpRight,
-  Sparkles,
-  PhoneCall,
-  CheckCircle2,
   Globe,
-  Briefcase,
   FileText,
   Package,
-  Wrench,
-  ExternalLink,
-  CreditCard,
 } from "lucide-react";
 
 const mainNavItems = [
@@ -41,7 +31,6 @@ const searchableItems = [
   { name: "Bucket List", category: "Page", path: "/bucket-list" },
   { name: "Guestbook", category: "Page", path: "/guestbook" },
   { "name": "Useful Assets & Resources", category: "Page", path: "/useful-assets" },
-  { name: "Tools Which I Use", category: "Page", path: "/tools" },
   { name: "Inka Billing App", category: "Project", path: "/works#inka" },
   { name: "SS Wholesale", category: "Project", path: "/works#ss-wholesale" },
   { name: "AquaWind IoT", category: "Project", path: "/works#aquawind" },
@@ -124,7 +113,7 @@ export default function Navbar() {
                   <li
                     key={item.path}
                     className={`relative shrink-0 ${
-                      item.name === "Resume" ? "hidden sm:block" : ""
+                      item.name === "Resume" ? "hidden md:block" : ""
                     }`}
                   >
                     <Link
@@ -201,14 +190,15 @@ export default function Navbar() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96, y: -6 }}
                 transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="fixed sm:absolute top-16 sm:top-full mt-1.5 sm:mt-2.5 left-1/2 -translate-x-1/2 w-[calc(100vw-24px)] max-w-2xl bg-[#141416]/95 backdrop-blur-2xl border border-white/10 rounded-3xl p-3 sm:p-4 shadow-2xl z-50 text-white origin-top max-h-[75vh] overflow-y-auto scrollbar-none before:absolute before:-top-3 before:left-0 before:right-0 before:h-3"
+                className="fixed md:absolute top-16 md:top-full mt-1.5 md:mt-2.5 left-1/2 -translate-x-1/2 w-[calc(100vw-24px)] md:w-[720px] max-w-2xl bg-[#141416]/95 backdrop-blur-2xl border border-white/10 rounded-3xl p-3 sm:p-4 shadow-2xl z-50 text-white origin-top max-h-[85vh] overflow-y-auto scrollbar-none before:absolute before:-top-3 before:left-0 before:right-0 before:h-3"
               >
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+                {/* DESKTOP VIEW: Exactly 3 Image Cards (Guestbook, Bucket List, Useful Assets - No Resume) */}
+                <div className="hidden md:grid grid-cols-3 gap-3">
                   {/* Card 1: Guestbook */}
                   <Link
                     href="/guestbook"
                     onClick={() => setIsMoreOpen(false)}
-                    className="relative h-28 sm:h-48 rounded-xl sm:rounded-2xl overflow-hidden group border border-white/10 flex flex-col justify-end p-3 sm:p-4 transition-transform duration-300 hover:scale-[1.02] cursor-pointer text-left w-full"
+                    className="relative h-48 lg:h-52 rounded-2xl overflow-hidden group border border-white/10 flex flex-col justify-end p-4 transition-transform duration-300 hover:scale-[1.02] cursor-pointer text-left w-full"
                   >
                     <Image
                       src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format&fit=crop"
@@ -218,7 +208,7 @@ export default function Navbar() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                     <div className="relative z-10 flex flex-col gap-0.5">
-                      <h4 className="font-notch font-medium text-sm sm:text-base text-white">
+                      <h4 className="font-notch font-medium text-base text-white">
                         Guestbook
                       </h4>
                       <p className="text-xs text-neutral-300 font-light truncate">
@@ -231,7 +221,7 @@ export default function Navbar() {
                   <Link
                     href="/bucket-list"
                     onClick={() => setIsMoreOpen(false)}
-                    className="relative h-28 sm:h-48 rounded-xl sm:rounded-2xl overflow-hidden group border border-white/10 flex flex-col justify-end p-3 sm:p-4 transition-transform duration-300 hover:scale-[1.02]"
+                    className="relative h-48 lg:h-52 rounded-2xl overflow-hidden group border border-white/10 flex flex-col justify-end p-4 transition-transform duration-300 hover:scale-[1.02] cursor-pointer text-left w-full"
                   >
                     <Image
                       src="https://images.unsplash.com/photo-1521673461164-de300ebcfb17?q=80&w=600&auto=format&fit=crop"
@@ -241,7 +231,7 @@ export default function Navbar() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                     <div className="relative z-10 flex flex-col gap-0.5">
-                      <h4 className="font-notch font-medium text-sm sm:text-base text-white">
+                      <h4 className="font-notch font-medium text-base text-white">
                         Bucket List
                       </h4>
                       <p className="text-xs text-neutral-300 font-light truncate">
@@ -250,80 +240,117 @@ export default function Navbar() {
                     </div>
                   </Link>
 
-                  {/* Card 3: List Items Column */}
-                  <div className="flex flex-col gap-2 sm:gap-2.5 justify-between">
-                    {/* Item 1: Useful Assets */}
+                  {/* Card 3: Useful Assets (Full Image Card) */}
+                  <Link
+                    href="/useful-assets"
+                    onClick={() => setIsMoreOpen(false)}
+                    className="relative h-48 lg:h-52 rounded-2xl overflow-hidden group border border-white/10 flex flex-col justify-end p-4 transition-transform duration-300 hover:scale-[1.02] cursor-pointer text-left w-full"
+                  >
+                    <Image
+                      src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop"
+                      alt="Useful assets background"
+                      fill
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500 brightness-75"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                    <div className="relative z-10 flex flex-col gap-0.5">
+                      <h4 className="font-notch font-medium text-base text-white">
+                        Useful Assets
+                      </h4>
+                      <p className="text-xs text-neutral-300 font-light truncate">
+                        Design resources &amp; templates
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+
+                {/* MOBILE VIEW: Guestbook & Bucket List + Full-width Useful Assets & Resume Boxes */}
+                <div className="flex md:hidden flex-col gap-2.5">
+                  {/* Top Row: 2 Image Cards Side-by-Side */}
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {/* Guestbook Card */}
+                    <Link
+                      href="/guestbook"
+                      onClick={() => setIsMoreOpen(false)}
+                      className="relative h-28 sm:h-32 rounded-xl overflow-hidden group border border-white/10 flex flex-col justify-end p-3 transition-transform duration-200 active:scale-98 cursor-pointer text-left w-full"
+                    >
+                      <Image
+                        src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format&fit=crop"
+                        alt="Guestbook background"
+                        fill
+                        className="object-cover object-center brightness-75"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                      <div className="relative z-10 flex flex-col gap-0.5">
+                        <h4 className="font-notch font-medium text-sm text-white">
+                          Guestbook
+                        </h4>
+                        <p className="text-[11px] text-neutral-300 font-light truncate">
+                          Let me know you were here
+                        </p>
+                      </div>
+                    </Link>
+
+                    {/* Bucket List Card */}
+                    <Link
+                      href="/bucket-list"
+                      onClick={() => setIsMoreOpen(false)}
+                      className="relative h-28 sm:h-32 rounded-xl overflow-hidden group border border-white/10 flex flex-col justify-end p-3 transition-transform duration-200 active:scale-98 cursor-pointer text-left w-full"
+                    >
+                      <Image
+                        src="https://images.unsplash.com/photo-1521673461164-de300ebcfb17?q=80&w=600&auto=format&fit=crop"
+                        alt="Bucket list background"
+                        fill
+                        className="object-cover object-center brightness-75"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                      <div className="relative z-10 flex flex-col gap-0.5">
+                        <h4 className="font-notch font-medium text-sm text-white">
+                          Bucket List
+                        </h4>
+                        <p className="text-[11px] text-neutral-300 font-light truncate">
+                          Dreams with a deadline
+                        </p>
+                      </div>
+                    </Link>
+                  </div>
+
+                  {/* Bottom Section: Useful Assets & Resume & Experience (Full Width Boxes filling remaining space) */}
+                  <div className="flex flex-col gap-2 w-full">
+                    {/* Useful Assets Box */}
                     <Link
                       href="/useful-assets"
                       onClick={() => setIsMoreOpen(false)}
-                      className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] transition-colors group cursor-pointer text-left w-full overflow-hidden"
+                      className="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.05] border border-white/10 hover:bg-white/[0.08] active:bg-white/[0.1] transition-colors group cursor-pointer text-left w-full"
                     >
-                      <div className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-white/10 border border-white/10 text-neutral-300 group-hover:text-white transition-colors shrink-0">
-                        <Package className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      <div className="p-2.5 rounded-xl bg-white/10 border border-white/10 text-neutral-300 group-hover:text-white transition-colors shrink-0">
+                        <Package className="w-4 h-4" />
                       </div>
-                      <div className="flex flex-col overflow-hidden">
-                        <span className="font-notch text-xs font-semibold text-white truncate">
+                      <div className="flex flex-col flex-1 min-w-0">
+                        <span className="font-notch text-sm font-semibold text-white">
                           Useful Assets
                         </span>
-                        <span className="text-[11px] text-neutral-400 font-light truncate block">
+                        <span className="text-xs text-neutral-400 font-light">
                           Design resources &amp; templates
                         </span>
                       </div>
                     </Link>
 
-                    {/* Item 2: Tools Which I Use */}
-                    <Link
-                      href="/tools"
-                      onClick={() => setIsMoreOpen(false)}
-                      className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] transition-colors group cursor-pointer text-left w-full overflow-hidden"
-                    >
-                      <div className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-white/10 border border-white/10 text-neutral-300 group-hover:text-white transition-colors shrink-0">
-                        <Wrench className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      </div>
-                      <div className="flex flex-col overflow-hidden">
-                        <span className="font-notch text-xs font-semibold text-white truncate">
-                          Tools Which I Use
-                        </span>
-                        <span className="text-[11px] text-neutral-400 font-light truncate block">
-                          Hardware, software &amp; workflow
-                        </span>
-                      </div>
-                    </Link>
-
-                    {/* Item 3: Resume & Experience (Mobile Only) */}
+                    {/* Resume & Experience Box */}
                     <Link
                       href="/resume"
                       onClick={() => setIsMoreOpen(false)}
-                      className="sm:hidden flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] transition-colors group overflow-hidden"
+                      className="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.05] border border-white/10 hover:bg-white/[0.08] active:bg-white/[0.1] transition-colors group cursor-pointer text-left w-full"
                     >
-                      <div className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-white/10 border border-white/10 text-neutral-300 group-hover:text-white transition-colors shrink-0">
-                        <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      <div className="p-2.5 rounded-xl bg-white/10 border border-white/10 text-neutral-300 group-hover:text-white transition-colors shrink-0">
+                        <FileText className="w-4 h-4" />
                       </div>
-                      <div className="flex flex-col overflow-hidden">
-                        <span className="font-notch text-xs font-semibold text-white truncate">
+                      <div className="flex flex-col flex-1 min-w-0">
+                        <span className="font-notch text-sm font-semibold text-white">
                           Resume &amp; Experience
                         </span>
-                        <span className="text-[11px] text-neutral-400 font-light truncate block">
+                        <span className="text-xs text-neutral-400 font-light">
                           Career ladder, education &amp; skills
-                        </span>
-                      </div>
-                    </Link>
-
-                    {/* Item 4: Attribution (Desktop Only) */}
-                    <Link
-                      href="/resume"
-                      onClick={() => setIsMoreOpen(false)}
-                      className="hidden sm:flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] transition-colors group overflow-hidden"
-                    >
-                      <div className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-white/10 border border-white/10 text-neutral-300 group-hover:text-white transition-colors shrink-0">
-                        <CreditCard className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      </div>
-                      <div className="flex flex-col overflow-hidden">
-                        <span className="font-notch text-xs font-semibold text-white truncate">
-                          Attribution
-                        </span>
-                        <span className="text-[11px] text-neutral-400 font-light truncate block">
-                          Journey to create this site
                         </span>
                       </div>
                     </Link>

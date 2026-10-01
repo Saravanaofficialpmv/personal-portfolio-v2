@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckSquare, Square, ArrowUpRight, Lock, Unlock, Sparkles, Check, Key } from "lucide-react";
+import { CheckSquare, Square, ArrowUpRight, Lock, Unlock } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 

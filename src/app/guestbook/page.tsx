@@ -2,11 +2,11 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Share2, Check, Sticker, Plus, Move, MousePointerClick, LayoutGrid, RotateCw, RotateCcw, Sparkles, RefreshCw, Database } from "lucide-react";
+import { Share2, Check, Sticker, Plus, Move, LayoutGrid, RotateCw, RotateCcw, Sparkles, RefreshCw } from "lucide-react";
 import Image from "next/image";
 import Footer from "@/components/Footer";
 import StickerPeel from "@/components/StickerPeel";
-import { db, collection, addDoc, onSnapshot, query, orderBy } from "@/lib/firebase";
+import { db, collection, addDoc, onSnapshot } from "@/lib/firebase";
 
 interface StickerEntry {
   id: string;
