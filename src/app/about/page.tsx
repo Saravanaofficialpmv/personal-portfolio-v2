@@ -99,7 +99,7 @@ export default function AboutPage() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="font-notch font-bold text-4xl sm:text-6xl md:text-7xl text-[#171717] tracking-tight"
         >
-          two sides <span className="font-normal text-[#171717]">of one designer.</span>
+          your <span className="font-normal text-[#5C5C5C]">designer.</span>
         </motion.h1>
       </section>
 
