@@ -242,44 +242,27 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
 
   const setupLenis = useCallback(() => {
     if (useWindowScroll) {
-      const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true,
-        touchMultiplier: 2,
-        infinite: false,
-        wheelMultiplier: 1,
-        lerp: 0.1,
-        syncTouch: true,
-        syncTouchLerp: 0.075,
-      });
-
-      lenis.on("scroll", handleScroll);
-
-      const raf = (time: number) => {
-        lenis.raf(time);
-        animationFrameRef.current = requestAnimationFrame(raf);
-      };
-      animationFrameRef.current = requestAnimationFrame(raf);
-
-      lenisRef.current = lenis;
-      return lenis;
+      // Window scrolling is smoothly handled by the global SmoothScroll provider.
+      // Hook into global Lenis if active
+      const globalLenis = typeof window !== "undefined" ? (window as unknown as { __lenis?: Lenis }).__lenis : null;
+      if (globalLenis) {
+        globalLenis.on("scroll", handleScroll);
+        lenisRef.current = globalLenis;
+        return globalLenis;
+      }
+      return null;
     } else {
       const scroller = scrollerRef.current;
-      if (!scroller) return;
+      if (!scroller) return null;
 
       const lenis = new Lenis({
         wrapper: scroller,
         content: scroller.querySelector(".scroll-stack-inner") as HTMLElement,
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        lerp: 0.08,
+        wheelMultiplier: 0.8,
+        touchMultiplier: 1,
         smoothWheel: true,
-        touchMultiplier: 2,
-        infinite: false,
-        wheelMultiplier: 1,
-        lerp: 0.1,
-        syncTouch: true,
-        syncTouchLerp: 0.075,
+        syncTouch: false,
       });
 
       lenis.on("scroll", handleScroll);
@@ -337,14 +320,20 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     return () => {
       if (useWindowScroll) {
         window.removeEventListener("scroll", handleScroll);
+        const globalLenis = typeof window !== "undefined" ? (window as unknown as { __lenis?: Lenis }).__lenis : null;
+        if (globalLenis) {
+          globalLenis.off("scroll", handleScroll);
+        }
+      } else {
+        if (lenisRef.current) {
+          lenisRef.current.destroy();
+        }
       }
       window.removeEventListener("resize", handleScroll);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
-      if (lenisRef.current) {
-        lenisRef.current.destroy();
-      }
+      lenisRef.current = null;
       stackCompletedRef.current = false;
       cardsRef.current = [];
       transformsCache.clear();

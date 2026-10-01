@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WelcomePreloader from "@/components/WelcomePreloader";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -65,10 +66,12 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} ${stackSansNotch.variable} ${kavivanar.variable} ${arima.variable} ${tamilCustomFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-[#171717] font-sans selection:bg-[#E8342A] selection:text-white">
-        <WelcomePreloader />
-        <Navbar />
-        <main className="flex-1 w-full">{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <WelcomePreloader />
+          <Navbar />
+          <main className="flex-1 w-full">{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );

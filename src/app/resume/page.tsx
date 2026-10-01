@@ -11,33 +11,48 @@ export default function ResumePage() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#5C5C5C] font-semibold"
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#5C5C5C]"
         >
-          <span className="text-neutral-400">✦</span>
+          <span className="text-[#E8342A]">✦</span>
           <span>RESUME</span>
         </motion.div>
 
         <div className="flex flex-col items-center gap-3">
-          <h1 className="font-sans font-semibold text-3xl sm:text-5xl md:text-6xl text-[#171717] tracking-tight leading-tight">
-            sure, let’s keep it <span className="text-[#5C5C5C]">formal</span>
-          </h1>
-          <p className="text-sm sm:text-base md:text-lg text-[#5C5C5C] font-normal max-w-md leading-relaxed">
+          <motion.h1
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-notch font-bold text-4xl sm:text-6xl md:text-7xl text-[#171717] tracking-tight leading-[1.15]"
+          >
+            sure, let’s keep it <span className="text-[#5C5C5C]">formal<span className="text-[#E8342A]">.</span></span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-sm sm:text-base md:text-lg text-[#5C5C5C] font-normal max-w-md leading-relaxed"
+          >
             For recruiters, hiring managers, and anyone who prefers the short version.
-          </p>
+          </motion.p>
         </div>
 
         {/* Action Button: DOWNLOAD RESUME */}
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex flex-wrap items-center justify-center gap-3 pt-2"
+        >
           <a
             href="/saravana-resume.pdf"
             download="Saravana_S_Resume.pdf"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#171717] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#333333] transition-all cursor-pointer shadow-sm hover:shadow-md active:scale-95"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#171717] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#E8342A] transition-all cursor-pointer shadow-sm hover:shadow-md active:scale-95"
           >
             <span>DOWNLOAD RESUME</span>
-            <ArrowDown className="w-4 h-4 text-neutral-300" />
+            <ArrowDown className="w-4 h-4 text-white" />
           </a>
-        </div>
+        </motion.div>
       </section>
 
       {/* ==================================================
