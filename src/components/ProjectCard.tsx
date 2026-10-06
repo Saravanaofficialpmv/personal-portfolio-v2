@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Lock, Maximize2, X } from "lucide-react";
+import { ArrowUpRight, Images, Lock, Maximize2, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export interface ProjectData {
@@ -27,6 +27,8 @@ export interface ProjectData {
   featured?: boolean;
   isLongImage?: boolean;
   isPreviewModal?: boolean;
+  isSlideshowModal?: boolean;
+  onOpenSlideshow?: () => void;
   imageFit?: "cover" | "contain";
   imageBg?: string;
 }
@@ -34,16 +36,18 @@ export interface ProjectData {
 interface ProjectCardProps {
   project: ProjectData;
   index?: number;
+  onOpenSlideshow?: (projectId: string) => void;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, onOpenSlideshow }: ProjectCardProps) {
   const primaryImg = project.modalImageUrl || project.imageUrl;
   const [activeImg, setActiveImg] = useState<string>(primaryImg);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (isModalOpen) {
-      setActiveImg(project.modalImageUrl || project.imageUrl);
+      const targetImg = project.modalImageUrl || project.imageUrl;
+      setActiveImg((prev) => (prev !== targetImg ? targetImg : prev));
     }
   }, [isModalOpen, project.modalImageUrl, project.imageUrl]);
 
@@ -138,7 +142,19 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
             {/* Action Link / Preview Button / GitHub */}
             <div className="flex items-center gap-3 flex-wrap">
-              {isModalAction ? (
+              {project.isSlideshowModal ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (project.onOpenSlideshow) project.onOpenSlideshow();
+                    else if (onOpenSlideshow) onOpenSlideshow(project.id);
+                  }}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#171717] text-white text-xs uppercase tracking-wider font-medium hover:bg-[#333333] transition-all duration-200 cursor-pointer shadow-sm"
+                >
+                  <Images className="w-3.5 h-3.5 text-[#E8342A]" />
+                  <span>{project.linkText || "Explore Slideshow"}</span>
+                </button>
+              ) : isModalAction ? (
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(true)}
@@ -266,10 +282,15 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           ) : (
             <div
               className={`w-full md:w-[460px] lg:w-[480px] aspect-[3/2] relative rounded-xl md:rounded-2xl overflow-hidden shrink-0 shadow-md ${
-                isModalAction ? "cursor-pointer group/img" : ""
+                project.isSlideshowModal || isModalAction ? "cursor-pointer group/img" : ""
               }`}
               onClick={() => {
-                if (isModalAction) setIsModalOpen(true);
+                if (project.isSlideshowModal) {
+                  if (project.onOpenSlideshow) project.onOpenSlideshow();
+                  else if (onOpenSlideshow) onOpenSlideshow(project.id);
+                } else if (isModalAction) {
+                  setIsModalOpen(true);
+                }
               }}
             >
               <Image
@@ -278,14 +299,19 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 fill
                 className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
               />
-              {isModalAction && (
+              {project.isSlideshowModal ? (
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-white text-xs font-semibold uppercase tracking-wider">
+                  <Images className="w-4 h-4 text-[#E8342A]" />
+                  <span>View Slideshow <span className="text-[#E8342A]">✦</span></span>
+                </div>
+              ) : isModalAction ? (
                 <div className="absolute bottom-3 right-3 z-10 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 pointer-events-none">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#171717]/90 backdrop-blur-md text-white text-xs font-medium shadow-lg">
                     <span>Preview UI</span>
                     <Maximize2 className="w-3.5 h-3.5" />
                   </span>
                 </div>
-              )}
+              ) : null}
             </div>
           )}
         </div>

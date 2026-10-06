@@ -11,17 +11,17 @@ interface LogoItem {
   title: string;
   category?: string;
   isDark?: boolean;
+  colSpan?: string;
 }
 
 const logoItems: LogoItem[] = [
-  { id: 1, src: "/logowork/1.svg", title: "Brand Identity Mark 01", category: "Vector Emblem" },
-  { id: 2, src: "/logowork/2.svg", title: "Brand Identity Mark 02", category: "Monogram Mark" },
-  { id: 3, src: "/logowork/3.svg", title: "Brand Identity Mark 03", isDark: true, category: "Dark Mode Emblem" },
-  { id: 5, src: "/logowork/5.svg", title: "Brand Identity Mark 04", category: "Brand Symbol" },
-  { id: 6, src: "/logowork/6.svg", title: "Brand Identity Mark 05", isDark: true, category: "Monogram Mark" },
-  { id: 7, src: "/logowork/7.svg", title: "Brand Identity Mark 06", category: "Minimal Icon" },
+  { id: 9, src: "/logowork/9.svg", title: "Heydotin", isDark: true, category: "Digital Studio Emblem", colSpan: "col-span-2 md:col-span-2" },
+  { id: 10, src: "/logowork/inka.png", title: "Inka", category: "Fintech & Billing Mark" },
+  { id: 11, src: "/logowork/uni.jpg", title: "UniSphere", category: "Campus Intelligence Mark" },
+  { id: 12, src: "/logowork/dravonix.png", title: "Dravonix", category: "Brand Identity Mark" },
+  { id: 1, src: "/logowork/1.svg", title: "Sivamani Stores", category: "Retail Brand Mark" },
+  { id: 2, src: "/logowork/2.svg", title: "Orbit", category: "Monogram Mark" },
   { id: 8, src: "/logowork/8.svg", title: "Brand Identity Mark 07", category: "Corporate Emblem" },
-  { id: 9, src: "/logowork/9.svg", title: "Brand Identity Mark 08", isDark: true, category: "App Emblem" },
 ];
 
 interface LogoShowcaseProps {
@@ -60,17 +60,34 @@ export default function LogoShowcase({ viewMode = "grid" }: LogoShowcaseProps) {
               transition={{ duration: 0.4, delay: idx * 0.05 }}
               onClick={() => setSelectedLogo(logo)}
               className={`group relative flex flex-col items-center justify-between p-4 sm:p-6 rounded-2xl md:rounded-3xl border transition-all duration-300 cursor-pointer overflow-hidden ${
+                logo.colSpan || "col-span-1"
+              } ${
                 logo.isDark
-                  ? "bg-[#121212] border-[#2A2A2A] hover:border-[#E8342A] hover:shadow-xl"
+                  ? "bg-black border-[#222222] hover:border-[#E8342A] hover:shadow-xl"
                   : "bg-white border-[#E0E0E0] hover:border-[#E8342A] hover:shadow-xl shadow-xs"
               }`}
             >
-              <div className="relative w-full h-36 sm:h-44 flex items-center justify-center p-2">
+              <div
+                className={`relative w-full ${
+                  logo.colSpan?.includes("md:col-span-2")
+                    ? "h-40 sm:h-48 md:h-52"
+                    : "h-36 sm:h-44"
+                } flex items-center justify-center p-2 rounded-2xl ${
+                  logo.isDark ? "bg-black" : ""
+                }`}
+              >
                 <Image
                   src={logo.src}
                   alt={logo.title}
                   fill
-                  className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+                  sizes={
+                    logo.colSpan?.includes("md:col-span-2")
+                      ? "(max-width: 640px) 100vw, (max-width: 1024px) 66vw, 50vw"
+                      : "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  }
+                  className={`object-contain transition-transform duration-500 group-hover:scale-105 ${
+                    logo.id === 9 ? "p-1 sm:p-2 md:p-3" : "p-2"
+                  }`}
                 />
               </div>
 
@@ -87,7 +104,7 @@ export default function LogoShowcase({ viewMode = "grid" }: LogoShowcaseProps) {
               {/* Hover overlay hint */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-white text-xs font-medium uppercase tracking-wider z-20">
                 <Maximize2 className="w-4 h-4 text-[#E8342A]" />
-                <span>Inspect Vector</span>
+                <span>Inspect Mark</span>
               </div>
             </motion.div>
           ))}
@@ -110,7 +127,7 @@ export default function LogoShowcase({ viewMode = "grid" }: LogoShowcaseProps) {
                 <div
                   className={`relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl border flex items-center justify-center shrink-0 p-2.5 transition-transform duration-300 group-hover:scale-105 ${
                     logo.isDark
-                      ? "bg-[#121212] border-[#2A2A2A]"
+                      ? "bg-black border-[#222222]"
                       : "bg-white border-[#E0E0E0] shadow-2xs"
                   }`}
                 >
@@ -118,6 +135,7 @@ export default function LogoShowcase({ viewMode = "grid" }: LogoShowcaseProps) {
                     src={logo.src}
                     alt={logo.title}
                     fill
+                    sizes="80px"
                     className="object-contain p-2"
                   />
                 </div>
@@ -135,7 +153,7 @@ export default function LogoShowcase({ viewMode = "grid" }: LogoShowcaseProps) {
               {/* Action Button */}
               <div className="flex items-center gap-3 shrink-0">
                 <span className="hidden sm:inline-block text-xs font-mono text-[#A3A3A3] uppercase">
-                  Vector Mark
+                  {logo.category || "Brand Mark"}
                 </span>
                 <div className="p-2 rounded-lg bg-[#F7F7F7] border border-[#E0E0E0] text-[#171717] group-hover:bg-[#E8342A] group-hover:text-white group-hover:border-[#E8342A] transition-colors">
                   <Maximize2 className="w-4 h-4" />
@@ -162,7 +180,7 @@ export default function LogoShowcase({ viewMode = "grid" }: LogoShowcaseProps) {
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
               className={`relative w-full max-w-2xl p-8 md:p-12 rounded-3xl flex flex-col items-center gap-6 border shadow-2xl ${
-                selectedLogo.isDark ? "bg-[#171717] border-[#333333]" : "bg-white border-[#E0E0E0]"
+                selectedLogo.isDark ? "bg-black border-[#222222]" : "bg-white border-[#E0E0E0]"
               }`}
             >
               {/* Close Button */}
@@ -183,6 +201,7 @@ export default function LogoShowcase({ viewMode = "grid" }: LogoShowcaseProps) {
                   src={selectedLogo.src}
                   alt={selectedLogo.title}
                   fill
+                  sizes="(max-width: 768px) 90vw, 640px"
                   className="object-contain"
                 />
               </div>

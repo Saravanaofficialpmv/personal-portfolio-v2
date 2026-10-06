@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Grid, List } from "lucide-react";
+import { ArrowUpRight, Grid, List, Images } from "lucide-react";
 import { motion } from "framer-motion";
 import ProjectCard, { ProjectData } from "@/components/ProjectCard";
 import LogoShowcase from "@/components/LogoShowcase";
+import SSWholesaleSlideshowModal from "@/components/SSWholesaleSlideshowModal";
 
 const allProjects: ProjectData[] = [
   {
@@ -76,6 +76,21 @@ const allProjects: ProjectData[] = [
     featured: true,
   },
   {
+    id: "ss-wholesale",
+    title: "SS Wholesale",
+    category: "Mobile Applications",
+    tags: ["MOBILE APP", "FLUTTER", "FIREBASE", "OFFLINE SYNC", "B2B WHOLESALE"],
+    description:
+      "Full-featured mobile and backend B2B wholesale ordering platform built from scratch. Handles real-time inventory tracking, multi-tier customer accounts, automated invoice generation, and seamless offline data synchronization.",
+    imageUrl: "/ss-wholesale.png",
+    linkText: "Explore Slideshow",
+    isSlideshowModal: true,
+    githubUrl: "https://github.com/Saravanaofficialpmv",
+    gradientBg:
+      "linear-gradient(173deg, rgb(255, 245, 235) 10%, rgb(255, 230, 210) 90%)",
+    featured: true,
+  },
+  {
     id: "interwove",
     title: "Interwove",
     category: "Web Development",
@@ -122,6 +137,7 @@ const allProjects: ProjectData[] = [
 export default function WorksPage() {
   const [activeTab, setActiveTab] = useState<string>("All");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [isSSSlideshowOpen, setIsSSSlideshowOpen] = useState(false);
 
   const filteredProjects =
     activeTab === "All"
@@ -130,6 +146,12 @@ export default function WorksPage() {
 
   return (
     <div className="w-full flex flex-col items-center gap-16 md:gap-24 pt-28 md:pt-36 pb-16 px-4 md:px-8">
+      {/* SS Wholesale Slideshow Modal */}
+      <SSWholesaleSlideshowModal
+        isOpen={isSSSlideshowOpen}
+        onClose={() => setIsSSSlideshowOpen(false)}
+      />
+
       {/* Hero Section */}
       <section className="w-full max-w-[1168px] flex flex-col items-center gap-6 text-center">
         <motion.div
@@ -227,7 +249,14 @@ export default function WorksPage() {
           {viewMode === "grid" ? (
             <div className="flex flex-col gap-8">
               {filteredProjects.map((project, idx) => (
-                <ProjectCard key={project.id} project={project} index={idx} />
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={idx}
+                  onOpenSlideshow={(id) => {
+                    if (id === "ss-wholesale") setIsSSSlideshowOpen(true);
+                  }}
+                />
               ))}
             </div>
           ) : (
@@ -262,7 +291,16 @@ export default function WorksPage() {
                         </svg>
                       </Link>
                     )}
-                    {project.linkUrl && (
+                    {project.isSlideshowModal ? (
+                      <button
+                        type="button"
+                        onClick={() => setIsSSSlideshowOpen(true)}
+                        className="p-2 rounded-lg bg-[#F7F7F7] border border-[#E0E0E0] text-[#171717] hover:bg-[#171717] hover:text-white transition-colors cursor-pointer"
+                        title="Explore Slideshow"
+                      >
+                        <Images className="w-4 h-4 text-[#E8342A]" />
+                      </button>
+                    ) : project.linkUrl ? (
                       <Link
                         href={project.linkUrl}
                         target="_blank"
@@ -272,7 +310,7 @@ export default function WorksPage() {
                       >
                         <ArrowUpRight className="w-4 h-4" />
                       </Link>
-                    )}
+                    ) : null}
                   </div>
                 </div>
               ))}
