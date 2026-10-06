@@ -24,10 +24,11 @@ const experiences: Experience[] = [
     logoBg: "bg-transparent",
     icon: (
       <Image
-        src="/logowork/9.svg"
+        src="/logowork/heydotin-icon.svg"
         alt="heydotin logo"
-        width={32}
-        height={32}
+        width={36}
+        height={36}
+        unoptimized
         className="w-full h-full object-contain"
       />
     ),
@@ -200,7 +201,102 @@ export default function AboutPage() {
         <AppIconsDock />
       </section>
 
-      {/* 4. My Products — Ideas that live */}
+      {/* 4. Career Ladder Section */}
+      <section className="w-full max-w-[1168px] flex flex-col gap-8">
+        <div className="flex flex-col items-start gap-1">
+          <span className="text-xs uppercase tracking-widest text-[#A3A3A3] font-medium">
+            CAREER LADDER
+          </span>
+          <h2 className="font-notch font-normal text-2xl md:text-3xl text-[#171717]">
+            How I got <span className="text-[#5C5C5C]">here.</span>
+          </h2>
+        </div>
+
+        <div className="flex flex-col gap-10 sm:gap-12 pt-2">
+          {experiences.map((exp, i) => {
+            const isFirst = i === 0;
+            const isLast = i === experiences.length - 1;
+
+            return (
+              <div key={i} className="flex items-start gap-3 sm:gap-4">
+                {/* Left Timeline Axis */}
+                <div className="flex flex-col items-center shrink-0 pt-2.5 self-stretch">
+                  {/* Timeline Dot Node */}
+                  <div className="relative w-5 h-5 rounded-full flex items-center justify-center shrink-0">
+                    {/* Seamless Continuous Red Breathing Halo (Zero Flicker) */}
+                    <motion.div
+                      animate={{
+                        scale: [1, 1.5, 1],
+                        opacity: [0.25, 0.7, 0.25],
+                      }}
+                      transition={{
+                        duration: 2.4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      className="absolute inset-0 rounded-full bg-[#E8342A]/40 pointer-events-none"
+                    />
+
+                    {/* Center Glowing Red Dot */}
+                    <div className="relative z-10 w-2.5 h-2.5 rounded-full bg-[#E8342A] shadow-[0_0_10px_rgba(232,52,42,0.6)]" />
+                  </div>
+
+                  {/* Vertical Connecting Line */}
+                  <div
+                    className={`w-[1px] ${
+                      isLast
+                        ? "bg-gradient-to-b from-[#E0E0E0] to-transparent h-16 my-1"
+                        : "bg-[#E0E0E0] flex-1 my-1 min-h-[48px]"
+                    }`}
+                  />
+                </div>
+
+                {/* Main Content Area */}
+                <div className="flex flex-col gap-4 flex-1 pb-4">
+                  {/* Role Title Row with Icon Logo, Title, and Date Pill Badge */}
+                  <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
+                    {/* Company Logo Icon */}
+                    <div
+                      className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0 overflow-hidden shadow-xs ${
+                        exp.logoBg || "bg-[#171717] text-white"
+                      }`}
+                    >
+                      {exp.icon}
+                    </div>
+
+                    {/* Role Title */}
+                    <h3 className="font-notch font-bold text-lg sm:text-xl md:text-2xl text-[#171717] tracking-tight">
+                      {exp.role}
+                    </h3>
+
+                    {/* Date Pill Badge */}
+                    <span className="bg-[#F0F0F2] border border-[#E2E2E6] text-[#5C5C5C] text-xs font-notch font-medium px-3 py-1 rounded-full whitespace-nowrap">
+                      {exp.period}
+                    </span>
+                  </div>
+
+                  {/* 4 Column Bullets Text Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-1">
+                    {exp.bullets.map((b, idx) => (
+                      <div key={idx} className="flex items-start gap-2">
+                        <span className="text-[#E8342A] text-xs shrink-0 pt-0.5 select-none">✦</span>
+                        <p className="text-xs sm:text-[13px] text-[#5C5C5C] font-light leading-relaxed tracking-normal">
+                          {b}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 5. Journey Horizontal Scroller Section */}
+      <JourneyBentoReel />
+
+      {/* 6. My Products — Ideas that live */}
       <section id="my-products" className="w-full max-w-[1168px] flex flex-col gap-8">
         <div className="flex flex-col items-start gap-1">
           <span className="text-xs uppercase tracking-widest text-[#A3A3A3] font-medium">
@@ -258,101 +354,6 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
-
-      {/* 5. Career Ladder Section */}
-      <section className="w-full max-w-[1168px] flex flex-col gap-8">
-        <div className="flex flex-col items-start gap-1">
-          <span className="text-xs uppercase tracking-widest text-[#A3A3A3] font-medium">
-            CAREER LADDER
-          </span>
-          <h2 className="font-notch font-normal text-2xl md:text-3xl text-[#171717]">
-            How I got <span className="text-[#5C5C5C]">here.</span>
-          </h2>
-        </div>
-
-        <div className="flex flex-col gap-10 sm:gap-12 pt-2">
-          {experiences.map((exp, i) => {
-            const isFirst = i === 0;
-            const isLast = i === experiences.length - 1;
-
-            return (
-              <div key={i} className="flex items-start gap-3 sm:gap-4">
-                {/* Left Timeline Axis */}
-                <div className="flex flex-col items-center shrink-0 pt-2.5 self-stretch">
-                  {/* Timeline Dot Node */}
-                  <div className="relative w-5 h-5 rounded-full flex items-center justify-center shrink-0">
-                    {/* Seamless Continuous Red Breathing Halo (Zero Flicker) */}
-                    <motion.div
-                      animate={{
-                        scale: [1, 1.5, 1],
-                        opacity: [0.25, 0.7, 0.25],
-                      }}
-                      transition={{
-                        duration: 2.4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                      className="absolute inset-0 rounded-full bg-[#E8342A]/40 pointer-events-none"
-                    />
-
-                    {/* Center Glowing Red Dot */}
-                    <div className="relative z-10 w-2.5 h-2.5 rounded-full bg-[#E8342A] shadow-[0_0_10px_rgba(232,52,42,0.6)]" />
-                  </div>
-
-                  {/* Vertical Connecting Line */}
-                  <div
-                    className={`w-[1px] ${
-                      isLast
-                        ? "bg-gradient-to-b from-[#E0E0E0] to-transparent h-16 my-1"
-                        : "bg-[#E0E0E0] flex-1 my-1 min-h-[48px]"
-                    }`}
-                  />
-                </div>
-
-                {/* Main Content Area */}
-                <div className="flex flex-col gap-4 flex-1 pb-4">
-                  {/* Role Title Row with Icon Logo, Title, and Date Pill Badge */}
-                  <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
-                    {/* Company Logo Icon */}
-                    <div
-                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center shrink-0 overflow-hidden shadow-xs ${
-                        exp.logoBg || "bg-[#171717] text-white"
-                      }`}
-                    >
-                      {exp.icon}
-                    </div>
-
-                    {/* Role Title */}
-                    <h3 className="font-notch font-bold text-lg sm:text-xl md:text-2xl text-[#171717] tracking-tight">
-                      {exp.role}
-                    </h3>
-
-                    {/* Date Pill Badge */}
-                    <span className="bg-[#F0F0F2] border border-[#E2E2E6] text-[#5C5C5C] text-xs font-notch font-medium px-3 py-1 rounded-full whitespace-nowrap">
-                      {exp.period}
-                    </span>
-                  </div>
-
-                  {/* 4 Column Bullets Text Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-1">
-                    {exp.bullets.map((b, idx) => (
-                      <div key={idx} className="flex items-start gap-2">
-                        <span className="text-[#E8342A] text-xs shrink-0 pt-0.5 select-none">✦</span>
-                        <p className="text-xs sm:text-[13px] text-[#5C5C5C] font-light leading-relaxed tracking-normal">
-                          {b}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 5. Journey Horizontal Scroller Section */}
-      <JourneyBentoReel />
     </div>
   );
 }

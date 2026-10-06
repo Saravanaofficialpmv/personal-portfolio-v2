@@ -421,7 +421,7 @@ export default function AppIconsDock({
         <motion.div
           onMouseMove={(e) => mouseX.set(e.pageX)}
           onMouseLeave={() => mouseX.set(Infinity)}
-          className="inline-flex items-end gap-1 sm:gap-2 p-1.5 sm:p-2.5 px-2.5 sm:px-5 bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[24px] shadow-[0_12px_36px_rgba(0,0,0,0.4)] w-max select-none shrink-0"
+          className="inline-flex items-end gap-1 sm:gap-2 p-1.5 sm:p-2.5 px-2.5 sm:px-5 bg-[#18181B] border border-white/10 rounded-2xl sm:rounded-[24px] shadow-sm w-max select-none shrink-0"
         >
           {toolsData.map((tool) => (
             <DockIconItem key={tool.id} tool={tool} mouseX={mouseX} isMobile={isMobile} />

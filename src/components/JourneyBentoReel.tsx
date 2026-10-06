@@ -32,25 +32,14 @@ const realJourneyItems: JourneyBentoItem[] = [
     badgeAuthor: "2024 – Present",
   },
   {
-    id: "tipsy-avatar",
-    title: "Tipsy Avatar Maker",
-    subtitle: "Open Source 3D Vector Studio",
-    description:
-      "Procedural SVG & 3D avatar creator with 22 animations, 26 morphing shapes, gaze physics, and timeline exports.",
-    variant: "image-top",
-    imageUrl: "/tipsy-mockup.png",
-    imageFit: "cover",
-  },
-  {
     id: "inka-app",
     title: "Inka Billing App",
     subtitle: "Freelancer Billing & Revenue",
     description:
       "Mobile app for freelancers to manage clients, track revenues, and generate invoices instantly.",
-    variant: "project",
+    variant: "image-top",
     imageUrl: "/inka.png",
-    imageFit: "contain",
-    imageBg: "#F0F0F0",
+    imageFit: "cover",
   },
   {
     id: "awenest",
@@ -63,13 +52,33 @@ const realJourneyItems: JourneyBentoItem[] = [
     imageFit: "cover",
   },
   {
+    id: "tipsy-avatar",
+    title: "Tipsy Avatar Maker",
+    subtitle: "Open Source 3D Vector Studio",
+    description:
+      "Procedural SVG & 3D avatar creator with 22 animations, 26 morphing shapes, gaze physics, and timeline exports.",
+    variant: "image-top",
+    imageUrl: "/tipsy-mockup.png",
+    imageFit: "cover",
+  },
+  {
     id: "heydigital",
     title: "HeyDigital Agency",
     subtitle: "Web Development & Next.js",
     description:
       "Modern web application & digital marketing agency platform featuring custom interactive UI and responsive layouts.",
-    variant: "image-top",
+    variant: "text-top",
     imageUrl: "/heydigital-mockup.png",
+    imageFit: "cover",
+  },
+  {
+    id: "ss-wholesale",
+    title: "SS Wholesale Platform",
+    subtitle: "Mobile & Backend System",
+    description:
+      "Wholesale ordering system with inventory management and offline Firebase synchronization.",
+    variant: "image-top",
+    imageUrl: "/ss-wholesale.png",
     imageFit: "cover",
   },
   {
@@ -83,28 +92,6 @@ const realJourneyItems: JourneyBentoItem[] = [
     imageFit: "cover",
   },
   {
-    id: "ss-wholesale",
-    title: "SS Wholesale Platform",
-    subtitle: "Mobile & Backend System",
-    description:
-      "Wholesale ordering system with inventory management and offline Firebase synchronization.",
-    variant: "project",
-    imageUrl: "/ss-wholesale.png",
-    imageFit: "contain",
-    imageBg: "#F0F0F0",
-  },
-  {
-    id: "aquawind-system",
-    title: "AquaWind IoT System",
-    subtitle: "Hardware & Cloud Sensors",
-    description:
-      "Smart water management with ESP32 sensors and real-time cloud data visualization.",
-    variant: "project",
-    imageUrl: "/aquawind.png",
-    imageFit: "contain",
-    imageBg: "#F0F0F0",
-  },
-  {
     id: "unisphere",
     title: "UniSphere Platform",
     subtitle: "Mobile & Campus Cloud",
@@ -112,6 +99,16 @@ const realJourneyItems: JourneyBentoItem[] = [
       "Mobile application & academic collaboration platform integrating smart features and real-time analytics.",
     variant: "image-top",
     imageUrl: "/unisphere.png",
+    imageFit: "cover",
+  },
+  {
+    id: "aquawind-system",
+    title: "AquaWind IoT System",
+    subtitle: "Hardware & Cloud Sensors",
+    description:
+      "Smart water management with ESP32 sensors and real-time cloud data visualization.",
+    variant: "text-top",
+    imageUrl: "/aquawind.png",
     imageFit: "cover",
   },
   {
@@ -195,11 +192,41 @@ export default function JourneyBentoReel({
             transition={{ duration: 0.4, delay: idx * 0.05 }}
             className="w-[280px] sm:w-[320px] shrink-0 snap-start rounded-2xl border border-[#E0E0E0] bg-white overflow-hidden shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col group"
           >
-            {/* VARIANT A: TEXT TOP + IMAGE BOTTOM */}
+            {/* VARIANT A: IMAGE TOP + TEXT BOTTOM (IMAGE FIRST, THEN TEXT) */}
+            {(item.variant === "image-top" || item.variant === "project") && (
+              <div className="flex flex-col justify-between h-[360px] sm:h-[380px]">
+                {/* Image Frame Top */}
+                <div className="relative w-full h-[190px] sm:h-[210px] bg-[#F7F7F7] border-b border-[#EBEBEB] overflow-hidden">
+                  {item.imageUrl && (
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.title}
+                      fill
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
+                  )}
+                </div>
+
+                {/* Text Content Bottom */}
+                <div className="p-5 flex flex-col gap-1.5 flex-1 justify-start">
+                  <h3 className="font-notch font-bold text-lg sm:text-xl text-[#171717] tracking-tight leading-snug">
+                    {item.title}
+                  </h3>
+                  <span className="text-xs text-[#E8342A] font-semibold tracking-wide">
+                    {item.subtitle}
+                  </span>
+                  <p className="text-xs text-[#5C5C5C] font-light leading-relaxed pt-1 line-clamp-3">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* VARIANT B: TEXT TOP + IMAGE BOTTOM (TEXT FIRST, THEN IMAGE) */}
             {item.variant === "text-top" && (
-              <div className="p-5 flex flex-col justify-between h-[360px] sm:h-[380px]">
+              <div className="flex flex-col justify-between h-[360px] sm:h-[380px]">
                 {/* Text Content Top */}
-                <div className="flex flex-col gap-1.5">
+                <div className="p-5 flex flex-col gap-1.5 flex-1 justify-start">
                   <h3 className="font-notch font-bold text-lg sm:text-xl text-[#171717] tracking-tight leading-snug">
                     {item.title}
                   </h3>
@@ -212,20 +239,20 @@ export default function JourneyBentoReel({
                 </div>
 
                 {/* Image Frame Bottom */}
-                <div className="relative w-full h-[180px] sm:h-[200px] rounded-xl overflow-hidden bg-[#F7F7F7] border border-[#EBEBEB] mt-4">
+                <div className="relative w-full h-[190px] sm:h-[210px] overflow-hidden bg-[#F7F7F7] border-t border-[#EBEBEB] mt-auto">
                   {item.imageUrl && (
                     <Image
                       src={item.imageUrl}
                       alt={item.title}
                       fill
-                      className={`object-${item.imageFit || "cover"} object-center group-hover:scale-105 transition-transform duration-500`}
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     />
                   )}
                 </div>
               </div>
             )}
 
-            {/* VARIANT B: GRAPHIC BADGE CARD */}
+            {/* VARIANT C: GRAPHIC BADGE CARD */}
             {item.variant === "badge" && (
               <div
                 className={`p-6 flex flex-col justify-between h-[360px] sm:h-[380px] ${
@@ -265,71 +292,6 @@ export default function JourneyBentoReel({
 
                 {/* Background Decorative Glow */}
                 <div className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-[#E8342A]/20 blur-2xl pointer-events-none" />
-              </div>
-            )}
-
-            {/* VARIANT C: IMAGE TOP + TEXT BOTTOM */}
-            {item.variant === "image-top" && (
-              <div className="flex flex-col h-[360px] sm:h-[380px]">
-                {/* Image Frame Top */}
-                <div className="relative w-full h-[190px] sm:h-[210px] bg-[#F7F7F7] border-b border-[#EBEBEB]">
-                  {item.imageUrl && (
-                    <Image
-                      src={item.imageUrl}
-                      alt={item.title}
-                      fill
-                      className={`object-${item.imageFit || "cover"} object-center group-hover:scale-105 transition-transform duration-500`}
-                    />
-                  )}
-                </div>
-
-                {/* Text Content Bottom */}
-                <div className="p-5 flex flex-col justify-center flex-1 gap-1.5">
-                  <h3 className="font-notch font-bold text-lg sm:text-xl text-[#171717] tracking-tight leading-snug">
-                    {item.title}
-                  </h3>
-                  <span className="text-xs text-[#E8342A] font-semibold tracking-wide">
-                    {item.subtitle}
-                  </span>
-                  <p className="text-xs text-[#5C5C5C] font-light leading-relaxed pt-1 line-clamp-3">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {/* VARIANT D: PROJECT MOCKUP CARD */}
-            {item.variant === "project" && (
-              <div className="flex flex-col h-[360px] sm:h-[380px]">
-                {/* Device Mockup Frame Top */}
-                <div
-                  className="relative w-full h-[190px] sm:h-[210px] border-b border-[#EBEBEB] p-3 flex items-center justify-center"
-                  style={{ backgroundColor: item.imageBg || "#F0F0F0" }}
-                >
-                  {item.imageUrl && (
-                    <div className="relative w-full h-full">
-                      <Image
-                        src={item.imageUrl}
-                        alt={item.title}
-                        fill
-                        className="object-contain object-center group-hover:scale-105 transition-transform duration-500 drop-shadow-md"
-                      />
-                    </div>
-                  )}
-                </div>
-
-                {/* Text Content Bottom */}
-                <div className="p-5 flex flex-col justify-center flex-1 gap-1.5">
-                  <h3 className="font-notch font-bold text-lg sm:text-xl text-[#171717] tracking-tight leading-snug">
-                    {item.title}
-                  </h3>
-                  <span className="text-xs text-[#E8342A] font-semibold tracking-wide">
-                    {item.subtitle}
-                  </span>
-                  <p className="text-xs text-[#5C5C5C] font-light leading-relaxed pt-1 line-clamp-3">
-                    {item.description}
-                  </p>
-                </div>
               </div>
             )}
           </motion.div>
